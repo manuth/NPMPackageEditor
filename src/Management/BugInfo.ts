@@ -70,7 +70,7 @@ export class BugInfo
             this.URL = args[0] ?? null;
             this.EMail = args[1] ?? null;
         }
-        else if (typeof args[0] !== "undefined")
+        else
         {
             this.URL = args[0]?.url ?? null;
             this.EMail = args[0]?.email ?? null;
