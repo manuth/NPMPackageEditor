@@ -15,5 +15,8 @@ module.exports = {
     },
     extends: [
         "plugin:@manuth/typescript/recommended-requiring-type-checking"
-    ]
+    ],
+    rules: {
+        "@typescript-eslint/explicit-module-boundary-types": "off"
+    }
 };
