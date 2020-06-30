@@ -152,7 +152,7 @@ export class Dictionary<TKey, TValue>
     }
 
     /**
-     * Checks whether the dictionary contains an entry with the specified `key`.
+     * Checks whether the dictionary has an entry with the specified `key`.
      *
      * @param key
      * The `key` of the entry to check.
@@ -160,7 +160,7 @@ export class Dictionary<TKey, TValue>
      * @returns
      * A value indicating whether the dictionary contains an entryx with the specified `key`.
      */
-    public Contains(key: TKey): boolean
+    public Has(key: TKey): boolean
     {
         return this.innerCollection.has(key);
     }
