@@ -83,18 +83,11 @@ export class BugInfo
      * @returns
      * An object representing the bug-infos.
      */
-    public ToJSON(): string | IBugInfo
+    public ToJSON(): IBugInfo
     {
-        if (isNullOrUndefined(this.EMail))
+        if (isNullOrUndefined(this.EMail) && isNullOrUndefined(this.URL))
         {
-            if (isNullOrUndefined(this.URL))
-            {
-                return null;
-            }
-            else
-            {
-                return this.URL;
-            }
+            return null;
         }
         else
         {
