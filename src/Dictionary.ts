@@ -100,17 +100,17 @@ export class Dictionary<TKey, TValue>
     /**
      * Adds multiple entries to the dictionary.
      *
-     * @param values
-     * The values to add.
+     * @param entries
+     * The entries to add.
      */
-    public AddRange(values: Iterable<readonly [TKey, TValue]> | Dictionary<TKey, TValue>): void
+    public AddRange(entries: Iterable<readonly [TKey, TValue]> | Dictionary<TKey, TValue>): void
     {
-        if (values instanceof Dictionary)
+        if (entries instanceof Dictionary)
         {
-            values = values.Entries;
+            entries = entries.Entries;
         }
 
-        for (let entry of values)
+        for (let entry of entries)
         {
             this.Add(entry[0], entry[1]);
         }
