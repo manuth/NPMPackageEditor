@@ -88,6 +88,8 @@ export class JSONObject<T extends Record<never, never> = Record<string, unknown>
      */
     public ToJSON(): Partial<T>
     {
-        return this.object;
+        return {
+            ...this.object
+        };
     }
 }
