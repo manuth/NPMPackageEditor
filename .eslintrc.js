@@ -17,6 +17,15 @@ module.exports = {
         "plugin:@manuth/typescript/recommended-requiring-type-checking"
     ],
     rules: {
-        "@typescript-eslint/explicit-module-boundary-types": "off"
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "generator-star-spacing": [
+            "warn",
+            {
+                before: false,
+                after: true,
+                anonymous: "neither",
+                method: "both"
+            }
+        ]
     }
 };
