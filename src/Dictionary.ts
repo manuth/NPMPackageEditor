@@ -32,14 +32,6 @@ export class Dictionary<TKey, TValue>
     /**
      * Initializes a new instance of the `Dictionary` class.
      *
-     * @param entries
-     * The dependencies to add.
-     */
-    public constructor(entries: ReadonlyArray<readonly [TKey, TValue]>);
-
-    /**
-     * Initializes a new instance of the `Dictionary` class.
-     *
      * @param args
      * The passed arguments.
      */
