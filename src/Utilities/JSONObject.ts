@@ -11,6 +11,12 @@ export class JSONObject<T extends Record<never, never> = Record<string, unknown>
     private object: Partial<T> = {};
 
     /**
+     * Initializes a new instance of the `JSONObject` class.
+     */
+    public constructor()
+    { }
+
+    /**
      * Adds a property to the object.
      *
      * @param key
