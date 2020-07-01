@@ -81,6 +81,48 @@ export class JSONObject<T extends Record<never, never> = Record<string, unknown>
     }
 
     /**
+     * Checks whether the object has a property with the specified `key`.
+     *
+     * @param key
+     * The key of the property to check.
+     *
+     * @returns
+     * A value indicating whether the object has a property with the specified `key`.
+     */
+    public Has(key: keyof T): boolean
+    {
+        return key in this.object;
+    }
+
+    /**
+     * Removes the property with the specified `key` from the object.
+     *
+     * @param key
+     * The key of the property to remove.
+     */
+    public Remove(key: keyof T): void
+    {
+        if (this.Has(key))
+        {
+            let result: Partial<T> = {};
+
+            for (let ownKey of Object.keys(this.object) as Array<keyof T>)
+            {
+                if (ownKey !== key)
+                {
+                    result[ownKey] = this.object[ownKey];
+                }
+            }
+
+            this.object = result;
+        }
+        else
+        {
+            throw new RangeError();
+        }
+    }
+
+    /**
      * Gets a JSON-object representing this object.
      *
      * @returns
