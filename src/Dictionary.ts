@@ -14,7 +14,7 @@ export class Dictionary<TKey, TValue>
     /**
      * The actual collection.
      */
-    private innerCollection: Map<TKey, TValue>;
+    private innerCollection: Map<TKey, TValue> = new Map();
 
     /**
      * Initializes a new instance of the `Dictionary` class.
@@ -37,7 +37,10 @@ export class Dictionary<TKey, TValue>
      */
     public constructor(...args: [Iterable<readonly [TKey, TValue]>?])
     {
-        this.innerCollection = new Map<TKey, TValue>(...args);
+        if (args.length > 0)
+        {
+            this.AddRange(...args);
+        }
     }
 
     /**
