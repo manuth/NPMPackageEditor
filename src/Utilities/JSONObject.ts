@@ -69,7 +69,7 @@ export class JSONObject<T extends Record<never, never> = Record<string, unknown>
                 }
                 else
                 {
-                    isEmpty = Object.keys(value).length === 0;
+                    isEmpty = Object.keys(value ?? {}).length === 0;
                 }
                 break;
         }
