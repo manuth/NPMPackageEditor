@@ -13,8 +13,26 @@ export class JSONObject<T extends Record<never, never> = Record<string, unknown>
     /**
      * Initializes a new instance of the `JSONObject` class.
      */
-    public constructor()
-    { }
+    public constructor();
+
+    /**
+     * Initializes a new instance of the `JSONObject` class.
+     *
+     * @param base
+     * The base values of the object.
+     */
+    public constructor(base: Partial<T>);
+
+    /**
+     * Initializes a new instance of the `JSONObject` class.
+     *
+     * @param base
+     * The base values of the object.
+     */
+    public constructor(base?: Partial<T>)
+    {
+        this.object = { ...(base ?? {}) };
+    }
 
     /**
      * Adds a property to the object.
