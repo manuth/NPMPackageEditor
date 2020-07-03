@@ -170,6 +170,29 @@ export class Package extends JSONObjectBase<IPackageJSON>
     public BundledDependencies: string[];
 
     /**
+     * The generation-logic for the properties.
+     */
+    private readonly generationLogics: Map<keyof IPackageJSON, GenerationLogic> = new Map<keyof IPackageJSON, GenerationLogic>(
+        [
+            ["maintainers", GenerationLogic.NonEmpty],
+            ["contributors", GenerationLogic.NonEmpty],
+            ["keywords", GenerationLogic.NonEmpty],
+            ["engines", GenerationLogic.NonEmpty],
+            ["browser", GenerationLogic.NonEmpty],
+            ["bin", GenerationLogic.NonEmpty],
+            ["man", GenerationLogic.NonEmpty],
+            ["directories", GenerationLogic.NonEmpty],
+            ["config", GenerationLogic.NonEmpty],
+            ["publishConfig", GenerationLogic.NonEmpty],
+            ["scripts", GenerationLogic.Always],
+            ["dependencies", GenerationLogic.Always],
+            ["devDependencies", GenerationLogic.Always],
+            ["peerDependencies", GenerationLogic.NonEmpty],
+            ["optionalDependencies", GenerationLogic.NonEmpty],
+            ["bundledDependencies", GenerationLogic.NonEmpty]
+        ]);
+
+    /**
      * Initializes a new instance of the `Package` class.
      */
     public constructor();
@@ -341,25 +364,7 @@ export class Package extends JSONObjectBase<IPackageJSON>
      */
     public get GenerationLogics(): Map<keyof IPackageJSON, GenerationLogic>
     {
-        return new Map<keyof IPackageJSON, GenerationLogic>(
-            [
-                ["maintainers", GenerationLogic.NonEmpty],
-                ["contributors", GenerationLogic.NonEmpty],
-                ["keywords", GenerationLogic.NonEmpty],
-                ["engines", GenerationLogic.NonEmpty],
-                ["browser", GenerationLogic.NonEmpty],
-                ["bin", GenerationLogic.NonEmpty],
-                ["man", GenerationLogic.NonEmpty],
-                ["directories", GenerationLogic.NonEmpty],
-                ["config", GenerationLogic.NonEmpty],
-                ["publishConfig", GenerationLogic.NonEmpty],
-                ["scripts", GenerationLogic.Always],
-                ["dependencies", GenerationLogic.Always],
-                ["devDependencies", GenerationLogic.Always],
-                ["peerDependencies", GenerationLogic.NonEmpty],
-                ["optionalDependencies", GenerationLogic.NonEmpty],
-                ["bundledDependencies", GenerationLogic.NonEmpty]
-            ]);
+        return this.generationLogics;
     }
 
     /**
