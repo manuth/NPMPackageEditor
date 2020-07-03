@@ -1,10 +1,13 @@
 import { readFileSync } from "fs";
 import { isNullOrUndefined } from "util";
 import { Dictionary } from "./Dictionary";
+import { GenerationLogic } from "./GenerationLogic";
 import { IPackageJSON } from "./IPackageJSON";
+import { LoadLogic } from "./LoadLogic";
 import { BugInfo } from "./Management/BugInfo";
 import { IBinCollection } from "./Management/IBinCollection";
 import { IDirectoryStructure } from "./Management/IDirectoryStructure";
+import { IPerson } from "./Management/IPerson";
 import { IRepository } from "./Management/IRepository";
 import { IShimCollection } from "./Management/IShimCollection";
 import { Person } from "./Management/Person";
@@ -208,36 +211,155 @@ export class Package extends JSONObjectBase<IPackageJSON>
                 break;
         }
 
-        this.Name = packageJSON.name ?? null;
-        this.Version = packageJSON.version ?? null;
-        this.Private = this.LoadObject(packageJSON.private);
-        this.Description = packageJSON.description ?? null;
-        this.Author = new Person(packageJSON.author ?? { name: null });
-        this.Maintainers = (packageJSON.maintainers ?? []).map((person) => new Person(person));
-        this.Contributors = (packageJSON.contributors ?? []).map((person) => new Person(person));
-        this.License = this.LoadObject(packageJSON.license);
-        this.Keywords = this.LoadObject(packageJSON.keywords ?? []);
-        this.Engines = this.LoadDictionary(packageJSON.engines ?? {});
-        this.OS = this.LoadObject(packageJSON.os);
-        this.CPU = this.LoadObject(packageJSON.cpu);
-        this.Main = packageJSON.main ?? null;
-        this.Types = packageJSON.types ?? null;
-        this.Browser = this.LoadObject(packageJSON.browser ?? {});
-        this.Binaries = this.LoadObject(packageJSON.bin ?? {});
-        this.Manuals = this.LoadObject(packageJSON.man ?? []);
-        this.Files = this.LoadObject(packageJSON.files);
-        this.Directories = this.LoadObject(packageJSON.directories ?? {});
-        this.Homepage = packageJSON.homepage ?? null;
-        this.Repository = this.LoadObject(packageJSON.repository ?? {});
-        this.Bugs = new BugInfo(packageJSON.bugs);
-        this.Config = this.LoadObject(packageJSON.config ?? {});
-        this.PublishConfig = this.LoadObject(packageJSON.publishConfig ?? {});
-        this.Scripts = this.LoadDictionary(packageJSON.scripts ?? {});
-        this.Dependencies = this.LoadDictionary(packageJSON.dependencies ?? {});
-        this.DevelpomentDependencies = this.LoadDictionary(packageJSON.devDependencies ?? {});
-        this.PeerDependencies = this.LoadDictionary(packageJSON.peerDependencies ?? {});
-        this.OptionalDependencies = this.LoadDictionary(packageJSON.optionalDependencies ?? {});
-        this.BundledDependencies = packageJSON.bundledDependencies ?? [];
+        for (let entry of this.PropertyMap)
+        {
+            let value: any = packageJSON[entry[0]];
+            let logic = this.LoadLogics.get(entry[0]);
+
+            if (this.Defaults.Has(entry[0]))
+            {
+                value = value ?? this.Defaults.Get(entry[0]);
+            }
+
+            switch (logic)
+            {
+                case LoadLogic.Dictionary:
+                    value = this.LoadDictionary(value);
+                    break;
+                case LoadLogic.Person:
+                    value = this.LoadPerson(value);
+                    break;
+                case LoadLogic.PersonList:
+                    value = this.LoadPersonList(value);
+                    break;
+                case LoadLogic.BugInfo:
+                    value = new BugInfo(value);
+                    break;
+                case LoadLogic.Plain:
+                default:
+                    value = this.LoadObject(value);
+                    break;
+            }
+
+            Object.assign(
+                this,
+                {
+                    [entry[1]]: value
+                });
+        }
+    }
+
+    /**
+     * Gets the default values for the options.
+     */
+    protected get Defaults(): Dictionary<keyof IPackageJSON, any>
+    {
+        return this.LoadDictionary(
+            {
+                author: { name: null },
+                maintainers: [],
+                contributors: [],
+                keywords: [],
+                engines: {},
+                browser: {},
+                bin: {},
+                man: [],
+                directories: {},
+                repository: null,
+                config: {},
+                publishConfig: {},
+                scripts: {},
+                dependencies: {},
+                devDependencies: {},
+                peerDependencies: {},
+                optionalDependencies: {},
+                bundledDependencies: []
+            } as IPackageJSON);
+    }
+
+    /**
+     * Gets the mapping from the `IPackageJSON`-properties to the `Package` properties.
+     */
+    protected get PropertyMap(): ReadonlyArray<readonly [keyof IPackageJSON, keyof Package]>
+    {
+        return [
+            ["name", "Name"],
+            ["version", "Version"],
+            ["private", "Private"],
+            ["description", "Description"],
+            ["author", "Author"],
+            ["maintainers", "Maintainers"],
+            ["contributors", "Contributors"],
+            ["license", "License"],
+            ["keywords", "Keywords"],
+            ["engines", "Engines"],
+            ["os", "OS"],
+            ["cpu", "CPU"],
+            ["main", "Main"],
+            ["types", "Types"],
+            ["browser", "Browser"],
+            ["bin", "Binaries"],
+            ["man", "Manuals"],
+            ["files", "Files"],
+            ["directories", "Directories"],
+            ["homepage", "Homepage"],
+            ["repository", "Repository"],
+            ["bugs", "Bugs"],
+            ["config", "Config"],
+            ["publishConfig", "PublishConfig"],
+            ["scripts", "Scripts"],
+            ["dependencies", "Dependencies"],
+            ["devDependencies", "DevelpomentDependencies"],
+            ["peerDependencies", "PeerDependencies"],
+            ["optionalDependencies", "OptionalDependencies"],
+            ["bundledDependencies", "BundledDependencies"]
+        ];
+    }
+
+    /**
+     * Gets the load-logic for the properties.
+     */
+    protected get LoadLogics(): ReadonlyMap<keyof IPackageJSON, LoadLogic>
+    {
+        return new Map<keyof IPackageJSON, LoadLogic>(
+            [
+                ["author", LoadLogic.Person],
+                ["maintainers", LoadLogic.PersonList],
+                ["contributors", LoadLogic.PersonList],
+                ["engines", LoadLogic.Dictionary],
+                ["bugs", LoadLogic.BugInfo],
+                ["scripts", LoadLogic.Dictionary],
+                ["dependencies", LoadLogic.Dictionary],
+                ["devDependencies", LoadLogic.Dictionary],
+                ["peerDependencies", LoadLogic.Dictionary],
+                ["optionalDependencies", LoadLogic.Dictionary]
+            ]);
+    }
+
+    /**
+     * Gets the generation-logic for the properties.
+     */
+    public get GenerationLogics(): Map<keyof IPackageJSON, GenerationLogic>
+    {
+        return new Map<keyof IPackageJSON, GenerationLogic>(
+            [
+                ["maintainers", GenerationLogic.NonEmpty],
+                ["contributors", GenerationLogic.NonEmpty],
+                ["keywords", GenerationLogic.NonEmpty],
+                ["engines", GenerationLogic.NonEmpty],
+                ["browser", GenerationLogic.NonEmpty],
+                ["bin", GenerationLogic.NonEmpty],
+                ["man", GenerationLogic.NonEmpty],
+                ["directories", GenerationLogic.NonEmpty],
+                ["config", GenerationLogic.NonEmpty],
+                ["publishConfig", GenerationLogic.NonEmpty],
+                ["scripts", GenerationLogic.Always],
+                ["dependencies", GenerationLogic.Always],
+                ["devDependencies", GenerationLogic.Always],
+                ["peerDependencies", GenerationLogic.NonEmpty],
+                ["optionalDependencies", GenerationLogic.NonEmpty],
+                ["bundledDependencies", GenerationLogic.NonEmpty]
+            ]);
     }
 
     /**
@@ -249,36 +371,37 @@ export class Package extends JSONObjectBase<IPackageJSON>
     public ToJSON(): IPackageJSON
     {
         let result = new JSONObject<IPackageJSON>();
-        result.AddIfNotNull("name", this.Name);
-        result.AddIfNotNull("version", this.Version);
-        result.AddIfNotNull("private", this.Private);
-        result.AddIfNotNull("description", this.Description);
-        result.AddIfNotNull("author", this.Author.ToJSON());
-        result.AddIfNotEmpty("maintainers", this.Maintainers.map(maintainer => maintainer.ToJSON()));
-        result.AddIfNotEmpty("contributors", this.Contributors.map(contributor => contributor.ToJSON()));
-        result.AddIfNotNull("license", this.License);
-        result.AddIfNotEmpty("keywords", this.Keywords);
-        result.AddIfNotEmpty("engines", this.Engines.ToJSON());
-        result.AddIfNotNull("os", this.OS);
-        result.AddIfNotNull("cpu", this.CPU);
-        result.AddIfNotNull("main", this.Main);
-        result.AddIfNotNull("types", this.Types);
-        result.AddIfNotEmpty("browser", this.Browser);
-        result.AddIfNotEmpty("bin", this.Binaries);
-        result.AddIfNotEmpty("man", this.Manuals);
-        result.AddIfNotNull("files", this.Files);
-        result.AddIfNotEmpty("directories", this.Directories);
-        result.AddIfNotNull("homepage", this.Homepage);
-        result.AddIfNotNull("repository", this.Repository);
-        result.AddIfNotNull("bugs", this.Bugs.ToJSON());
-        result.AddIfNotEmpty("config", this.Config);
-        result.AddIfNotEmpty("publishConfig", this.PublishConfig);
-        result.Add("scripts", this.Scripts.ToJSON());
-        result.Add("dependencies", this.Dependencies.ToJSON());
-        result.Add("devDependencies", this.DevelpomentDependencies.ToJSON());
-        result.AddIfNotEmpty("peerDependencies", this.PeerDependencies.ToJSON());
-        result.AddIfNotEmpty("optionalDependencies", this.OptionalDependencies.ToJSON());
-        result.AddIfNotEmpty("bundledDependencies", this.BundledDependencies);
+
+        for (let entry of this.PropertyMap)
+        {
+            let value = this[entry[1]];
+            let logic = GenerationLogic.Default;
+
+            if (value instanceof JSONObjectBase)
+            {
+                value = value.ToJSON();
+            }
+
+            if (this.GenerationLogics.has(entry[0]))
+            {
+                logic = this.GenerationLogics.get(entry[0]);
+            }
+
+            switch (logic)
+            {
+                case GenerationLogic.NonEmpty:
+                    result.AddIfNotEmpty(entry[0], value);
+                    break;
+                case GenerationLogic.Always:
+                    result.Add(entry[0], value);
+                    break;
+                case GenerationLogic.NonNull:
+                default:
+                    result.AddIfNotNull(entry[0], value);
+                    break;
+            }
+        }
+
         return result.ToJSON();
     }
 
@@ -305,8 +428,36 @@ export class Package extends JSONObjectBase<IPackageJSON>
      * @returns
      * The loaded dictionary.
      */
-    private LoadDictionary<TValue>(collection: Record<string, TValue>): Dictionary<string, TValue>
+    private LoadDictionary<T>(collection: T): Dictionary<keyof T, T[keyof T]>
     {
-        return new Dictionary(Object.keys(collection).map<[string, TValue]>((key) => [key, collection[key]]));
+        return new Dictionary<keyof T, T[keyof T]>((Object.keys(collection) as Array<keyof T>).map<[keyof T, T[keyof T]]>((key) => [key, collection[key]]));
+    }
+
+    /**
+     * Loads a person from an object.
+     *
+     * @param person
+     * The person to load.
+     *
+     * @returns
+     * The loaded person.
+     */
+    private LoadPerson(person: IPerson): Person
+    {
+        return new Person(person);
+    }
+
+    /**
+     * Loads a set of persons from an object.
+     *
+     * @param personList
+     * The person-list to load.
+     *
+     * @returns
+     * The loaded list.
+     */
+    private LoadPersonList(personList: IPerson[]): Person[]
+    {
+        return personList.map((person) => this.LoadPerson(person));
     }
 }
