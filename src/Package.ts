@@ -1,4 +1,5 @@
 import { readFileSync } from "fs";
+import { isNullOrUndefined } from "util";
 import { Dictionary } from "./Dictionary";
 import { IPackageJSON } from "./IPackageJSON";
 import { BugInfo } from "./Management/BugInfo";
@@ -290,7 +291,7 @@ export class Package
      */
     private LoadObject(object: any): any
     {
-        return object ? (typeof object === "object" ? (Array.isArray(object) ? [...object] : { ...object }) : object) : null;
+        return !isNullOrUndefined(object) ? (typeof object === "object" ? (Array.isArray(object) ? [...object] : { ...object }) : object) : null;
     }
 
     /**
