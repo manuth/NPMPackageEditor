@@ -1,13 +1,9 @@
-import Assert = require("assert");
-
 suite(
     "NPMPackageEditor",
-    () =>
+    async () =>
     {
-        test(
-            "Example...",
-            () =>
-            {
-                Assert.strictEqual(1, 1);
-            });
+        require("./Dictionary.test");
+        require("./Utilities");
+        require("./Management");
+        require("./Package.test");
     });
