@@ -197,14 +197,11 @@ export class Package
 
         switch (typeof args[0])
         {
-            case "undefined":
-                packageJSON = {};
-                break;
             case "string":
                 packageJSON = JSON.parse(readFileSync(args[0]).toString());
                 break;
             default:
-                packageJSON = args[0];
+                packageJSON = args[0] ?? {};
                 break;
         }
 
