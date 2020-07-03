@@ -1,8 +1,10 @@
 import { JSONObject } from "../Utilities/JSONObject";
 import { JSONObjectBase } from "../Utilities/JSONObjectBase";
+import { Collection } from "./Collection";
+import { IDictionary } from "./IDictionary";
 
 /**
- * Represents a set of key-value-pairs.
+ * Provides the functionality to store key-value pairs.
  *
  * @template TKey
  * The type of the keys of the dictionary.
@@ -10,7 +12,7 @@ import { JSONObjectBase } from "../Utilities/JSONObjectBase";
  * @template TValue
  * The type of the values of the dictionary.
  */
-export class Dictionary<TKey, TValue> extends JSONObjectBase<Record<string, TValue>>
+export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implements IDictionary<TKey, TValue>, JSONObjectBase<Record<string, TValue>>
 {
     /**
      * The actual collection.
@@ -28,7 +30,7 @@ export class Dictionary<TKey, TValue> extends JSONObjectBase<Record<string, TVal
      * @param entries
      * The entries to add.
      */
-    public constructor(entries: Iterable<readonly [TKey, TValue]>);
+    public constructor(entries: Iterable<readonly [TKey, TValue]> | Dictionary<TKey, TValue>);
 
     /**
      * Initializes a new instance of the `Dictionary` class.
@@ -36,7 +38,7 @@ export class Dictionary<TKey, TValue> extends JSONObjectBase<Record<string, TVal
      * @param args
      * The passed arguments.
      */
-    public constructor(...args: [Iterable<readonly [TKey, TValue]>?])
+    public constructor(...args: [(Iterable<readonly [TKey, TValue]> | Dictionary<TKey, TValue>)?])
     {
         super();
 
@@ -47,10 +49,7 @@ export class Dictionary<TKey, TValue> extends JSONObjectBase<Record<string, TVal
     }
 
     /**
-     * Gets the number of elements.
-     *
-     * @returns
-     * The number of elements.
+     * @inheritdoc
      */
     public get Count(): number
     {
@@ -58,7 +57,7 @@ export class Dictionary<TKey, TValue> extends JSONObjectBase<Record<string, TVal
     }
 
     /**
-     * Gets the entries of the dictionary.
+     * @inheritdoc
      */
     public get Entries(): ReadonlyArray<[TKey, TValue]>
     {
@@ -66,23 +65,23 @@ export class Dictionary<TKey, TValue> extends JSONObjectBase<Record<string, TVal
     }
 
     /**
-     * Gets the keys of the dictionary.
+     * @inheritdoc
      */
     public get Keys(): readonly TKey[]
     {
-        return Array.from(this.innerCollection.keys());
+        return this.Entries.map((entry) => entry[0]);
     }
 
     /**
-     * Gets the versions of the dependencies in this collection.
+     * @inheritdoc
      */
     public get Values(): readonly TValue[]
     {
-        return Array.from(this.innerCollection.values());
+        return this.Entries.map((entry) => entry[1]);
     }
 
     /**
-     * Adds an entry to the dictionary.
+     * @inheritdoc
      *
      * @param key
      * The key of the entry to add.
@@ -96,7 +95,7 @@ export class Dictionary<TKey, TValue> extends JSONObjectBase<Record<string, TVal
     }
 
     /**
-     * Adds multiple entries to the dictionary.
+     * @inheritdoc
      *
      * @param entries
      * The entries to add.
@@ -115,7 +114,7 @@ export class Dictionary<TKey, TValue> extends JSONObjectBase<Record<string, TVal
     }
 
     /**
-     * Removes an entry from the dictionary.
+     * @inheritdoc
      *
      * @param key
      * The key of the entry to remove.
@@ -129,7 +128,7 @@ export class Dictionary<TKey, TValue> extends JSONObjectBase<Record<string, TVal
     }
 
     /**
-     * Gets the value of the entry with the specified `key`.
+     * @inheritdoc
      *
      * @param key
      * The `key` of the entry whose value to get.
@@ -150,7 +149,7 @@ export class Dictionary<TKey, TValue> extends JSONObjectBase<Record<string, TVal
     }
 
     /**
-     * Checks whether the dictionary has an entry with the specified `key`.
+     * @inheritdoc
      *
      * @param key
      * The `key` of the entry to check.
@@ -164,7 +163,7 @@ export class Dictionary<TKey, TValue> extends JSONObjectBase<Record<string, TVal
     }
 
     /**
-     * Clears the dictionary.
+     * @inheritdoc
      */
     public Clear(): void
     {
@@ -172,7 +171,7 @@ export class Dictionary<TKey, TValue> extends JSONObjectBase<Record<string, TVal
     }
 
     /**
-     * Returns an object representing this collection.
+     * @inheritdoc
      *
      * @returns
      * An object representing this collection.
