@@ -209,7 +209,7 @@ export class Package
         this.Version = packageJSON.version ?? null;
         this.Private = this.LoadObject(packageJSON.private);
         this.Description = packageJSON.description ?? null;
-        this.Author = new Person(packageJSON.author);
+        this.Author = new Person(packageJSON.author ?? { name: null });
         this.Maintainers = (packageJSON.maintainers ?? []).map((person) => new Person(person));
         this.Contributors = (packageJSON.contributors ?? []).map((person) => new Person(person));
         this.License = this.LoadObject(packageJSON.license);
