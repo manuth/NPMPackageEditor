@@ -1,4 +1,4 @@
-import { Dictionary } from "../Dictionary";
+import { Dictionary } from "../Collections/Dictionary";
 
 /**
  * Represents a set of dependencies.

@@ -1,4 +1,4 @@
-export { Dictionary } from "./Dictionary";
+export { Dictionary } from "./Collections/Dictionary";
 export { IPackageJSON } from "./IPackageJSON";
 export { BugInfo } from "./Management/BugInfo";
 export { IBinCollection } from "./Management/IBinCollection";

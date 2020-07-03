@@ -1,6 +1,6 @@
 import Assert = require("assert");
 import { Random } from "random-js";
-import { Dictionary } from "../Dictionary";
+import { Dictionary } from "../../Collections/Dictionary";
 
 suite(
     "Dictionary<TKey, TValue>",

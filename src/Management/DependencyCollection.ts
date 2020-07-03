@@ -1,5 +1,5 @@
-import { Dictionary } from "../Dictionary";
-import { PropertyDictionary } from "../PropertyDictionary";
+import { Dictionary } from "../Collections/Dictionary";
+import { PropertyDictionary } from "../Collections/PropertyDictionary";
 import { IDependencyCollection } from "./IDependencyCollection";
 import { IDependencyCollectionOptions } from "./IDependencyCollectionOptions";
 

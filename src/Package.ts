@@ -1,6 +1,7 @@
 import { readFileSync } from "fs";
 import { isNullOrUndefined } from "util";
-import { Dictionary } from "./Dictionary";
+import { Dictionary } from "./Collections/Dictionary";
+import { PropertyDictionary } from "./Collections/PropertyDictionary";
 import { GenerationLogic } from "./GenerationLogic";
 import { IPackageJSON } from "./IPackageJSON";
 import { LoadLogic } from "./LoadLogic";
@@ -13,7 +14,6 @@ import { IPerson } from "./Management/IPerson";
 import { IRepository } from "./Management/IRepository";
 import { IShimCollection } from "./Management/IShimCollection";
 import { Person } from "./Management/Person";
-import { PropertyDictionary } from "./PropertyDictionary";
 import { JSONObject } from "./Utilities/JSONObject";
 import { JSONObjectBase } from "./Utilities/JSONObjectBase";
 

@@ -4,7 +4,7 @@ import { writeJSON } from "fs-extra";
 import { Random } from "random-js";
 import stringify = require("stringify-author");
 import { TempFile } from "temp-filesystem";
-import { Dictionary } from "../Dictionary";
+import { Dictionary } from "../Collections/Dictionary";
 import { GenerationLogic } from "../GenerationLogic";
 import { IPackageJSON } from "../IPackageJSON";
 import { BugInfo } from "../Management/BugInfo";

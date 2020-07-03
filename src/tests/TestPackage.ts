@@ -1,9 +1,9 @@
+import { Dictionary } from "../Collections/Dictionary";
 import { GenerationLogic } from "../GenerationLogic";
 import { IPackageJSON } from "../IPackageJSON";
-import { Package } from "../Package";
-import { Dictionary } from "../Dictionary";
 import { IPerson } from "../Management/IPerson";
 import { Person } from "../Management/Person";
+import { Package } from "../Package";
 
 /**
  * Provides an implementation of the `Package` class for testing.

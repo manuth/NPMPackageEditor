@@ -2,7 +2,7 @@ suite(
     "NPMPackageEditor",
     async () =>
     {
-        require("./Dictionary.test");
+        require("./Collections");
         require("./Utilities");
         require("./Management");
         require("./Package.test");

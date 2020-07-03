@@ -1,5 +1,5 @@
-import { JSONObject } from "./Utilities/JSONObject";
-import { JSONObjectBase } from "./Utilities/JSONObjectBase";
+import { JSONObject } from "../Utilities/JSONObject";
+import { JSONObjectBase } from "../Utilities/JSONObjectBase";
 
 /**
  * Represents a set of key-value-pairs.
