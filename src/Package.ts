@@ -447,7 +447,7 @@ export class Package extends JSONObjectBase<IPackageJSON>
      * @returns
      * The loaded person.
      */
-    protected LoadPerson(person: IPerson): Person
+    protected LoadPerson(person: IPerson | string): Person
     {
         return new Person(person);
     }
@@ -461,7 +461,7 @@ export class Package extends JSONObjectBase<IPackageJSON>
      * @returns
      * The loaded list.
      */
-    protected LoadPersonList(personList: IPerson[]): Person[]
+    protected LoadPersonList(personList: Array<IPerson | string>): Person[]
     {
         return personList.map((person) => this.LoadPerson(person));
     }
