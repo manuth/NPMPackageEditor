@@ -419,7 +419,7 @@ export class Package extends JSONObjectBase<IPackageJSON>
      * @returns
      * The loaded object.
      */
-    private LoadObject(object: any): any
+    protected LoadObject(object: any): any
     {
         return !isNullOrUndefined(object) ? (typeof object === "object" ? (Array.isArray(object) ? [...object] : { ...object }) : object) : null;
     }
@@ -433,7 +433,7 @@ export class Package extends JSONObjectBase<IPackageJSON>
      * @returns
      * The loaded dictionary.
      */
-    private LoadDictionary<T>(collection: T): Dictionary<keyof T, T[keyof T]>
+    protected LoadDictionary<T>(collection: T): Dictionary<keyof T, T[keyof T]>
     {
         return new Dictionary<keyof T, T[keyof T]>((Object.keys(collection) as Array<keyof T>).map<[keyof T, T[keyof T]]>((key) => [key, collection[key]]));
     }
@@ -447,7 +447,7 @@ export class Package extends JSONObjectBase<IPackageJSON>
      * @returns
      * The loaded person.
      */
-    private LoadPerson(person: IPerson): Person
+    protected LoadPerson(person: IPerson): Person
     {
         return new Person(person);
     }
@@ -461,7 +461,7 @@ export class Package extends JSONObjectBase<IPackageJSON>
      * @returns
      * The loaded list.
      */
-    private LoadPersonList(personList: IPerson[]): Person[]
+    protected LoadPersonList(personList: IPerson[]): Person[]
     {
         return personList.map((person) => this.LoadPerson(person));
     }
