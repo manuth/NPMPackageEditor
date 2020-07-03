@@ -26,6 +26,13 @@ export interface IPackageJSON extends IDependencyCollectionOptions
     version?: string;
 
     /**
+     * A value indicating whether the package is private.
+     *
+     * @see https://docs.npmjs.com/files/package.json#private
+     */
+    private?: boolean;
+
+    /**
      * The description of the package.
      *
      * This helps people discover your package, as it's listed in `npm search`.
@@ -72,6 +79,27 @@ export interface IPackageJSON extends IDependencyCollectionOptions
     keywords?: string[];
 
     /**
+     * A set of engines which are required for running the package.
+     *
+     * @see https://docs.npmjs.com/files/package.json#engines
+     */
+    engines?: Record<string, string>;
+
+    /**
+     * The operating-systems supported by this package.
+     *
+     * @see https://docs.npmjs.com/files/package.json#os
+     */
+    os?: string[];
+
+    /**
+     * The CPU architectures supported by this package.
+     *
+     * @see https://docs.npmjs.com/files/package.json#cpu
+     */
+    cpu?: string[];
+
+    /**
      * The primary entry point of the program.
      *
      * @see https://docs.npmjs.com/files/package.json#main
@@ -82,27 +110,6 @@ export interface IPackageJSON extends IDependencyCollectionOptions
      * The path to the bundled declaration file.
      */
     types?: string;
-
-    /**
-     * The url to the project homepage.
-     *
-     * @see https://docs.npmjs.com/files/package.json#homepage
-     */
-    homepage?: string;
-
-    /**
-     * The links for reporting bugs.
-     *
-     * @see https://docs.npmjs.com/files/package.json#bugs
-     */
-    bugs?: string | IBugInfo;
-
-    /**
-     * A set of files to include into the package.
-     *
-     * @see https://docs.npmjs.com/files/package.json#files
-     */
-    files?: string[];
 
     /**
      * A hint to javascript bundlers for packaging modules for client side use.
@@ -126,11 +133,25 @@ export interface IPackageJSON extends IDependencyCollectionOptions
     man?: string | string[];
 
     /**
+     * A set of files to include into the package.
+     *
+     * @see https://docs.npmjs.com/files/package.json#files
+     */
+    files?: string[];
+
+    /**
      * The directory-structure of the package.
      *
      * @see https://docs.npmjs.com/files/package.json#directories
      */
     directories?: IDirectoryStructure;
+
+    /**
+     * The url to the project homepage.
+     *
+     * @see https://docs.npmjs.com/files/package.json#homepage
+     */
+    homepage?: string;
 
     /**
      * The repository of the package.
@@ -140,11 +161,11 @@ export interface IPackageJSON extends IDependencyCollectionOptions
     repository?: string | IRepository;
 
     /**
-     * A set of script-commands for the package.
+     * The links for reporting bugs.
      *
-     * @see https://docs.npmjs.com/files/package.json#scripts
+     * @see https://docs.npmjs.com/files/package.json#bugs
      */
-    scripts?: Record<string, string>;
+    bugs?: string | IBugInfo;
 
     /**
      * A set of persistent configurations.
@@ -154,35 +175,14 @@ export interface IPackageJSON extends IDependencyCollectionOptions
     config?: Record<string, any>;
 
     /**
-     * A set of engines which are required for running the package.
-     *
-     * @see https://docs.npmjs.com/files/package.json#engines
-     */
-    engines?: Record<string, string>;
-
-    /**
-     * The operating-systems supported by this package.
-     *
-     * @see https://docs.npmjs.com/files/package.json#os
-     */
-    os?: string[];
-
-    /**
-     * The CPU architectures supported by this package.
-     *
-     * @see https://docs.npmjs.com/files/package.json#cpu
-     */
-    cpu?: string[];
-
-    /**
-     * A value indicating whether the package is private.
-     *
-     * @see https://docs.npmjs.com/files/package.json#private
-     */
-    private?: boolean;
-
-    /**
      * The npm configuration to use while publishing.
      */
     publishConfig?: Record<string, any>;
+
+    /**
+     * A set of script-commands for the package.
+     *
+     * @see https://docs.npmjs.com/files/package.json#scripts
+     */
+    scripts?: Record<string, string>;
 }
