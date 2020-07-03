@@ -11,6 +11,7 @@ import { IPerson } from "./Management/IPerson";
 import { IRepository } from "./Management/IRepository";
 import { IShimCollection } from "./Management/IShimCollection";
 import { Person } from "./Management/Person";
+import { PropertyDictionary } from "./PropertyDictionary";
 import { JSONObject } from "./Utilities/JSONObject";
 import { JSONObjectBase } from "./Utilities/JSONObjectBase";
 
@@ -435,7 +436,7 @@ export class Package extends JSONObjectBase<IPackageJSON>
      */
     protected LoadDictionary<T>(collection: T): Dictionary<keyof T, T[keyof T]>
     {
-        return new Dictionary<keyof T, T[keyof T]>((Object.keys(collection) as Array<keyof T>).map<[keyof T, T[keyof T]]>((key) => [key, collection[key]]));
+        return new PropertyDictionary(collection);
     }
 
     /**
