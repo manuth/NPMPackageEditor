@@ -5,7 +5,9 @@ import { GenerationLogic } from "./GenerationLogic";
 import { IPackageJSON } from "./IPackageJSON";
 import { LoadLogic } from "./LoadLogic";
 import { BugInfo } from "./Management/BugInfo";
+import { DependencyCollection } from "./Management/DependencyCollection";
 import { IBinCollection } from "./Management/IBinCollection";
+import { IDependencyCollection } from "./Management/IDependencyCollection";
 import { IDirectoryStructure } from "./Management/IDirectoryStructure";
 import { IPerson } from "./Management/IPerson";
 import { IRepository } from "./Management/IRepository";
@@ -18,7 +20,7 @@ import { JSONObjectBase } from "./Utilities/JSONObjectBase";
 /**
  * Represents a package.
  */
-export class Package extends JSONObjectBase<IPackageJSON>
+export class Package extends JSONObjectBase<IPackageJSON> implements IDependencyCollection
 {
     /**
      * Gets or sets the name of the package.
@@ -146,29 +148,9 @@ export class Package extends JSONObjectBase<IPackageJSON>
     public readonly Scripts: Dictionary<string, string>;
 
     /**
-     * Gets a set of dependencies of the package.
+     * Gets the dependencies of the package.
      */
-    public readonly Dependencies: Dictionary<string, string>;
-
-    /**
-     * Gets of development-dependencies of the package.
-     */
-    public readonly DevelpomentDependencies: Dictionary<string, string>;
-
-    /**
-     * Gets a set of peer-dependencies of the package.
-     */
-    public readonly PeerDependencies: Dictionary<string, string>;
-
-    /**
-     * Gets a set of optional dependencies of the package.
-     */
-    public readonly OptionalDependencies: Dictionary<string, string>;
-
-    /**
-     * Gets or sets a set of dependencies to include into `.tgz`-packages.
-     */
-    public BundledDependencies: string[];
+    public readonly DependencyCollection: DependencyCollection;
 
     /**
      * The generation-logic for the properties.
@@ -238,39 +220,95 @@ export class Package extends JSONObjectBase<IPackageJSON>
         for (let entry of this.PropertyMap)
         {
             let value: any = packageJSON[entry[0]];
-            let logic = this.LoadLogics.get(entry[0]);
 
             if (this.Defaults.Has(entry[0]))
             {
                 value = value ?? this.Defaults.Get(entry[0]);
             }
 
-            switch (logic)
-            {
-                case LoadLogic.Dictionary:
-                    value = this.LoadDictionary(value);
-                    break;
-                case LoadLogic.Person:
-                    value = this.LoadPerson(value);
-                    break;
-                case LoadLogic.PersonList:
-                    value = this.LoadPersonList(value);
-                    break;
-                case LoadLogic.BugInfo:
-                    value = new BugInfo(value);
-                    break;
-                case LoadLogic.Plain:
-                default:
-                    value = this.LoadObject(value);
-                    break;
-            }
-
             Object.assign(
-                this,
+                packageJSON,
                 {
-                    [entry[1]]: value
+                    [entry[0]]: value
                 });
         }
+
+        this.DependencyCollection = new DependencyCollection(packageJSON);
+
+        for (let entry of this.PropertyMap)
+        {
+            let value: any = packageJSON[entry[0]];
+            let logic = this.LoadLogics.get(entry[0]);
+
+            if (logic !== LoadLogic.None)
+            {
+                switch (logic)
+                {
+                    case LoadLogic.Dictionary:
+                        value = this.LoadDictionary(value);
+                        break;
+                    case LoadLogic.Person:
+                        value = this.LoadPerson(value);
+                        break;
+                    case LoadLogic.PersonList:
+                        value = this.LoadPersonList(value);
+                        break;
+                    case LoadLogic.BugInfo:
+                        value = new BugInfo(value);
+                        break;
+                    case LoadLogic.Plain:
+                    default:
+                        value = this.LoadObject(value);
+                        break;
+                }
+
+                Object.assign(
+                    this,
+                    {
+                        [entry[1]]: value
+                    });
+            }
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public get Dependencies(): Dictionary<string, string>
+    {
+        return this.DependencyCollection.Dependencies;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public get DevelpomentDependencies(): Dictionary<string, string>
+    {
+        return this.DependencyCollection.DevelpomentDependencies;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public get PeerDependencies(): Dictionary<string, string>
+    {
+        return this.DependencyCollection.PeerDependencies;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public get OptionalDependencies(): Dictionary<string, string>
+    {
+        return this.DependencyCollection.OptionalDependencies;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public get BundledDependencies(): string[]
+    {
+        return this.DependencyCollection.BundledDependencies;
     }
 
     /**
@@ -353,10 +391,11 @@ export class Package extends JSONObjectBase<IPackageJSON>
                 ["engines", LoadLogic.Dictionary],
                 ["bugs", LoadLogic.BugInfo],
                 ["scripts", LoadLogic.Dictionary],
-                ["dependencies", LoadLogic.Dictionary],
-                ["devDependencies", LoadLogic.Dictionary],
-                ["peerDependencies", LoadLogic.Dictionary],
-                ["optionalDependencies", LoadLogic.Dictionary]
+                ["dependencies", LoadLogic.None],
+                ["devDependencies", LoadLogic.None],
+                ["peerDependencies", LoadLogic.None],
+                ["optionalDependencies", LoadLogic.None],
+                ["bundledDependencies", LoadLogic.None]
             ]);
     }
 
@@ -366,6 +405,17 @@ export class Package extends JSONObjectBase<IPackageJSON>
     public get GenerationLogics(): Map<keyof IPackageJSON, GenerationLogic>
     {
         return this.generationLogics;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param collection
+     * The collection to register.
+     */
+    public Register(collection: IDependencyCollection): void
+    {
+        this.DependencyCollection.Register(collection);
     }
 
     /**

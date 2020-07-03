@@ -1,5 +1,6 @@
 import { IBinCollection } from "./Management/IBinCollection";
 import { IBugInfo } from "./Management/IBugInfo";
+import { IDependencyCollectionOptions } from "./Management/IDependencyCollectionOptions";
 import { IDirectoryStructure } from "./Management/IDirectoryStructure";
 import { IRepository } from "./Management/IRepository";
 import { IShimCollection } from "./Management/IShimCollection";
@@ -8,7 +9,7 @@ import { PackagePerson } from "./Management/PackagePerson";
 /**
  * Represents a `package.json`-file.
  */
-export interface IPackageJSON
+export interface IPackageJSON extends IDependencyCollectionOptions
 {
     /**
      * The name of the package.
@@ -151,41 +152,6 @@ export interface IPackageJSON
      * @see https://docs.npmjs.com/files/package.json#config
      */
     config?: Record<string, any>;
-
-    /**
-     * A set of dependencies of the package.
-     *
-     * @see https://docs.npmjs.com/files/package.json#dependencies
-     */
-    dependencies?: Record<string, string>;
-
-    /**
-     * A set of development-dependencies of the package.
-     *
-     * @see https://docs.npmjs.com/files/package.json#devdependencies
-     */
-    devDependencies?: Record<string, string>;
-
-    /**
-     * A set of peer-dependencies of the package.
-     *
-     * @see https://docs.npmjs.com/files/package.json#peerdependencies
-     */
-    peerDependencies?: Record<string, string>;
-
-    /**
-     * A set of dependencies to include into `.tgz`-packages.
-     *
-     * @see https://docs.npmjs.com/files/package.json#bundleddependencies
-     */
-    bundledDependencies?: string[];
-
-    /**
-     * A set of optional dependencies of the package.
-     *
-     * @see https://docs.npmjs.com/files/package.json#optionaldependencies
-     */
-    optionalDependencies?: Record<string, string>;
 
     /**
      * A set of engines which are required for running the package.

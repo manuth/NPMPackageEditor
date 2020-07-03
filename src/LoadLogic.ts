@@ -4,6 +4,11 @@
 export enum LoadLogic
 {
     /**
+     * Indicates that the value isn't assigned.
+     */
+    None,
+
+    /**
      * Indicates a plain assignment.
      */
     Plain,
