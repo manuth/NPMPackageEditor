@@ -1,9 +1,10 @@
 import { isNullOrUndefined } from "util";
+import { JSONObjectBase } from "./JSONObjectBase";
 
 /**
  * Represents a json-object.
  */
-export class JSONObject<T extends Record<never, never> = Record<string, unknown>>
+export class JSONObject<T extends Record<never, never> = Record<string, unknown>> extends JSONObjectBase<Partial<T>>
 {
     /**
      * The internal object.
@@ -31,6 +32,7 @@ export class JSONObject<T extends Record<never, never> = Record<string, unknown>
      */
     public constructor(base?: Partial<T>)
     {
+        super();
         this.object = { ...(base ?? {}) };
     }
 

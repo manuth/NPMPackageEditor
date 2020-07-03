@@ -1,11 +1,12 @@
 import ParseAuthor = require("parse-author");
 import StringifyAuthor = require("stringify-author");
+import { JSONObjectBase } from "../Utilities/JSONObjectBase";
 import { IPerson } from "./IPerson";
 
 /**
  * Represents a person.
  */
-export class Person
+export class Person extends JSONObjectBase<string>
 {
     /**
      * Gets or sets the name of the person.
@@ -54,6 +55,7 @@ export class Person
      */
     public constructor(person: string | IPerson)
     {
+        super();
         let info: IPerson;
 
         if (typeof person === "string")

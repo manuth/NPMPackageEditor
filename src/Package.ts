@@ -9,11 +9,12 @@ import { IRepository } from "./Management/IRepository";
 import { IShimCollection } from "./Management/IShimCollection";
 import { Person } from "./Management/Person";
 import { JSONObject } from "./Utilities/JSONObject";
+import { JSONObjectBase } from "./Utilities/JSONObjectBase";
 
 /**
  * Represents a package.
  */
-export class Package
+export class Package extends JSONObjectBase<IPackageJSON>
 {
     /**
      * Gets or sets the name of the package.
@@ -194,6 +195,7 @@ export class Package
      */
     public constructor(...args: [] | [string] | [IPackageJSON])
     {
+        super();
         let packageJSON: IPackageJSON;
 
         switch (typeof args[0])

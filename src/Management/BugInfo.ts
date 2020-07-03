@@ -1,11 +1,12 @@
 import { isNullOrUndefined } from "util";
 import { JSONObject } from "../Utilities/JSONObject";
+import { JSONObjectBase } from "../Utilities/JSONObjectBase";
 import { IBugInfo } from "./IBugInfo";
 
 /**
  * Provides info for reporting bugs.
  */
-export class BugInfo
+export class BugInfo extends JSONObjectBase<IBugInfo>
 {
     /**
      * Gets or sets the url to report bugs.
@@ -65,6 +66,8 @@ export class BugInfo
      */
     public constructor(...args: [] | [string | IBugInfo, string?] | [])
     {
+        super();
+
         if (typeof args[0] === "string")
         {
             this.URL = args[0] ?? null;

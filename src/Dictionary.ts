@@ -1,4 +1,5 @@
 import { JSONObject } from "./Utilities/JSONObject";
+import { JSONObjectBase } from "./Utilities/JSONObjectBase";
 
 /**
  * Represents a set of key-value-pairs.
@@ -9,7 +10,7 @@ import { JSONObject } from "./Utilities/JSONObject";
  * @template TValue
  * The type of the values of the dictionary.
  */
-export class Dictionary<TKey, TValue>
+export class Dictionary<TKey, TValue> extends JSONObjectBase<Record<string, TValue>>
 {
     /**
      * The actual collection.
@@ -37,6 +38,8 @@ export class Dictionary<TKey, TValue>
      */
     public constructor(...args: [Iterable<readonly [TKey, TValue]>?])
     {
+        super();
+
         if (args.length > 0)
         {
             this.AddRange(...args);
