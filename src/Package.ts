@@ -66,7 +66,7 @@ export class Package extends JSONObjectBase<IPackageJSON>
     public Keywords: string[];
 
     /**
-     * Gets or sets a set of engines which are required for running the package.
+     * Gets a set of engines which are required for running the package.
      */
     public readonly Engines: Dictionary<string, string>;
 
@@ -141,27 +141,27 @@ export class Package extends JSONObjectBase<IPackageJSON>
     public PublishConfig: Record<string, any>;
 
     /**
-     * Gets or sets a set of script-commands for the package.
+     * Gets of script-commands for the package.
      */
     public readonly Scripts: Dictionary<string, string>;
 
     /**
-     * Gets or sets a set of dependencies of the package.
+     * Gets a set of dependencies of the package.
      */
     public readonly Dependencies: Dictionary<string, string>;
 
     /**
-     * Gets or sets a set of development-dependencies of the package.
+     * Gets of development-dependencies of the package.
      */
     public readonly DevelpomentDependencies: Dictionary<string, string>;
 
     /**
-     * Gets or sets a set of peer-dependencies of the package.
+     * Gets a set of peer-dependencies of the package.
      */
     public readonly PeerDependencies: Dictionary<string, string>;
 
     /**
-     * Gets or sets a set of optional dependencies of the package.
+     * Gets a set of optional dependencies of the package.
      */
     public readonly OptionalDependencies: Dictionary<string, string>;
 
