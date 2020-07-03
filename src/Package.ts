@@ -262,8 +262,8 @@ export class Package
         result.AddIfNotNull("main", this.Main);
         result.AddIfNotNull("types", this.Types);
         result.AddIfNotEmpty("browser", this.Browser);
-        result.AddIfNotNull("bin", this.Binaries);
-        result.AddIfNotNull("man", this.Manuals);
+        result.AddIfNotEmpty("bin", this.Binaries);
+        result.AddIfNotEmpty("man", this.Manuals);
         result.AddIfNotNull("files", this.Files);
         result.AddIfNotEmpty("directories", this.Directories);
         result.AddIfNotNull("homepage", this.Homepage);
