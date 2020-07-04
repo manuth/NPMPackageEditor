@@ -1,7 +1,7 @@
 import { readFileSync } from "fs";
 import { isNullOrUndefined } from "util";
-import { AlphabeticalList } from "./Collections/AlphabeticalList";
 import { Dictionary } from "./Collections/Dictionary";
+import { List } from "./Collections/List";
 import { PropertyDictionary } from "./Collections/PropertyDictionary";
 import { GenerationLogic } from "./GenerationLogic";
 import { IPackageJSON } from "./IPackageJSON";
@@ -10,10 +10,12 @@ import { BugInfo } from "./Management/BugInfo";
 import { DependencyCollection } from "./Management/DependencyCollection";
 import { IBinCollection } from "./Management/IBinCollection";
 import { IDependencyCollection } from "./Management/IDependencyCollection";
+import { IDependencyCollectionOptions } from "./Management/IDependencyCollectionOptions";
 import { IDirectoryStructure } from "./Management/IDirectoryStructure";
 import { IPerson } from "./Management/IPerson";
 import { IRepository } from "./Management/IRepository";
 import { IShimCollection } from "./Management/IShimCollection";
+import { OrderedDependencyCollection } from "./Management/OrderedDependencyCollection";
 import { Person } from "./Management/Person";
 import { JSONObject } from "./Utilities/JSONObject";
 import { JSONObjectBase } from "./Utilities/JSONObjectBase";
@@ -234,7 +236,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
                 });
         }
 
-        this.DependencyCollection = new DependencyCollection(packageJSON);
+        this.DependencyCollection = this.LoadDependencyCollection(packageJSON);
 
         for (let entry of this.PropertyMap)
         {
@@ -307,7 +309,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     /**
      * @inheritdoc
      */
-    public get BundledDependencies(): AlphabeticalList<string>
+    public get BundledDependencies(): List<string>
     {
         return this.DependencyCollection.BundledDependencies;
     }
@@ -488,6 +490,20 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     protected LoadDictionary<T>(collection: T): Dictionary<keyof T, T[keyof T]>
     {
         return new PropertyDictionary(collection);
+    }
+
+    /**
+     * Loads a dependency-collection.
+     *
+     * @param collection
+     * The dependency-collection to load.
+     *
+     * @returns
+     * The newly created dependency-collection.
+     */
+    protected LoadDependencyCollection(collection: IDependencyCollectionOptions): DependencyCollection
+    {
+        return new OrderedDependencyCollection(collection);
     }
 
     /**
