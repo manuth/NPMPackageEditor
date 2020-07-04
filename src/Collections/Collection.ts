@@ -9,7 +9,10 @@ export abstract class Collection<TKey, TValue> extends JSONObjectBase<any> imple
     /**
      * @inheritdoc
      */
-    public abstract get Count(): number;
+    public get Count(): number
+    {
+        return this.Entries.length;
+    }
 
     /**
      * @inheritdoc
