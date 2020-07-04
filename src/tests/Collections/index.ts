@@ -3,5 +3,6 @@ suite(
     () =>
     {
         require("./Collection.test");
+        require("./List.test");
         require("./Dictionary.test");
     });
