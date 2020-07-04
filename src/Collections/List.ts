@@ -61,6 +61,20 @@ export class List<T> extends Collection<number, T> implements IList<T>, JSONObje
      * @inheritdoc
      *
      * @param item
+     * The item to check.
+     *
+     * @returns
+     * A value indicating whether the specified `item` exists.
+     */
+    public Contains(item: T): boolean
+    {
+        return this.Values.includes(item);
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param item
      * The item to add.
      */
     public Add(item: T): void

@@ -6,6 +6,17 @@ import { ICollection } from "./ICollection";
 export interface IList<T> extends ICollection<number, T>
 {
     /**
+     * Checks whether the specified `item` exists in the list.
+     *
+     * @param item
+     * The item to check.
+     *
+     * @returns
+     * A value indicating whether the specified `item` exists.
+     */
+    Contains(item: T): boolean;
+
+    /**
      * Adds an item to the list.
      *
      * @param item
