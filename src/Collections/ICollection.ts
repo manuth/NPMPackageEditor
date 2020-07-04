@@ -17,17 +17,17 @@ export interface ICollection<TKey, TValue>
     /**
      * Gets the entries of the collection.
      */
-    readonly Entries: ReadonlyArray<[TKey, TValue]>;
+    readonly Entries: Array<[TKey, TValue]>;
 
     /**
      * Gets the keys of the collection.
      */
-    readonly Keys: readonly TKey[];
+    readonly Keys: TKey[];
 
     /**
      * Gets the values of the collection.
      */
-    readonly Values: readonly TValue[];
+    readonly Values: TValue[];
 
     /**
      * Clears the collection.

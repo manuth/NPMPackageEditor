@@ -47,7 +47,7 @@ export class AlphabeticalList<T> extends List<T>
     /**
      * @inheritdoc
      */
-    public get Entries(): ReadonlyArray<[number, T]>
+    public get Entries(): Array<[number, T]>
     {
         return Array.from(
             this.innerCollection.Entries.map(

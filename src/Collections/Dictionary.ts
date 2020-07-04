@@ -59,7 +59,7 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
     /**
      * @inheritdoc
      */
-    public get Entries(): ReadonlyArray<[TKey, TValue]>
+    public get Entries(): Array<[TKey, TValue]>
     {
         return Array.from(this.innerCollection.entries());
     }
@@ -67,7 +67,7 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
     /**
      * @inheritdoc
      */
-    public get Keys(): readonly TKey[]
+    public get Keys(): TKey[]
     {
         return this.Entries.map((entry) => entry[0]);
     }
@@ -75,7 +75,7 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
     /**
      * @inheritdoc
      */
-    public get Values(): readonly TValue[]
+    public get Values(): TValue[]
     {
         return this.Entries.map((entry) => entry[1]);
     }

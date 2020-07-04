@@ -48,7 +48,7 @@ export class List<T> extends Collection<number, T> implements IList<T>, JSONObje
     /**
      * @inheritdoc
      */
-    public get Entries(): ReadonlyArray<[number, T]>
+    public get Entries(): Array<[number, T]>
     {
         return this.innerList.map(
             (value, index) =>

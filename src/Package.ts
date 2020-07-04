@@ -343,7 +343,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     /**
      * Gets the mapping from the `IPackageJSON`-properties to the `Package` properties.
      */
-    protected get PropertyMap(): ReadonlyArray<readonly [keyof IPackageJSON, keyof Package]>
+    protected get PropertyMap(): Array<[keyof IPackageJSON, keyof Package]>
     {
         return [
             ["name", "Name"],
@@ -382,7 +382,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     /**
      * Gets the load-logic for the properties.
      */
-    protected get LoadLogics(): ReadonlyMap<keyof IPackageJSON, LoadLogic>
+    protected get LoadLogics(): Map<keyof IPackageJSON, LoadLogic>
     {
         return new Map<keyof IPackageJSON, LoadLogic>(
             [

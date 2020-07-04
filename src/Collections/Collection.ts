@@ -14,12 +14,12 @@ export abstract class Collection<TKey, TValue> extends JSONObjectBase<any> imple
     /**
      * @inheritdoc
      */
-    public abstract get Entries(): ReadonlyArray<[TKey, TValue]>;
+    public abstract get Entries(): Array<[TKey, TValue]>;
 
     /**
      * @inheritdoc
      */
-    public get Keys(): readonly TKey[]
+    public get Keys(): TKey[]
     {
         return this.Entries.map((entry) => entry[0]);
     }
@@ -27,7 +27,7 @@ export abstract class Collection<TKey, TValue> extends JSONObjectBase<any> imple
     /**
      * @inheritdoc
      */
-    public get Values(): readonly TValue[]
+    public get Values(): TValue[]
     {
         return this.Entries.map((entry) => entry[1]);
     }

@@ -13,7 +13,7 @@ export class TestPackage extends Package
     /**
      * @inheritdoc
      */
-    public get PropertyMap(): ReadonlyArray<readonly [keyof IPackageJSON, keyof Package]>
+    public get PropertyMap(): Array<[keyof IPackageJSON, keyof Package]>
     {
         return super.PropertyMap;
     }

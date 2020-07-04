@@ -89,7 +89,7 @@ suite(
             });
 
         suite(
-            "ReadonlyArray<[TKey, TValue]> Entries",
+            "Array<[TKey, TValue]> Entries",
             () =>
             {
                 test(
@@ -106,7 +106,7 @@ suite(
             });
 
         suite(
-            "readonly TKey[] Keys",
+            "TKey[] Keys",
             () =>
             {
                 test(
@@ -123,7 +123,7 @@ suite(
             });
 
         suite(
-            "readonly TValue[] Values",
+            "TValue[] Values",
             () =>
             {
                 test(

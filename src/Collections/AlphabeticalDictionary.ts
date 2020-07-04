@@ -8,7 +8,7 @@ export class AlphabeticalDictionary<TKey, TValue> extends Dictionary<TKey, TValu
     /**
      * @inheritdoc
      */
-    public get Entries(): ReadonlyArray<[TKey, TValue]>
+    public get Entries(): Array<[TKey, TValue]>
     {
         let result = Array.from(super.Entries);
 
