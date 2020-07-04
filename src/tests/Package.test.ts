@@ -5,6 +5,7 @@ import { Random } from "random-js";
 import stringify = require("stringify-author");
 import { TempFile } from "temp-filesystem";
 import { Dictionary } from "../Collections/Dictionary";
+import { List } from "../Collections/List";
 import { GenerationLogic } from "../GenerationLogic";
 import { IPackageJSON } from "../IPackageJSON";
 import { BugInfo } from "../Management/BugInfo";
@@ -35,6 +36,20 @@ suite(
          * The expected contents of the dictionary.
          */
         function AssertDictionary<TKey extends string | number | symbol, TValue>(actual: Dictionary<TKey, TValue>, expected: Record<TKey, TValue>): void
+        {
+            Assert.deepStrictEqual(actual.ToJSON(), expected);
+        }
+
+        /**
+         * Asserts the contents of a list.
+         *
+         * @param actual
+         * The actual list.
+         *
+         * @param expected
+         * The expected contents of the list.
+         */
+        function AssertList<T>(actual: List<T>, expected: T[]): void
         {
             Assert.deepStrictEqual(actual.ToJSON(), expected);
         }
@@ -280,7 +295,7 @@ suite(
             AssertDictionary(npmPackage.DevelpomentDependencies, packageJSON.devDependencies);
             AssertDictionary(npmPackage.PeerDependencies, packageJSON.peerDependencies);
             AssertDictionary(npmPackage.OptionalDependencies, packageJSON.optionalDependencies);
-            Assert.deepStrictEqual(npmPackage.BundledDependencies, packageJSON.bundledDependencies);
+            Assert.deepStrictEqual(npmPackage.BundledDependencies.ToJSON(), packageJSON.bundledDependencies);
         }
 
         suite(
@@ -400,7 +415,7 @@ suite(
                                 AssertDefault("DevelpomentDependencies", {}, AssertDictionary);
                                 AssertDefault("PeerDependencies", {}, AssertDictionary);
                                 AssertDefault("OptionalDependencies", {}, AssertDictionary);
-                                AssertDefault("BundledDependencies", []);
+                                AssertDefault("BundledDependencies", [], AssertList);
                             });
                     });
             });

@@ -1,4 +1,5 @@
 import { Dictionary } from "../Collections/Dictionary";
+import { List } from "../Collections/List";
 
 /**
  * Represents a set of dependencies.
@@ -28,7 +29,7 @@ export interface IDependencyCollection
     /**
      * Gets a set of dependencies to include into `.tgz`-packages.
      */
-    readonly BundledDependencies: string[];
+    readonly BundledDependencies: List<string>;
 
     /**
      * Registers dependencies from another `collection`.

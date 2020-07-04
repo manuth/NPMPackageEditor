@@ -1,3 +1,5 @@
+import { AlphabeticalDictionary } from "../Collections/AlphabeticalDictionary";
+import { AlphabeticalList } from "../Collections/AlphabeticalList";
 import { Dictionary } from "../Collections/Dictionary";
 import { PropertyDictionary } from "../Collections/PropertyDictionary";
 import { IDependencyCollection } from "./IDependencyCollection";
@@ -31,7 +33,7 @@ export class DependencyCollection implements IDependencyCollection
     /**
      * @inheritdoc
      */
-    public readonly BundledDependencies: string[];
+    public readonly BundledDependencies: AlphabeticalList<string>;
 
     /**
      * Initializes a new instance of the `DependencyCollection` class.
@@ -54,11 +56,11 @@ export class DependencyCollection implements IDependencyCollection
      */
     public constructor(collection?: IDependencyCollectionOptions)
     {
-        this.Dependencies = new PropertyDictionary(collection?.dependencies);
-        this.DevelpomentDependencies = new PropertyDictionary(collection?.devDependencies);
-        this.PeerDependencies = new PropertyDictionary(collection?.peerDependencies);
-        this.OptionalDependencies = new PropertyDictionary(collection?.optionalDependencies);
-        this.BundledDependencies = [...(collection?.bundledDependencies ?? [])];
+        this.Dependencies = new AlphabeticalDictionary(new PropertyDictionary(collection?.dependencies));
+        this.DevelpomentDependencies = new AlphabeticalDictionary(new PropertyDictionary(collection?.devDependencies));
+        this.PeerDependencies = new AlphabeticalDictionary(new PropertyDictionary(collection?.peerDependencies));
+        this.OptionalDependencies = new AlphabeticalDictionary(new PropertyDictionary(collection?.optionalDependencies));
+        this.BundledDependencies = new AlphabeticalList(collection.bundledDependencies ?? []);
     }
 
     /**
@@ -74,11 +76,11 @@ export class DependencyCollection implements IDependencyCollection
         this.PeerDependencies.AddRange(collection.PeerDependencies);
         this.OptionalDependencies.AddRange(collection.OptionalDependencies);
 
-        for (let dependency of collection.BundledDependencies)
+        for (let dependency of collection.BundledDependencies.Values)
         {
-            if (!this.BundledDependencies.includes(dependency))
+            if (!this.BundledDependencies.Values.includes(dependency))
             {
-                this.BundledDependencies.push(dependency);
+                this.BundledDependencies.Add(dependency);
             }
         }
     }

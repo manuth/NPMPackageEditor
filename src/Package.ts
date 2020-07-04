@@ -1,5 +1,6 @@
 import { readFileSync } from "fs";
 import { isNullOrUndefined } from "util";
+import { AlphabeticalList } from "./Collections/AlphabeticalList";
 import { Dictionary } from "./Collections/Dictionary";
 import { PropertyDictionary } from "./Collections/PropertyDictionary";
 import { GenerationLogic } from "./GenerationLogic";
@@ -306,7 +307,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     /**
      * @inheritdoc
      */
-    public get BundledDependencies(): string[]
+    public get BundledDependencies(): AlphabeticalList<string>
     {
         return this.DependencyCollection.BundledDependencies;
     }
