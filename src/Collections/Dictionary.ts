@@ -66,22 +66,6 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
 
     /**
      * @inheritdoc
-     */
-    public get Keys(): TKey[]
-    {
-        return this.Entries.map((entry) => entry[0]);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public get Values(): TValue[]
-    {
-        return this.Entries.map((entry) => entry[1]);
-    }
-
-    /**
-     * @inheritdoc
      *
      * @param key
      * The key of the entry to add.
