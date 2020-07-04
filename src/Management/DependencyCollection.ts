@@ -60,7 +60,7 @@ export class DependencyCollection implements IDependencyCollection
         this.DevelpomentDependencies = new AlphabeticalDictionary(new PropertyDictionary(collection?.devDependencies));
         this.PeerDependencies = new AlphabeticalDictionary(new PropertyDictionary(collection?.peerDependencies));
         this.OptionalDependencies = new AlphabeticalDictionary(new PropertyDictionary(collection?.optionalDependencies));
-        this.BundledDependencies = new AlphabeticalList(collection.bundledDependencies ?? []);
+        this.BundledDependencies = new AlphabeticalList(collection?.bundledDependencies ?? []);
     }
 
     /**
