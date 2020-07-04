@@ -77,7 +77,7 @@ suite(
             });
 
         suite(
-            "number Count",
+            "int Count",
             () =>
             {
                 test(
@@ -101,40 +101,6 @@ suite(
                                 (mapEntry) =>
                                 {
                                     return dictionary.Entries.some((entry) => mapEntry[0] === entry[0] && mapEntry[1] === entry[1]);
-                                }));
-                    });
-            });
-
-        suite(
-            "TKey[] Keys",
-            () =>
-            {
-                test(
-                    "Checking whether all keys are present…",
-                    () =>
-                    {
-                        Assert.ok(
-                            randomMap.every(
-                                (entry) =>
-                                {
-                                    return dictionary.Keys.includes(entry[0]);
-                                }));
-                    });
-            });
-
-        suite(
-            "TValue[] Values",
-            () =>
-            {
-                test(
-                    "Checking whether all values are present…",
-                    () =>
-                    {
-                        Assert.ok(
-                            randomMap.every(
-                                (entry) =>
-                                {
-                                    return dictionary.Values.includes(entry[1]);
                                 }));
                     });
             });
