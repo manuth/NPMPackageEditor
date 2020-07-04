@@ -91,7 +91,14 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
      */
     public Add(key: TKey, value: TValue): void
     {
-        this.innerCollection.set(key, value);
+        if (this.Has(key))
+        {
+            throw new RangeError();
+        }
+        else
+        {
+            this.innerCollection.set(key, value);
+        }
     }
 
     /**

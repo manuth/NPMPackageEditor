@@ -70,7 +70,6 @@ suite(
                                 Assert.doesNotThrow(
                                     () => new Dictionary(
                                         [
-                                            ["", ""],
                                             ["", ""]
                                         ]));
                             });
@@ -165,6 +164,14 @@ suite(
                     () =>
                     {
                         dictionary.Add(key, value);
+                    });
+
+                test(
+                    "Checking whether adding duplicate entries throws an error…",
+                    () =>
+                    {
+                        dictionary.Add(key, value);
+                        Assert.throws(() => dictionary.Add(key, ""));
                     });
             });
 
