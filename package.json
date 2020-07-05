@@ -2,13 +2,26 @@
   "name": "@manuth/package-json-editor",
   "version": "0.0.0",
   "description": "Provides types and tools for editing `package.json` files",
-  "author": {
-    "name": "Manuel Thalmann",
-    "email": "m@nuth.ch"
-  },
+  "author": "Manuel Thalmann <m@nuth.ch>",
+  "license": "MIT",
   "keywords": [],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "src/tests"
+  },
+  "homepage": "https://github.com/manuth/NPMPackageEditor#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manuth/NPMPackageEditor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/manuth/NPMPackageEditor/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc -p .",
     "rebuild": "npm run clean && npm run build",
