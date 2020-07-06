@@ -62,12 +62,12 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     public Author: Person;
 
     /**
-     * Gets the maintainers of the package.
+     * Gets or sets the maintainers of the package.
      */
     public Maintainers: Person[];
 
     /**
-     * Gets the contributors of the package.
+     * Gets or sets the contributors of the package.
      */
     public Contributors: Person[];
 
@@ -77,12 +77,12 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     public License: string;
 
     /**
-     * Gets the keywords of the package.
+     * Gets or sets the keywords of the package.
      */
     public Keywords: string[];
 
     /**
-     * Gets a set of engines which are required for running the package.
+     * Gets or sets a set of engines which are required for running the package.
      */
     public Engines: Dictionary<string, string>;
 
@@ -122,7 +122,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     public Manuals: string | string[];
 
     /**
-     * Gets the files to include into the package.
+     * Gets or sets the files to include into the package.
      */
     public Files: string[];
 
@@ -142,7 +142,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     public Repository: string | IRepository;
 
     /**
-     * Gets links for reporting bugs.
+     * Gets or sets links for reporting bugs.
      */
     public Bugs: BugInfo;
 
@@ -157,12 +157,12 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     public PublishConfig: Record<string, any>;
 
     /**
-     * Gets of script-commands for the package.
+     * Gets or sets of script-commands for the package.
      */
     public Scripts: Dictionary<string, string>;
 
     /**
-     * Gets the dependencies of the package.
+     * Gets or sets the dependencies of the package.
      */
     public DependencyCollection: DependencyCollection;
 
