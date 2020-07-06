@@ -27,7 +27,8 @@
     "rebuild": "npm run clean && npm run build",
     "watch": "tsc -p . --watch",
     "clean": "rimraf ./lib",
-    "lint": "tslint -p ./ -t verbose",
+    "lint": "eslint --max-warnings 0 --ext .js,.jsx,.ts,.tsx ./src",
+    "lint-compact": "npm run lint -- -f compact || exit 0",
     "test": "mocha",
     "prepare": "npm run rebuild"
   },
