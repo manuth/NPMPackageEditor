@@ -1,7 +1,7 @@
 import Assert = require("assert");
 import { platform, arch } from "os";
 import { URL } from "url";
-import { writeJSON, readdir } from "fs-extra";
+import { writeJSON, readdir, statSync } from "fs-extra";
 import gitRemoteOriginUrl = require("git-remote-origin-url");
 import gitRootDir = require("git-root-dir");
 import { Random } from "random-js";
@@ -500,7 +500,8 @@ suite(
                     "Checking whether sub-directories are applied correctly…",
                     async () =>
                     {
-                        let path = Path.join(gitRoot, random.pick(await readdir(gitRoot)));
+                        let subDirectories = (await readdir(gitRoot)).filter((entry) => statSync(entry).isDirectory());
+                        let path = Path.join(gitRoot, random.pick(subDirectories));
                         npmPackage = new TestPackage();
                         await npmPackage.Normalize(path);
                         console.log();
