@@ -51,7 +51,7 @@ steps:
     commands:
       - npm pack
       - npm install escape-string-regexp
-      - node -e "console.log(require('escape-string-regexp')('${DRONE_GTAG}'))" > TagName.txt
+      - node -e "console.log(require('escape-string-regexp')('${DRONE_TAG}'))" > TagName.txt
     when:
       event:
         - tag
