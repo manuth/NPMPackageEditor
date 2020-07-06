@@ -1,4 +1,5 @@
 import { Dictionary } from "../Collections/Dictionary";
+import { ICollection } from "../Collections/ICollection";
 import { List } from "../Collections/List";
 import { PropertyDictionary } from "../Collections/PropertyDictionary";
 import { IDependencyCollection } from "./IDependencyCollection";
@@ -81,6 +82,25 @@ export class DependencyCollection implements IDependencyCollection
             {
                 this.BundledDependencies.Add(dependency);
             }
+        }
+    }
+
+    /**
+     * Clears all dependencies from the collection.
+     */
+    public Clear(): void
+    {
+        let sets: Array<ICollection<any, any>> = [
+            this.Dependencies,
+            this.DevelpomentDependencies,
+            this.PeerDependencies,
+            this.OptionalDependencies,
+            this.BundledDependencies
+        ];
+
+        for (let set of sets)
+        {
+            set.Clear();
         }
     }
 
