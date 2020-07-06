@@ -408,7 +408,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
 
         normalize(packageData);
 
-        packageData = {
+        let metadata: IPackageJSON = {
             ...this.ToJSON(),
             bin: packageData.bin,
             man: packageData.man,
@@ -420,14 +420,14 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
         if (directory !== null)
         {
             if (
-                !isNullOrUndefined(packageData.repository) &&
-                typeof packageData.repository !== "string")
+                !isNullOrUndefined(metadata.repository) &&
+                typeof metadata.repository !== "string")
             {
-                packageData.repository.directory = directory;
+                metadata.repository.directory = directory;
             }
         }
 
-        this.LoadMetadata(packageData);
+        this.LoadMetadata(metadata);
     }
 
     /**
