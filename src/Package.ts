@@ -243,6 +243,7 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
             switch (typeof args[0])
             {
                 case "string":
+                    path = args[0];
                     metadata = JSON.parse(readFileSync(args[0]).toString());
                     break;
                 default:
