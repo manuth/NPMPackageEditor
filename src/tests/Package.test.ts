@@ -484,6 +484,7 @@ suite(
                     async () =>
                     {
                         npmPackage = new TestPackage();
+                        npmPackage.FileName = Path.join(gitRoot, "package.json");
                         await npmPackage.Normalize(gitRoot);
                     });
 
@@ -508,11 +509,13 @@ suite(
                     "Checking whether sub-directories are applied correctly…",
                     async () =>
                     {
+                        let parsedPath = Path.parse(npmPackage.FileName);
                         let subDirectories = (await readdir(gitRoot)).filter((entry) => statSync(entry).isDirectory());
                         let directory = random.pick(subDirectories);
-                        let path = Path.join(gitRoot, directory);
+                        let fileName = Path.join(parsedPath.dir, directory, parsedPath.base);
                         npmPackage = new TestPackage();
-                        await npmPackage.Normalize(path);
+                        npmPackage.FileName = fileName;
+                        await npmPackage.Normalize();
                         Assert.ok(typeof npmPackage.Repository !== "string");
                         Assert.strictEqual(npmPackage.Repository.directory, directory);
                     });
