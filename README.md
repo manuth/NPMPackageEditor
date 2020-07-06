@@ -73,7 +73,8 @@ package.Author.EMail = "john.doe@example.com";
 
 ##### Editing Dependencies
 Handling dependencies is the key feature of this package.  
-Dependencies are represented by a class that allows you to easily add, remove, set and manage dependencies:
+Dependencies are represented by a class that allows you to easily add, remove, set and manage dependencies.  
+The dependencies of the `Package` class are ordered alphabetically out of the box.
 
 ```ts
 import { Package } from "@manuth/package-json-editor";
