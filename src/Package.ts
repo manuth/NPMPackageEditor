@@ -1,5 +1,7 @@
 import { readFileSync } from "fs";
 import { isNullOrUndefined } from "util";
+import gitRemoteOriginUrl = require("git-remote-origin-url");
+import normalize = require("normalize-package-data");
 import { Dictionary } from "./Collections/Dictionary";
 import { List } from "./Collections/List";
 import { PropertyDictionary } from "./Collections/PropertyDictionary";
@@ -368,6 +370,44 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     public Register(collection: IDependencyCollection): void
     {
         this.DependencyCollection.Register(collection);
+    }
+
+    /**
+     * Normalizes the package-metadata.
+     *
+     * @param root
+     * The root of the project.
+     */
+    public async Normalize(root?: string): Promise<void>
+    {
+        let packageData = { ...this.ToJSON() };
+
+        if (!isNullOrUndefined(root))
+        {
+            let remote: string;
+
+            try
+            {
+                remote = await gitRemoteOriginUrl(root);
+            }
+            catch
+            {
+                remote = null;
+            }
+
+            packageData.repository = remote;
+        }
+
+        normalize(packageData);
+
+        packageData = {
+            ...this.ToJSON(),
+            bin: packageData.bin,
+            man: packageData.man,
+            repository: packageData.repository,
+            bugs: packageData.bugs,
+            homepage: packageData.homepage
+        };
     }
 
     /**
