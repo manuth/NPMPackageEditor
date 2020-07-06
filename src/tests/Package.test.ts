@@ -1,9 +1,14 @@
 import Assert = require("assert");
 import { platform, arch } from "os";
-import { writeJSON } from "fs-extra";
+import { URL } from "url";
+import { writeJSON, readdir, statSync, readFile } from "fs-extra";
+import gitRemoteOriginUrl = require("git-remote-origin-url");
+import gitRootDir = require("git-root-dir");
 import { Random } from "random-js";
+import readmeFilename = require("readme-filename");
 import stringify = require("stringify-author");
 import { TempFile } from "temp-filesystem";
+import Path = require("upath");
 import { Dictionary } from "../Collections/Dictionary";
 import { List } from "../Collections/List";
 import { GenerationLogic } from "../GenerationLogic";
@@ -450,6 +455,66 @@ suite(
                     () =>
                     {
                         AssertPackageMeta(packageJSON);
+                    });
+            });
+
+        suite(
+            "Promise<void> Normalize(string root?)",
+            () =>
+            {
+                let gitRoot: string;
+                let gitRemoteUrl: URL;
+                let webUrl: URL;
+                let homepage: string;
+                let bugUrl: string;
+
+                suiteSetup(
+                    async () =>
+                    {
+                        gitRoot = await gitRootDir(__dirname);
+                        gitRemoteUrl = new URL(await gitRemoteOriginUrl(gitRoot));
+                        webUrl = new URL(await gitRemoteOriginUrl(gitRoot));
+                        webUrl.protocol = "https";
+                        webUrl.pathname = webUrl.pathname.replace(/\.git$/, "");
+                        homepage = `${webUrl}#readme`;
+                        bugUrl = `${webUrl}/issues`;
+                    });
+
+                setup(
+                    async () =>
+                    {
+                        npmPackage = new TestPackage();
+                        await npmPackage.Normalize(gitRoot);
+                    });
+
+                test(
+                    "Checking whether the git-info are applied correctly…",
+                    () =>
+                    {
+                        Assert.ok(typeof npmPackage.Repository !== "string");
+                        Assert.strictEqual(npmPackage.Repository.url, `git+${gitRemoteUrl}`);
+                        Assert.strictEqual(npmPackage.Homepage, homepage);
+                        Assert.strictEqual(npmPackage.Bugs.URL, bugUrl);
+                    });
+
+                test(
+                    "Checking whether the description is generated correctly…",
+                    async () =>
+                    {
+                        Assert.ok((await readFile(await readmeFilename(gitRoot))).toString().includes(npmPackage.Description));
+                    });
+
+                test(
+                    "Checking whether sub-directories are applied correctly…",
+                    async () =>
+                    {
+                        let subDirectories = (await readdir(gitRoot)).filter((entry) => statSync(entry).isDirectory());
+                        let directory = random.pick(subDirectories);
+                        let path = Path.join(gitRoot, directory);
+                        npmPackage = new TestPackage();
+                        await npmPackage.Normalize(path);
+                        Assert.ok(typeof npmPackage.Repository !== "string");
+                        Assert.strictEqual(npmPackage.Repository.directory, directory);
                     });
             });
 

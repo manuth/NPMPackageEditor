@@ -1,5 +1,11 @@
 import { readFileSync } from "fs";
 import { isNullOrUndefined } from "util";
+import { readFile } from "fs-extra";
+import gitRemoteOriginUrl = require("git-remote-origin-url");
+import gitRootDir = require("git-root-dir");
+import normalize = require("normalize-package-data");
+import readmeFilename = require("readme-filename");
+import Path = require("upath");
 import { Dictionary } from "./Collections/Dictionary";
 import { List } from "./Collections/List";
 import { PropertyDictionary } from "./Collections/PropertyDictionary";
@@ -53,12 +59,12 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     /**
      * Gets the maintainers of the package.
      */
-    public readonly Maintainers: Person[];
+    public Maintainers: Person[];
 
     /**
      * Gets the contributors of the package.
      */
-    public readonly Contributors: Person[];
+    public Contributors: Person[];
 
     /**
      * Gets or sets the license of the package.
@@ -73,7 +79,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     /**
      * Gets a set of engines which are required for running the package.
      */
-    public readonly Engines: Dictionary<string, string>;
+    public Engines: Dictionary<string, string>;
 
     /**
      * Gets or sets the operating-systems supported by this package.
@@ -133,7 +139,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     /**
      * Gets links for reporting bugs.
      */
-    public readonly Bugs: BugInfo;
+    public Bugs: BugInfo;
 
     /**
      * Gets or sets a set of persistent configurations.
@@ -148,17 +154,17 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     /**
      * Gets of script-commands for the package.
      */
-    public readonly Scripts: Dictionary<string, string>;
+    public Scripts: Dictionary<string, string>;
 
     /**
      * Gets the dependencies of the package.
      */
-    public readonly DependencyCollection: DependencyCollection;
+    public DependencyCollection: DependencyCollection;
 
     /**
      * The generation-logic for the properties.
      */
-    private readonly generationLogics: Map<keyof IPackageJSON, GenerationLogic> = new Map<keyof IPackageJSON, GenerationLogic>(
+    private generationLogics: Map<keyof IPackageJSON, GenerationLogic> = new Map<keyof IPackageJSON, GenerationLogic>(
         [
             ["maintainers", GenerationLogic.NonEmpty],
             ["contributors", GenerationLogic.NonEmpty],
@@ -220,58 +226,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
                 break;
         }
 
-        for (let entry of this.PropertyMap)
-        {
-            let value: any = packageJSON[entry[0]];
-
-            if (this.Defaults.Has(entry[0]))
-            {
-                value = value ?? this.Defaults.Get(entry[0]);
-            }
-
-            Object.assign(
-                packageJSON,
-                {
-                    [entry[0]]: value
-                });
-        }
-
-        this.DependencyCollection = this.LoadDependencyCollection(packageJSON);
-
-        for (let entry of this.PropertyMap)
-        {
-            let value: any = packageJSON[entry[0]];
-            let logic = this.LoadLogics.get(entry[0]);
-
-            if (logic !== LoadLogic.None)
-            {
-                switch (logic)
-                {
-                    case LoadLogic.Dictionary:
-                        value = this.LoadDictionary(value);
-                        break;
-                    case LoadLogic.Person:
-                        value = this.LoadPerson(value);
-                        break;
-                    case LoadLogic.PersonList:
-                        value = this.LoadPersonList(value);
-                        break;
-                    case LoadLogic.BugInfo:
-                        value = new BugInfo(value);
-                        break;
-                    case LoadLogic.Plain:
-                    default:
-                        value = this.LoadObject(value);
-                        break;
-                }
-
-                Object.assign(
-                    this,
-                    {
-                        [entry[1]]: value
-                    });
-            }
-        }
+        this.LoadMetadata(packageJSON);
     }
 
     /**
@@ -422,6 +377,69 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     }
 
     /**
+     * Normalizes the package-metadata.
+     *
+     * @param root
+     * The root of the project.
+     */
+    public async Normalize(root?: string): Promise<void>
+    {
+        let directory: string = null;
+        let readmeFile = await readmeFilename(root);
+        let packageData: IPackageJSON & normalize.Input = { ...this.ToJSON() };
+
+        if (!isNullOrUndefined(root))
+        {
+            let remote: string;
+
+            try
+            {
+                remote = await gitRemoteOriginUrl(root);
+            }
+            catch
+            {
+                remote = null;
+            }
+
+            packageData.repository = remote;
+
+            if (Path.resolve(await gitRootDir(root)) !== Path.resolve(root))
+            {
+                directory = Path.relative(await gitRootDir(root), root);
+            }
+        }
+
+        if (!isNullOrUndefined(readmeFile))
+        {
+            packageData.readme = (await readFile(readmeFile)).toString();
+        }
+
+        normalize(packageData);
+
+        let metadata: IPackageJSON = {
+            ...this.ToJSON(),
+            description: packageData.description,
+            bin: packageData.bin,
+            man: packageData.man,
+            repository: packageData.repository,
+            bugs: packageData.bugs,
+            homepage: packageData.homepage
+        };
+
+        if (directory !== null)
+        {
+            if (
+                !isNullOrUndefined(metadata.repository) &&
+                typeof metadata.repository !== "string")
+            {
+                metadata.repository.directory = directory;
+            }
+        }
+
+        this.LoadMetadata(metadata);
+    }
+
+    /**
      * Gets a json-object representing this package.
      *
      * @returns
@@ -462,6 +480,68 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
         }
 
         return result.ToJSON();
+    }
+
+    /**
+     * Loads package-metadata.
+     *
+     * @param metadata
+     * The matadata to load.
+     */
+    protected LoadMetadata(metadata: IPackageJSON): void
+    {
+        for (let entry of this.PropertyMap)
+        {
+            let value: any = metadata[entry[0]];
+
+            if (this.Defaults.Has(entry[0]))
+            {
+                value = value ?? this.Defaults.Get(entry[0]);
+            }
+
+            Object.assign(
+                metadata,
+                {
+                    [entry[0]]: value
+                });
+        }
+
+        this.DependencyCollection = this.LoadDependencyCollection(metadata);
+
+        for (let entry of this.PropertyMap)
+        {
+            let value: any = metadata[entry[0]];
+            let logic = this.LoadLogics.get(entry[0]);
+
+            if (logic !== LoadLogic.None)
+            {
+                switch (logic)
+                {
+                    case LoadLogic.Dictionary:
+                        value = this.LoadDictionary(value);
+                        break;
+                    case LoadLogic.Person:
+                        value = this.LoadPerson(value);
+                        break;
+                    case LoadLogic.PersonList:
+                        value = this.LoadPersonList(value);
+                        break;
+                    case LoadLogic.BugInfo:
+                        value = new BugInfo(value);
+                        break;
+                    case LoadLogic.Plain:
+                    default:
+                        value = this.LoadObject(value);
+                        break;
+                }
+
+                Object.assign(
+                    this,
+                    {
+                        [entry[1]]: value
+                    });
+            }
+        }
     }
 
     /**
