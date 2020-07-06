@@ -36,9 +36,16 @@ You can create a `Package` object by passing a path to a `package.json` file or 
 import path = require("path");
 import { Package } from "@manuth/package-json-editor";
 
+let packagePath = path.join(__dirname, "package.json");
+
+// Option 1: Passing nothing
 let package = new Package();
-let package = new Package(path.join(__dirname, "package.json"));
-let package = new Package(
+
+// Option 2: Passing the filename
+let package = new Package(packagePath); // Loads the metadata from the specified file
+
+// Option 3: Passing the metadata
+let package = new Package( // Loads the metadata from the specified object
     {
         name: "example",
         version: "0.0.0",
@@ -51,6 +58,9 @@ let package = new Package(
             "Jane Doe <jane.doe@example.com>"
         ]
     });
+
+// Option 4: Passing the filename and the metadata
+let package = new Package(packagePath, { name: "example" }); // Loads the metadata from the specified object
 ```
 
 #### Normalizing Meta-Data
