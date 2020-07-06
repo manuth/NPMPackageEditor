@@ -40,7 +40,7 @@ steps:
     commands:
       - echo "//npm.pkg.github.com/:_authToken=$${GITHUB_TOKEN}" > ~/.npmrc
       - echo "registry=https://npm.pkg.github.com" >> ~/.npmrc
-      - npm publish
+      - npm publish | exit 0
     when:
       event:
         - tag
