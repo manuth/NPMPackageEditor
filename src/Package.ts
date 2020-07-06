@@ -1,6 +1,6 @@
 import { readFileSync } from "fs";
 import { isNullOrUndefined } from "util";
-import { readFile } from "fs-extra";
+import { readFile, pathExists } from "fs-extra";
 import gitRemoteOriginUrl = require("git-remote-origin-url");
 import gitRootDir = require("git-root-dir");
 import normalize = require("normalize-package-data");
@@ -419,33 +419,43 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     public async Normalize(root?: string): Promise<void>
     {
         let directory: string = null;
-        let readmeFile = await readmeFilename(root);
         let packageData: IPackageJSON & normalize.Input = { ...this.ToJSON() };
 
-        if (!isNullOrUndefined(root))
+        if (!isNullOrUndefined(this.FileName))
         {
-            let remote: string;
+            let packageRoot = Path.dirname(Path.resolve(this.FileName));
 
-            try
+            if (await pathExists(packageRoot))
             {
-                remote = await gitRemoteOriginUrl(root);
-            }
-            catch
-            {
-                remote = null;
-            }
+                let gitRoot = await gitRootDir(packageRoot);
+                let readmeFile = await readmeFilename(root);
 
-            packageData.repository = remote;
+                if (!isNullOrUndefined(gitRoot))
+                {
+                    let remote: string;
 
-            if (Path.resolve(await gitRootDir(root)) !== Path.resolve(root))
-            {
-                directory = Path.relative(await gitRootDir(root), root);
+                    try
+                    {
+                        remote = await gitRemoteOriginUrl(gitRoot);
+                    }
+                    catch
+                    {
+                        remote = null;
+                    }
+
+                    packageData.repository = remote;
+
+                    if (Path.resolve(gitRoot) !== Path.resolve(packageRoot))
+                    {
+                        directory = Path.relative(gitRoot, packageRoot);
+                    }
+                }
+
+                if (!isNullOrUndefined(readmeFile))
+                {
+                    packageData.readme = (await readFile(readmeFile)).toString();
+                }
             }
-        }
-
-        if (!isNullOrUndefined(readmeFile))
-        {
-            packageData.readme = (await readFile(readmeFile)).toString();
         }
 
         normalize(packageData);
