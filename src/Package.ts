@@ -32,6 +32,11 @@ import { JSONObjectBase } from "./Utilities/JSONObjectBase";
 export class Package extends JSONObjectBase<IPackageJSON> implements IDependencyCollection
 {
     /**
+     * Gets or sets name of the package-file.
+     */
+    public FileName: string;
+
+    /**
      * Gets or sets the name of the package.
      */
     public Name: string;
@@ -206,27 +211,45 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     public constructor(packageJSON: IPackageJSON);
 
     /**
+     * Initializes a new instance of the `Package`.
+     *
+     * @param path
+     * The path to the `package.json` file.
+     *
+     * @param packageJSON
+     * The options of the package-manifest.
+     */
+    public constructor(path: string, packageJSON: IPackageJSON);
+
+    /**
      * Initializes a new instance of the `Package` class.
      *
      * @param args
      * The passed arguments.
      */
-    public constructor(...args: [] | [string] | [IPackageJSON])
+    public constructor(...args: [] | [string] | [IPackageJSON] | [string, IPackageJSON])
     {
         super();
+        let path: string = null;
         let packageJSON: IPackageJSON;
 
-        switch (typeof args[0])
+        if (args.length === 2)
         {
-            case "string":
-                packageJSON = JSON.parse(readFileSync(args[0]).toString());
-                break;
-            default:
-                packageJSON = args[0] ?? {};
-                break;
+            path = args[0];
+            packageJSON = args[1];
+        }
+        else
+        {
+            switch (typeof args[0])
+            {
+                case "string":
+                    packageJSON = JSON.parse(readFileSync(args[0]).toString());
+                    break;
+            }
         }
 
-        this.LoadMetadata(packageJSON);
+        this.FileName = path;
+        this.LoadMetadata(packageJSON ?? {});
     }
 
     /**
