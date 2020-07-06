@@ -100,7 +100,7 @@ suite(
                  *
                  * @returns
                  */
-                function GetDependencySetNames(): Array<keyof Omit<DependencyCollection, "Register" | "BundledDependencies">>
+                function GetDependencySetNames(): Array<keyof Omit<DependencyCollection, "Register" | "Clear" | "BundledDependencies">>
                 {
                     return [
                         "Dependencies",

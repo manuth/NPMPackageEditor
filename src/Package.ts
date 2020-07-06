@@ -408,6 +408,8 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
             bugs: packageData.bugs,
             homepage: packageData.homepage
         };
+
+        this.LoadMetadata(packageData);
     }
 
     /**
