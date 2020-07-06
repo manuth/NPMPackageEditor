@@ -1,0 +1,13 @@
+{
+    "extends": "./tsconfig.base.json",
+    "compileOnSave": true,
+    "compilerOptions": {
+        "rootDir": "./src",
+        "outDir": "./lib"
+    },
+    "references": [
+        {
+            "path": "./tsconfig.eslint.json"
+        }
+    ]
+}
