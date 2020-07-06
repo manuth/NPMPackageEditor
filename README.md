@@ -72,7 +72,7 @@ package.Author.EMail = "john.doe@example.com";
 ```
 
 ##### Editing Dependencies
-Handling dependencies is he key feature of this package.  
+Handling dependencies is the key feature of this package.  
 Dependencies are represented by a class that allows you to easily add, remove, set and manage dependencies:
 
 ```ts
