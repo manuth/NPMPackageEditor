@@ -36,7 +36,7 @@ steps:
     image: node
     environment:
       GITHUB_TOKEN:
-        from_secret: github_token
+        from_secret: github_packages_token
     commands:
       - echo "//npm.pkg.github.com/:_authToken=$${GITHUB_TOKEN}" > ~/.npmrc
       - npm publish
@@ -72,7 +72,7 @@ steps:
     commands: []
     settings:
       api_key:
-        from_secret: github_token
+        from_secret: github_publish_token
       files:
         - "*.tgz"
       title: ReleaseTitle.md
