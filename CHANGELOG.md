@@ -6,7 +6,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## NPMPackageEditor [unreleased]
 
-[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.1.0...dev)
+[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.2.0...dev)
+
+## NPMPackageEditor v1.2.0
+### Added
+  - Support for overwriting existing dependencies when registering a collection
+  - A property for retrieving all dependencies in a collection
+  - A `FileName` property to the `Package` class
+  - New tests for stability improvements
+
+### Updated
+  - The `README` file
+  - All dependencies
+
+[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.1.0...v1.2.0)
 
 ## NPMPackageEditor v1.1.0
 ### Added
