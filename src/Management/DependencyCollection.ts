@@ -68,13 +68,42 @@ export class DependencyCollection implements IDependencyCollection
      *
      * @param collection
      * The collection to register.
+     *
+     * @param overwrite
+     * A value indicating whether existing dependencies should be overwritten.
      */
-    public Register(collection: IDependencyCollection): void
+    public Register(collection: IDependencyCollection, overwrite?: boolean): void
     {
-        this.Dependencies.AddRange(collection.Dependencies);
-        this.DevelpomentDependencies.AddRange(collection.DevelpomentDependencies);
-        this.PeerDependencies.AddRange(collection.PeerDependencies);
-        this.OptionalDependencies.AddRange(collection.OptionalDependencies);
+        let keys: Array<
+            keyof Pick<
+                DependencyCollection,
+                "Dependencies" |
+                "DevelpomentDependencies" |
+                "PeerDependencies" |
+                "OptionalDependencies">>;
+
+        keys = [
+            "Dependencies",
+            "DevelpomentDependencies",
+            "PeerDependencies",
+            "OptionalDependencies"
+        ];
+
+        for (let key of keys)
+        {
+            if (overwrite)
+            {
+                for (let dependency of collection[key].Entries)
+                {
+                    if (this[key].Has(dependency[0]))
+                    {
+                        this[key].Remove(dependency[0]);
+                    }
+                }
+            }
+
+            this[key].AddRange(collection[key]);
+        }
 
         for (let dependency of collection.BundledDependencies.Values)
         {

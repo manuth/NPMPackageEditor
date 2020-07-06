@@ -370,10 +370,13 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
      *
      * @param collection
      * The collection to register.
+     *
+     * @param overwrite
+     * A value indicating whether existing dependencies should be overwritten.
      */
-    public Register(collection: IDependencyCollection): void
+    public Register(collection: IDependencyCollection, overwrite?: boolean): void
     {
-        this.DependencyCollection.Register(collection);
+        this.DependencyCollection.Register(collection, overwrite);
     }
 
     /**

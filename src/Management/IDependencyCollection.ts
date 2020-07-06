@@ -36,6 +36,9 @@ export interface IDependencyCollection
      *
      * @param collection
      * The collection to register.
+     *
+     * @param overwrite
+     * A value indicating whether existing dependencies should be overwritten.
      */
-    Register(collection: IDependencyCollection): void;
+    Register(collection: IDependencyCollection, overwrite?: boolean): void;
 }
