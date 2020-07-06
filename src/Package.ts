@@ -1,7 +1,9 @@
 import { readFileSync } from "fs";
 import { isNullOrUndefined } from "util";
 import gitRemoteOriginUrl = require("git-remote-origin-url");
+import gitRootDir = require("git-root-dir");
 import normalize = require("normalize-package-data");
+import Path = require("upath");
 import { Dictionary } from "./Collections/Dictionary";
 import { List } from "./Collections/List";
 import { PropertyDictionary } from "./Collections/PropertyDictionary";
@@ -380,7 +382,8 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
      */
     public async Normalize(root?: string): Promise<void>
     {
-        let packageData = { ...this.ToJSON() };
+        let directory: string = null;
+        let packageData: IPackageJSON = { ...this.ToJSON() };
 
         if (!isNullOrUndefined(root))
         {
@@ -396,6 +399,11 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
             }
 
             packageData.repository = remote;
+
+            if (Path.resolve(await gitRootDir(root)) !== Path.resolve(root))
+            {
+                directory = Path.relative(await gitRootDir(root), root);
+            }
         }
 
         normalize(packageData);
@@ -408,6 +416,16 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
             bugs: packageData.bugs,
             homepage: packageData.homepage
         };
+
+        if (directory !== null)
+        {
+            if (
+                !isNullOrUndefined(packageData.repository) &&
+                typeof packageData.repository !== "string")
+            {
+                packageData.repository.directory = directory;
+            }
+        }
 
         this.LoadMetadata(packageData);
     }
