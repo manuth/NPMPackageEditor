@@ -220,58 +220,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
                 break;
         }
 
-        for (let entry of this.PropertyMap)
-        {
-            let value: any = packageJSON[entry[0]];
-
-            if (this.Defaults.Has(entry[0]))
-            {
-                value = value ?? this.Defaults.Get(entry[0]);
-            }
-
-            Object.assign(
-                packageJSON,
-                {
-                    [entry[0]]: value
-                });
-        }
-
-        this.DependencyCollection = this.LoadDependencyCollection(packageJSON);
-
-        for (let entry of this.PropertyMap)
-        {
-            let value: any = packageJSON[entry[0]];
-            let logic = this.LoadLogics.get(entry[0]);
-
-            if (logic !== LoadLogic.None)
-            {
-                switch (logic)
-                {
-                    case LoadLogic.Dictionary:
-                        value = this.LoadDictionary(value);
-                        break;
-                    case LoadLogic.Person:
-                        value = this.LoadPerson(value);
-                        break;
-                    case LoadLogic.PersonList:
-                        value = this.LoadPersonList(value);
-                        break;
-                    case LoadLogic.BugInfo:
-                        value = new BugInfo(value);
-                        break;
-                    case LoadLogic.Plain:
-                    default:
-                        value = this.LoadObject(value);
-                        break;
-                }
-
-                Object.assign(
-                    this,
-                    {
-                        [entry[1]]: value
-                    });
-            }
-        }
+        this.LoadMetadata(packageJSON);
     }
 
     /**
@@ -462,6 +411,68 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
         }
 
         return result.ToJSON();
+    }
+
+    /**
+     * Loads package-metadata.
+     *
+     * @param metadata
+     * The matadata to load.
+     */
+    protected LoadMetadata(metadata: IPackageJSON): void
+    {
+        for (let entry of this.PropertyMap)
+        {
+            let value: any = metadata[entry[0]];
+
+            if (this.Defaults.Has(entry[0]))
+            {
+                value = value ?? this.Defaults.Get(entry[0]);
+            }
+
+            Object.assign(
+                metadata,
+                {
+                    [entry[0]]: value
+                });
+        }
+
+        this.DependencyCollection = this.LoadDependencyCollection(metadata);
+
+        for (let entry of this.PropertyMap)
+        {
+            let value: any = metadata[entry[0]];
+            let logic = this.LoadLogics.get(entry[0]);
+
+            if (logic !== LoadLogic.None)
+            {
+                switch (logic)
+                {
+                    case LoadLogic.Dictionary:
+                        value = this.LoadDictionary(value);
+                        break;
+                    case LoadLogic.Person:
+                        value = this.LoadPerson(value);
+                        break;
+                    case LoadLogic.PersonList:
+                        value = this.LoadPersonList(value);
+                        break;
+                    case LoadLogic.BugInfo:
+                        value = new BugInfo(value);
+                        break;
+                    case LoadLogic.Plain:
+                    default:
+                        value = this.LoadObject(value);
+                        break;
+                }
+
+                Object.assign(
+                    this,
+                    {
+                        [entry[1]]: value
+                    });
+            }
+        }
     }
 
     /**
