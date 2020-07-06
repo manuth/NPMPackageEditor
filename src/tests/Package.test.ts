@@ -1,7 +1,8 @@
 import Assert = require("assert");
 import { platform, arch } from "os";
 import { URL } from "url";
-import { writeJSON, readdir, statSync, readFile } from "fs-extra";
+import { isNullOrUndefined } from "util";
+import { writeJSON, readdir, statSync, readFile, remove } from "fs-extra";
 import gitRemoteOriginUrl = require("git-remote-origin-url");
 import gitRootDir = require("git-root-dir");
 import { Random } from "random-js";
@@ -455,6 +456,68 @@ suite(
                     () =>
                     {
                         AssertPackageMeta(metadata);
+                    });
+
+                test(
+                    "Checking whether the `FileName` is set to the path of the source-file…",
+                    () =>
+                    {
+                        Assert.strictEqual(npmPackage.FileName, tempFile.FullName);
+                    });
+            });
+
+        suite(
+            "constructor(string path, IPackageMetadata metadata)",
+            () =>
+            {
+                let tempFile: TempFile;
+                let inexistentFile: TempFile;
+                let testValue: string;
+
+                suiteSetup(
+                    async () =>
+                    {
+                        tempFile = new TempFile();
+                        inexistentFile = new TempFile();
+                        testValue = random.string(20);
+                        await writeJSON(tempFile.FullName, metadata);
+                        await remove(inexistentFile.FullName);
+                    });
+
+                suiteTeardown(
+                    () =>
+                    {
+                        tempFile.Dispose();
+                        inexistentFile.Dispose();
+                    });
+
+                setup(
+                    () =>
+                    {
+                        npmPackage = new TestPackage(tempFile.FullName, {});
+                    });
+
+                test(
+                    "Checking whether values aren't loaded from the file…",
+                    () =>
+                    {
+                        Assert.notStrictEqual(npmPackage.Name, metadata.name);
+                        Assert.ok(isNullOrUndefined(npmPackage.Name));
+                    });
+
+                test(
+                    "Checking whether passing inexistent file-names doesn't throw an error…",
+                    () =>
+                    {
+                        Assert.doesNotThrow(() => new TestPackage(inexistentFile.FullName, {}));
+                    });
+
+                test(
+                    "Checking whether the metadata is loaded from the object…",
+                    () =>
+                    {
+                        npmPackage = new TestPackage(inexistentFile.FullName, { name: testValue });
+                        Assert.strictEqual(npmPackage.Name, testValue);
                     });
             });
 
