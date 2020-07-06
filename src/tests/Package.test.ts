@@ -1,7 +1,8 @@
 import Assert = require("assert");
 import { platform, arch } from "os";
 import { URL } from "url";
-import { writeJSON, readdir, statSync, readFile } from "fs-extra";
+import { isNullOrUndefined } from "util";
+import { writeJSON, readdir, statSync, readFile, remove } from "fs-extra";
 import gitRemoteOriginUrl = require("git-remote-origin-url");
 import gitRootDir = require("git-root-dir");
 import { Random } from "random-js";
@@ -12,7 +13,7 @@ import Path = require("upath");
 import { Dictionary } from "../Collections/Dictionary";
 import { List } from "../Collections/List";
 import { GenerationLogic } from "../GenerationLogic";
-import { IPackageJSON } from "../IPackageJSON";
+import { IPackageMetadata } from "../IPackageMetadata";
 import { BugInfo } from "../Management/BugInfo";
 import { IBugInfo } from "../Management/IBugInfo";
 import { IPerson } from "../Management/IPerson";
@@ -28,7 +29,7 @@ suite(
     () =>
     {
         let random: Random;
-        let packageJSON: IPackageJSON;
+        let metadata: IPackageMetadata;
         let npmPackage: TestPackage;
 
         /**
@@ -177,7 +178,7 @@ suite(
                     };
                 }
 
-                packageJSON = {
+                metadata = {
                     name: text(),
                     version: `${digit()}.${digit()}.${digit()}`,
                     private: random.bool(),
@@ -260,47 +261,47 @@ suite(
         setup(
             () =>
             {
-                npmPackage = new TestPackage(packageJSON);
+                npmPackage = new TestPackage(metadata);
             });
 
         /**
          * Asserts the contents of the `npmPackage`.
          *
-         * @param packageJSON
+         * @param metadata
          * The expected meta-data.
          */
-        function AssertPackageMeta(packageJSON: IPackageJSON): void
+        function AssertPackageMeta(metadata: IPackageMetadata): void
         {
-            Assert.strictEqual(npmPackage.Name, packageJSON.name);
-            Assert.strictEqual(npmPackage.Version, packageJSON.version);
-            Assert.strictEqual(npmPackage.Private, packageJSON.private);
-            Assert.strictEqual(npmPackage.Description, packageJSON.description);
-            AssertPerson(npmPackage.Author, packageJSON.author);
-            AssertPersonList(npmPackage.Maintainers, packageJSON.maintainers);
-            AssertPersonList(npmPackage.Contributors, packageJSON.contributors);
-            Assert.strictEqual(npmPackage.License, packageJSON.license);
-            Assert.deepStrictEqual(npmPackage.Keywords, packageJSON.keywords);
-            AssertDictionary(npmPackage.Engines, packageJSON.engines);
-            Assert.deepStrictEqual(npmPackage.OS, packageJSON.os);
-            Assert.deepStrictEqual(npmPackage.CPU, packageJSON.cpu);
-            Assert.strictEqual(npmPackage.Main, packageJSON.main);
-            Assert.strictEqual(npmPackage.Types, packageJSON.types);
-            Assert.deepStrictEqual(npmPackage.Browser, packageJSON.browser);
-            Assert.deepStrictEqual(npmPackage.Binaries, packageJSON.bin);
-            Assert.deepStrictEqual(npmPackage.Manuals, packageJSON.man);
-            Assert.deepStrictEqual(npmPackage.Files, packageJSON.files);
-            Assert.deepStrictEqual(npmPackage.Directories, packageJSON.directories);
-            Assert.strictEqual(npmPackage.Homepage, packageJSON.homepage);
-            Assert.deepStrictEqual(npmPackage.Repository, packageJSON.repository);
-            AssertBugInfo(npmPackage.Bugs, packageJSON.bugs);
-            Assert.deepStrictEqual(npmPackage.Config, packageJSON.config);
-            Assert.deepStrictEqual(npmPackage.PublishConfig, packageJSON.publishConfig);
-            AssertDictionary(npmPackage.Scripts, packageJSON.scripts);
-            AssertDictionary(npmPackage.Dependencies, packageJSON.dependencies);
-            AssertDictionary(npmPackage.DevelpomentDependencies, packageJSON.devDependencies);
-            AssertDictionary(npmPackage.PeerDependencies, packageJSON.peerDependencies);
-            AssertDictionary(npmPackage.OptionalDependencies, packageJSON.optionalDependencies);
-            Assert.deepStrictEqual(npmPackage.BundledDependencies.ToJSON(), packageJSON.bundledDependencies);
+            Assert.strictEqual(npmPackage.Name, metadata.name);
+            Assert.strictEqual(npmPackage.Version, metadata.version);
+            Assert.strictEqual(npmPackage.Private, metadata.private);
+            Assert.strictEqual(npmPackage.Description, metadata.description);
+            AssertPerson(npmPackage.Author, metadata.author);
+            AssertPersonList(npmPackage.Maintainers, metadata.maintainers);
+            AssertPersonList(npmPackage.Contributors, metadata.contributors);
+            Assert.strictEqual(npmPackage.License, metadata.license);
+            Assert.deepStrictEqual(npmPackage.Keywords, metadata.keywords);
+            AssertDictionary(npmPackage.Engines, metadata.engines);
+            Assert.deepStrictEqual(npmPackage.OS, metadata.os);
+            Assert.deepStrictEqual(npmPackage.CPU, metadata.cpu);
+            Assert.strictEqual(npmPackage.Main, metadata.main);
+            Assert.strictEqual(npmPackage.Types, metadata.types);
+            Assert.deepStrictEqual(npmPackage.Browser, metadata.browser);
+            Assert.deepStrictEqual(npmPackage.Binaries, metadata.bin);
+            Assert.deepStrictEqual(npmPackage.Manuals, metadata.man);
+            Assert.deepStrictEqual(npmPackage.Files, metadata.files);
+            Assert.deepStrictEqual(npmPackage.Directories, metadata.directories);
+            Assert.strictEqual(npmPackage.Homepage, metadata.homepage);
+            Assert.deepStrictEqual(npmPackage.Repository, metadata.repository);
+            AssertBugInfo(npmPackage.Bugs, metadata.bugs);
+            Assert.deepStrictEqual(npmPackage.Config, metadata.config);
+            Assert.deepStrictEqual(npmPackage.PublishConfig, metadata.publishConfig);
+            AssertDictionary(npmPackage.Scripts, metadata.scripts);
+            AssertDictionary(npmPackage.Dependencies, metadata.dependencies);
+            AssertDictionary(npmPackage.DevelpomentDependencies, metadata.devDependencies);
+            AssertDictionary(npmPackage.PeerDependencies, metadata.peerDependencies);
+            AssertDictionary(npmPackage.OptionalDependencies, metadata.optionalDependencies);
+            Assert.deepStrictEqual(npmPackage.BundledDependencies.ToJSON(), metadata.bundledDependencies);
         }
 
         suite(
@@ -320,7 +321,7 @@ suite(
             });
 
         suite(
-            "constructor(IPackageJSON packageJSON)",
+            "constructor(IPackageMetadata metadata)",
             () =>
             {
                 suite(
@@ -331,7 +332,7 @@ suite(
                             "Checking whether the values are loaded correctly…",
                             () =>
                             {
-                                AssertPackageMeta(packageJSON);
+                                AssertPackageMeta(metadata);
                             });
                     });
 
@@ -354,10 +355,10 @@ suite(
                          * @param overwriteUndefined
                          * A value indicating whether `undefined`s are being overwritten.
                          */
-                        function AssertDefault<TOptionsKey extends keyof IPackageJSON, TKey extends keyof Package>(key: TKey, expected: any, comparator?: AssertComparator<Package[TKey], any>, overwriteUndefined = true): void
+                        function AssertDefault<TMetaKey extends keyof IPackageMetadata, TKey extends keyof Package>(key: TKey, expected: any, comparator?: AssertComparator<Package[TKey], any>, overwriteUndefined = true): void
                         {
                             let optionsKey = new Map(npmPackage.PropertyMap.map((entry) => [entry[1], entry[0]])).get(key);
-                            let packageOptions = new JSONObject(packageJSON);
+                            let packageOptions = new JSONObject(metadata);
 
                             comparator = comparator ?? (
                                 (x, y) =>
@@ -371,7 +372,7 @@ suite(
                              * @param expected
                              * The expected value of the setting.
                              */
-                            function AssertValue(expected: IPackageJSON[TOptionsKey]): void
+                            function AssertValue(expected: IPackageMetadata[TMetaKey]): void
                             {
                                 comparator(new TestPackage(packageOptions.ToJSON())[key], expected);
                             }
@@ -435,7 +436,7 @@ suite(
                     async () =>
                     {
                         tempFile = new TempFile();
-                        await writeJSON(tempFile.FullName, packageJSON);
+                        await writeJSON(tempFile.FullName, metadata);
                     });
 
                 suiteTeardown(
@@ -454,7 +455,69 @@ suite(
                     "Checking whether values are loaded from the `package.json` file correctly…",
                     () =>
                     {
-                        AssertPackageMeta(packageJSON);
+                        AssertPackageMeta(metadata);
+                    });
+
+                test(
+                    "Checking whether the `FileName` is set to the path of the source-file…",
+                    () =>
+                    {
+                        Assert.strictEqual(npmPackage.FileName, tempFile.FullName);
+                    });
+            });
+
+        suite(
+            "constructor(string path, IPackageMetadata metadata)",
+            () =>
+            {
+                let tempFile: TempFile;
+                let inexistentFile: TempFile;
+                let testValue: string;
+
+                suiteSetup(
+                    async () =>
+                    {
+                        tempFile = new TempFile();
+                        inexistentFile = new TempFile();
+                        testValue = random.string(20);
+                        await writeJSON(tempFile.FullName, metadata);
+                        await remove(inexistentFile.FullName);
+                    });
+
+                suiteTeardown(
+                    () =>
+                    {
+                        tempFile.Dispose();
+                        inexistentFile.Dispose();
+                    });
+
+                setup(
+                    () =>
+                    {
+                        npmPackage = new TestPackage(tempFile.FullName, {});
+                    });
+
+                test(
+                    "Checking whether values aren't loaded from the file…",
+                    () =>
+                    {
+                        Assert.notStrictEqual(npmPackage.Name, metadata.name);
+                        Assert.ok(isNullOrUndefined(npmPackage.Name));
+                    });
+
+                test(
+                    "Checking whether passing inexistent file-names doesn't throw an error…",
+                    () =>
+                    {
+                        Assert.doesNotThrow(() => new TestPackage(inexistentFile.FullName, {}));
+                    });
+
+                test(
+                    "Checking whether the metadata is loaded from the object…",
+                    () =>
+                    {
+                        npmPackage = new TestPackage(inexistentFile.FullName, { name: testValue });
+                        Assert.strictEqual(npmPackage.Name, testValue);
                     });
             });
 
@@ -484,6 +547,7 @@ suite(
                     async () =>
                     {
                         npmPackage = new TestPackage();
+                        npmPackage.FileName = Path.join(gitRoot, "package.json");
                         await npmPackage.Normalize(gitRoot);
                     });
 
@@ -508,43 +572,45 @@ suite(
                     "Checking whether sub-directories are applied correctly…",
                     async () =>
                     {
+                        let parsedPath = Path.parse(npmPackage.FileName);
                         let subDirectories = (await readdir(gitRoot)).filter((entry) => statSync(entry).isDirectory());
                         let directory = random.pick(subDirectories);
-                        let path = Path.join(gitRoot, directory);
+                        let fileName = Path.join(parsedPath.dir, directory, parsedPath.base);
                         npmPackage = new TestPackage();
-                        await npmPackage.Normalize(path);
+                        npmPackage.FileName = fileName;
+                        await npmPackage.Normalize();
                         Assert.ok(typeof npmPackage.Repository !== "string");
                         Assert.strictEqual(npmPackage.Repository.directory, directory);
                     });
             });
 
         suite(
-            "IPackageJSON ToJSON()",
+            "IPackageMetadata ToJSON()",
             () =>
             {
-                let generatedPackage: IPackageJSON;
+                let generatedMeta: IPackageMetadata;
 
                 setup(
                     () =>
                     {
-                        generatedPackage = npmPackage.ToJSON();
+                        generatedMeta = npmPackage.ToJSON();
                     });
 
                 test(
                     "Checking whether only important properties are present even if they're empty…",
                     () =>
                     {
-                        let importantKeys: Array<keyof IPackageJSON> = [
+                        let importantKeys: Array<keyof IPackageMetadata> = [
                             "scripts",
                             "dependencies",
                             "devDependencies"
                         ];
 
-                        generatedPackage = new TestPackage().ToJSON();
+                        generatedMeta = new TestPackage().ToJSON();
 
                         Assert.ok(
-                            Object.keys(generatedPackage).every(
-                                (key: keyof IPackageJSON) =>
+                            Object.keys(generatedMeta).every(
+                                (key: keyof IPackageMetadata) =>
                                 {
                                     return importantKeys.includes(key);
                                 }));
@@ -554,7 +620,7 @@ suite(
                     "Checking whether the behavior of the object-creation can be changed by manipulating `GeneratorLogics`…",
                     () =>
                     {
-                        let property: keyof IPackageJSON = "name";
+                        let property: keyof IPackageMetadata = "name";
                         npmPackage = new TestPackage();
                         npmPackage.GenerationLogics.set(property, GenerationLogic.Always);
                         Assert.ok(property in npmPackage.ToJSON());

@@ -17,9 +17,9 @@ Using a code-editor with typescript support provides autocompletion for `package
 
 ```ts
 import fs = require("fs");
-import { IPackageJSON } from "@manuth/package-json-editor";
+import { IPackageMetadata } from "@manuth/package-json-editor";
 
-let packageMeta: IPackageJSON;
+let packageMeta: IPackageMetadata;
 packageMeta = {
     name: "example",
     version: "1.0.0"
@@ -36,9 +36,16 @@ You can create a `Package` object by passing a path to a `package.json` file or 
 import path = require("path");
 import { Package } from "@manuth/package-json-editor";
 
+let packagePath = path.join(__dirname, "package.json");
+
+// Option 1: Passing nothing
 let package = new Package();
-let package = new Package(path.join(__dirname, "package.json"));
-let package = new Package(
+
+// Option 2: Passing the filename
+let package = new Package(packagePath); // Loads the metadata from the specified file
+
+// Option 3: Passing the metadata
+let package = new Package( // Loads the metadata from the specified object
     {
         name: "example",
         version: "0.0.0",
@@ -51,6 +58,9 @@ let package = new Package(
             "Jane Doe <jane.doe@example.com>"
         ]
     });
+
+// Option 4: Passing the filename and the metadata
+let package = new Package(packagePath, { name: "example" }); // Loads the metadata from the specified object
 ```
 
 #### Normalizing Meta-Data
@@ -58,7 +68,7 @@ Using the `Package.Normalize` method, some properties of the package are set aut
   * If `bin` is a string, it is set to an object with a property named like the package's `name` and its value set to the original string.
   * If `man` is a string, it is set to an array containing said string.
 
-If you pass the `root` of the package as an argument, following properties are normalized in addition:
+If the `FileName` property of the package is set, following properties will be normalized in addition:
   * If undefined, `description` is automatically loaded from the `README` file
   * If the package is located inside a `GitHub` repository, `bugs` and `homepage` are automatically set if they're undefined
   * If the package is located inside a `git` repository, the `repository` property is set accordingly, if undefined
@@ -68,10 +78,16 @@ import path = require("path");
 import { Package } from "@manuth/package-json-editor";
 
 let packagePath = path.join("path", "to", "package", "package.json");
+
 let package = new Package(packagePath);
 await package.Normalize();
 // or
-await package.Normalize(path.dirname(packagePath));
+let package = new Package({});
+package.FileName = packagePath;
+await package.Normalize();
+// or
+let package = new Package({});
+await package.Normalize();
 ```
 
 #### Editing Meta-Data

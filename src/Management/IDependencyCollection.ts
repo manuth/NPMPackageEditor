@@ -27,6 +27,11 @@ export interface IDependencyCollection
     readonly OptionalDependencies: Dictionary<string, string>;
 
     /**
+     * Gets all normal, optional and development dependencies.
+     */
+    readonly AllDependencies: Dictionary<string, string>;
+
+    /**
      * Gets a set of dependencies to include into `.tgz`-packages.
      */
     readonly BundledDependencies: List<string>;
@@ -36,6 +41,9 @@ export interface IDependencyCollection
      *
      * @param collection
      * The collection to register.
+     *
+     * @param overwrite
+     * A value indicating whether existing dependencies should be overwritten.
      */
-    Register(collection: IDependencyCollection): void;
+    Register(collection: IDependencyCollection, overwrite?: boolean): void;
 }
