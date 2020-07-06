@@ -245,6 +245,9 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
                 case "string":
                     packageJSON = JSON.parse(readFileSync(args[0]).toString());
                     break;
+                default:
+                    packageJSON = args[0];
+                    break;
             }
         }
 
