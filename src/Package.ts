@@ -53,12 +53,12 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     /**
      * Gets the maintainers of the package.
      */
-    public readonly Maintainers: Person[];
+    public Maintainers: Person[];
 
     /**
      * Gets the contributors of the package.
      */
-    public readonly Contributors: Person[];
+    public Contributors: Person[];
 
     /**
      * Gets or sets the license of the package.
@@ -73,7 +73,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     /**
      * Gets a set of engines which are required for running the package.
      */
-    public readonly Engines: Dictionary<string, string>;
+    public Engines: Dictionary<string, string>;
 
     /**
      * Gets or sets the operating-systems supported by this package.
@@ -133,7 +133,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     /**
      * Gets links for reporting bugs.
      */
-    public readonly Bugs: BugInfo;
+    public Bugs: BugInfo;
 
     /**
      * Gets or sets a set of persistent configurations.
@@ -148,17 +148,17 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     /**
      * Gets of script-commands for the package.
      */
-    public readonly Scripts: Dictionary<string, string>;
+    public Scripts: Dictionary<string, string>;
 
     /**
      * Gets the dependencies of the package.
      */
-    public readonly DependencyCollection: DependencyCollection;
+    public DependencyCollection: DependencyCollection;
 
     /**
      * The generation-logic for the properties.
      */
-    private readonly generationLogics: Map<keyof IPackageJSON, GenerationLogic> = new Map<keyof IPackageJSON, GenerationLogic>(
+    private generationLogics: Map<keyof IPackageJSON, GenerationLogic> = new Map<keyof IPackageJSON, GenerationLogic>(
         [
             ["maintainers", GenerationLogic.NonEmpty],
             ["contributors", GenerationLogic.NonEmpty],
