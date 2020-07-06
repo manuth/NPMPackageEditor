@@ -1,10 +1,11 @@
 import Assert = require("assert");
 import { platform, arch } from "os";
 import { URL } from "url";
-import { writeJSON, readdir, statSync } from "fs-extra";
+import { writeJSON, readdir, statSync, readFile } from "fs-extra";
 import gitRemoteOriginUrl = require("git-remote-origin-url");
 import gitRootDir = require("git-root-dir");
 import { Random } from "random-js";
+import readmeFilename = require("readme-filename");
 import stringify = require("stringify-author");
 import { TempFile } from "temp-filesystem";
 import Path = require("upath");
@@ -497,14 +498,23 @@ suite(
                     });
 
                 test(
+                    "Checking whether the description is generated correctly…",
+                    async () =>
+                    {
+                        Assert.ok((await readFile(await readmeFilename(gitRoot))).toString().includes(npmPackage.Description));
+                    });
+
+                test(
                     "Checking whether sub-directories are applied correctly…",
                     async () =>
                     {
                         let subDirectories = (await readdir(gitRoot)).filter((entry) => statSync(entry).isDirectory());
-                        let path = Path.join(gitRoot, random.pick(subDirectories));
+                        let directory = random.pick(subDirectories);
+                        let path = Path.join(gitRoot, directory);
                         npmPackage = new TestPackage();
                         await npmPackage.Normalize(path);
-                        console.log();
+                        Assert.ok(typeof npmPackage.Repository !== "string");
+                        Assert.strictEqual(npmPackage.Repository.directory, directory);
                     });
             });
 
