@@ -26,7 +26,7 @@ steps:
         from_secret: npm_token
     commands:
       - echo "//registry.npmjs.org/:_authToken=$${NPM_TOKEN}" > ~/.npmrc
-      - npm publish
+      - npm publish | exit 0
     when:
       event:
         - tag
@@ -36,10 +36,11 @@ steps:
     image: node
     environment:
       GITHUB_TOKEN:
-        from_secret: github_token
+        from_secret: github_packages_token
     commands:
       - echo "//npm.pkg.github.com/:_authToken=$${GITHUB_TOKEN}" > ~/.npmrc
-      - npm publish
+      - echo "registry=https://npm.pkg.github.com" >> ~/.npmrc
+      - npm publish | exit 0
     when:
       event:
         - tag
@@ -50,7 +51,7 @@ steps:
     commands:
       - npm pack
       - npm install escape-string-regexp
-      - node -e "console.log(require('escape-string-regexp')('${DRONE_GTAG}'))" > TagName.txt
+      - node -e "console.log(require('escape-string-regexp')('${DRONE_TAG}'))" > TagName.txt
     when:
       event:
         - tag
@@ -72,7 +73,7 @@ steps:
     commands: []
     settings:
       api_key:
-        from_secret: github_token
+        from_secret: github_publish_token
       files:
         - "*.tgz"
       title: ReleaseTitle.md
