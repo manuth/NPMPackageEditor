@@ -39,6 +39,7 @@ steps:
         from_secret: github_packages_token
     commands:
       - echo "//npm.pkg.github.com/:_authToken=$${GITHUB_TOKEN}" > ~/.npmrc
+      - echo "registry=https://npm.pkg.github.com" >> ~/.npmrc
       - npm publish
     when:
       event:
