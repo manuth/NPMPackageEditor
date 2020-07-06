@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## NPMPackageEditor [unreleased]
+### Added
+  - Functionality for clearing dependency-collections
+  - Support for automatically setting git-related info
+  - Functionality to automatically load the `description` from `README` files
+
+[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.0.0...dev)
+
 ## NPMPackageEditor v1.0.0
 ### Added
   - Types for `package.json`-metadata
