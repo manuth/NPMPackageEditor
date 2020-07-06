@@ -65,6 +65,18 @@ export class DependencyCollection implements IDependencyCollection
 
     /**
      * @inheritdoc
+     */
+    public get AllDependencies(): Dictionary<string, string>
+    {
+        let result = new Dictionary<string, string>();
+        result.AddRange(this.Dependencies);
+        result.AddRange(this.DevelpomentDependencies);
+        result.AddRange(this.OptionalDependencies);
+        return result;
+    }
+
+    /**
+     * @inheritdoc
      *
      * @param collection
      * The collection to register.

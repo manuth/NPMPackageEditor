@@ -27,6 +27,11 @@ export interface IDependencyCollection
     readonly OptionalDependencies: Dictionary<string, string>;
 
     /**
+     * Gets all normal, optional and development dependencies.
+     */
+    readonly AllDependencies: Dictionary<string, string>;
+
+    /**
      * Gets a set of dependencies to include into `.tgz`-packages.
      */
     readonly BundledDependencies: List<string>;

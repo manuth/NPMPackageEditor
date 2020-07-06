@@ -270,6 +270,14 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     }
 
     /**
+     * @inheritdoc
+     */
+    public get AllDependencies(): Dictionary<string, string>
+    {
+        return this.DependencyCollection.AllDependencies;
+    }
+
+    /**
      * Gets the default values for the options.
      */
     protected get Defaults(): Dictionary<keyof IPackageJSON, any>
