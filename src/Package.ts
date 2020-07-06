@@ -1,8 +1,10 @@
 import { readFileSync } from "fs";
 import { isNullOrUndefined } from "util";
+import { readFile } from "fs-extra";
 import gitRemoteOriginUrl = require("git-remote-origin-url");
 import gitRootDir = require("git-root-dir");
 import normalize = require("normalize-package-data");
+import readmeFilename = require("readme-filename");
 import Path = require("upath");
 import { Dictionary } from "./Collections/Dictionary";
 import { List } from "./Collections/List";
@@ -383,7 +385,8 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     public async Normalize(root?: string): Promise<void>
     {
         let directory: string = null;
-        let packageData: IPackageJSON = { ...this.ToJSON() };
+        let readmeFile = await readmeFilename(root);
+        let packageData: IPackageJSON & normalize.Input = { ...this.ToJSON() };
 
         if (!isNullOrUndefined(root))
         {
@@ -406,10 +409,16 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
             }
         }
 
+        if (!isNullOrUndefined(readmeFile))
+        {
+            packageData.readme = (await readFile(readmeFile)).toString();
+        }
+
         normalize(packageData);
 
         let metadata: IPackageJSON = {
             ...this.ToJSON(),
+            description: packageData.description,
             bin: packageData.bin,
             man: packageData.man,
             repository: packageData.repository,
