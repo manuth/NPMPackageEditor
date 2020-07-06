@@ -10,7 +10,7 @@ import { Dictionary } from "./Collections/Dictionary";
 import { List } from "./Collections/List";
 import { PropertyDictionary } from "./Collections/PropertyDictionary";
 import { GenerationLogic } from "./GenerationLogic";
-import { IPackageJSON } from "./IPackageJSON";
+import { IPackageMetadata } from "./IPackageMetadata";
 import { LoadLogic } from "./LoadLogic";
 import { BugInfo } from "./Management/BugInfo";
 import { DependencyCollection } from "./Management/DependencyCollection";
@@ -29,7 +29,7 @@ import { JSONObjectBase } from "./Utilities/JSONObjectBase";
 /**
  * Represents a package.
  */
-export class Package extends JSONObjectBase<IPackageJSON> implements IDependencyCollection
+export class Package extends JSONObjectBase<IPackageMetadata> implements IDependencyCollection
 {
     /**
      * Gets or sets name of the package-file.
@@ -169,7 +169,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     /**
      * The generation-logic for the properties.
      */
-    private generationLogics: Map<keyof IPackageJSON, GenerationLogic> = new Map<keyof IPackageJSON, GenerationLogic>(
+    private generationLogics: Map<keyof IPackageMetadata, GenerationLogic> = new Map<keyof IPackageMetadata, GenerationLogic>(
         [
             ["maintainers", GenerationLogic.NonEmpty],
             ["contributors", GenerationLogic.NonEmpty],
@@ -205,10 +205,10 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     /**
      * Initializes a new instance of the `Package` class.
      *
-     * @param packageJSON
-     * The options of the package-manifest.
+     * @param metadata
+     * The metadata of the package.
      */
-    public constructor(packageJSON: IPackageJSON);
+    public constructor(metadata: IPackageMetadata);
 
     /**
      * Initializes a new instance of the `Package`.
@@ -216,10 +216,10 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
      * @param path
      * The path to the `package.json` file.
      *
-     * @param packageJSON
-     * The options of the package-manifest.
+     * @param metadata
+     * The metadata of the package.
      */
-    public constructor(path: string, packageJSON: IPackageJSON);
+    public constructor(path: string, metadata: IPackageMetadata);
 
     /**
      * Initializes a new instance of the `Package` class.
@@ -227,32 +227,32 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
      * @param args
      * The passed arguments.
      */
-    public constructor(...args: [] | [string] | [IPackageJSON] | [string, IPackageJSON])
+    public constructor(...args: [] | [string] | [IPackageMetadata] | [string, IPackageMetadata])
     {
         super();
         let path: string = null;
-        let packageJSON: IPackageJSON;
+        let metadata: IPackageMetadata;
 
         if (args.length === 2)
         {
             path = args[0];
-            packageJSON = args[1];
+            metadata = args[1];
         }
         else
         {
             switch (typeof args[0])
             {
                 case "string":
-                    packageJSON = JSON.parse(readFileSync(args[0]).toString());
+                    metadata = JSON.parse(readFileSync(args[0]).toString());
                     break;
                 default:
-                    packageJSON = args[0];
+                    metadata = args[0];
                     break;
             }
         }
 
         this.FileName = path;
-        this.LoadMetadata(packageJSON ?? {});
+        this.LoadMetadata(metadata ?? {});
     }
 
     /**
@@ -306,7 +306,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     /**
      * Gets the default values for the options.
      */
-    protected get Defaults(): Dictionary<keyof IPackageJSON, any>
+    protected get Defaults(): Dictionary<keyof IPackageMetadata, any>
     {
         return this.LoadDictionary(
             {
@@ -328,13 +328,13 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
                 peerDependencies: {},
                 optionalDependencies: {},
                 bundledDependencies: []
-            } as IPackageJSON);
+            } as IPackageMetadata);
     }
 
     /**
-     * Gets the mapping from the `IPackageJSON`-properties to the `Package` properties.
+     * Gets the mapping from the `IPackageMetadata`-properties to the `Package` properties.
      */
-    protected get PropertyMap(): Array<[keyof IPackageJSON, keyof Package]>
+    protected get PropertyMap(): Array<[keyof IPackageMetadata, keyof Package]>
     {
         return [
             ["name", "Name"],
@@ -373,9 +373,9 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     /**
      * Gets the load-logic for the properties.
      */
-    protected get LoadLogics(): Map<keyof IPackageJSON, LoadLogic>
+    protected get LoadLogics(): Map<keyof IPackageMetadata, LoadLogic>
     {
-        return new Map<keyof IPackageJSON, LoadLogic>(
+        return new Map<keyof IPackageMetadata, LoadLogic>(
             [
                 ["author", LoadLogic.Person],
                 ["maintainers", LoadLogic.PersonList],
@@ -394,7 +394,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     /**
      * Gets the generation-logic for the properties.
      */
-    public get GenerationLogics(): Map<keyof IPackageJSON, GenerationLogic>
+    public get GenerationLogics(): Map<keyof IPackageMetadata, GenerationLogic>
     {
         return this.generationLogics;
     }
@@ -422,7 +422,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     public async Normalize(root?: string): Promise<void>
     {
         let directory: string = null;
-        let packageData: IPackageJSON & normalize.Input = { ...this.ToJSON() };
+        let metadata: IPackageMetadata & normalize.Input = { ...this.ToJSON() };
 
         if (!isNullOrUndefined(this.FileName))
         {
@@ -446,7 +446,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
                         remote = null;
                     }
 
-                    packageData.repository = remote;
+                    metadata.repository = remote;
 
                     if (Path.resolve(gitRoot) !== Path.resolve(packageRoot))
                     {
@@ -456,34 +456,34 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
 
                 if (!isNullOrUndefined(readmeFile))
                 {
-                    packageData.readme = (await readFile(readmeFile)).toString();
+                    metadata.readme = (await readFile(readmeFile)).toString();
                 }
             }
         }
 
-        normalize(packageData);
+        normalize(metadata);
 
-        let metadata: IPackageJSON = {
+        let newMetadata: IPackageMetadata = {
             ...this.ToJSON(),
-            description: packageData.description,
-            bin: packageData.bin,
-            man: packageData.man,
-            repository: packageData.repository,
-            bugs: packageData.bugs,
-            homepage: packageData.homepage
+            description: metadata.description,
+            bin: metadata.bin,
+            man: metadata.man,
+            repository: metadata.repository,
+            bugs: metadata.bugs,
+            homepage: metadata.homepage
         };
 
         if (directory !== null)
         {
             if (
-                !isNullOrUndefined(metadata.repository) &&
-                typeof metadata.repository !== "string")
+                !isNullOrUndefined(newMetadata.repository) &&
+                typeof newMetadata.repository !== "string")
             {
-                metadata.repository.directory = directory;
+                newMetadata.repository.directory = directory;
             }
         }
 
-        this.LoadMetadata(metadata);
+        this.LoadMetadata(newMetadata);
     }
 
     /**
@@ -492,9 +492,9 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
      * @returns
      * A json-object representing this package.
      */
-    public ToJSON(): IPackageJSON
+    public ToJSON(): IPackageMetadata
     {
-        let result = new JSONObject<IPackageJSON>();
+        let result = new JSONObject<IPackageMetadata>();
 
         for (let entry of this.PropertyMap)
         {
@@ -535,7 +535,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
      * @param metadata
      * The matadata to load.
      */
-    protected LoadMetadata(metadata: IPackageJSON): void
+    protected LoadMetadata(metadata: IPackageMetadata): void
     {
         for (let entry of this.PropertyMap)
         {

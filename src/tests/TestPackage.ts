@@ -1,6 +1,6 @@
 import { Dictionary } from "../Collections/Dictionary";
 import { GenerationLogic } from "../GenerationLogic";
-import { IPackageJSON } from "../IPackageJSON";
+import { IPackageMetadata } from "../IPackageMetadata";
 import { IPerson } from "../Management/IPerson";
 import { Person } from "../Management/Person";
 import { Package } from "../Package";
@@ -13,7 +13,7 @@ export class TestPackage extends Package
     /**
      * @inheritdoc
      */
-    public get PropertyMap(): Array<[keyof IPackageJSON, keyof Package]>
+    public get PropertyMap(): Array<[keyof IPackageMetadata, keyof Package]>
     {
         return super.PropertyMap;
     }
@@ -21,7 +21,7 @@ export class TestPackage extends Package
     /**
      * @inheritdoc
      */
-    public get GenerationLogics(): Map<keyof IPackageJSON, GenerationLogic>
+    public get GenerationLogics(): Map<keyof IPackageMetadata, GenerationLogic>
     {
         return super.GenerationLogics;
     }

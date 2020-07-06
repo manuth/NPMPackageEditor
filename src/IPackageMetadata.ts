@@ -7,9 +7,9 @@ import { IShimCollection } from "./Management/IShimCollection";
 import { PackagePerson } from "./Management/PackagePerson";
 
 /**
- * Represents a `package.json`-file.
+ * Represents the metadata of a `package.json`-file.
  */
-export interface IPackageJSON extends IDependencyCollectionOptions
+export interface IPackageMetadata extends IDependencyCollectionOptions
 {
     /**
      * The name of the package.

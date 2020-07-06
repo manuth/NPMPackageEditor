@@ -17,9 +17,9 @@ Using a code-editor with typescript support provides autocompletion for `package
 
 ```ts
 import fs = require("fs");
-import { IPackageJSON } from "@manuth/package-json-editor";
+import { IPackageMetadata } from "@manuth/package-json-editor";
 
-let packageMeta: IPackageJSON;
+let packageMeta: IPackageMetadata;
 packageMeta = {
     name: "example",
     version: "1.0.0"
