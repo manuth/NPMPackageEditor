@@ -107,6 +107,7 @@ dist
 [Ss]rc/
 
 # TypeScript config-files
+tsconfig.json
 tsconfig.*.json
 
 # Lint config-files
@@ -117,8 +118,11 @@ tsconfig.*.json
 [Ll]ib/**/*.js.map
 
 # Unit-Tests
-test/
+.mocharc.*
 [Ll]ib/tests/
 
 # Visual Studio Code-Environment
 .vscode/
+
+# Drone configuration
+.drone.yml

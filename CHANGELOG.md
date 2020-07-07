@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## NPMPackageEditor [unreleased]
+
+[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.3.0...dev)
+
+## NPMPackageEditor v1.3.0
 ### Added
   - Support for ignoring existing dependencies when `Register`ing dependencies to a collection
   - The functionality to set values of existing `Directory`-entries using the `Directory.Set` method
@@ -13,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `Normalize` method of the `Package` class
   - `Key`-existence checking in the `Dictionary` class
 
-[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.2.0...dev)
+[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.2.0...v1.3.0)
 
 ## NPMPackageEditor v1.2.0
 ### Added
