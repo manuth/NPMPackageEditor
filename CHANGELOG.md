@@ -6,7 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## NPMPackageEditor [unreleased]
 
-[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.3.1...dev)
+[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.4.0...dev)
+
+## NPMPackageEditor v1.4.0
+### Added
+  - The functionality to store additional properties in the `Package` class
+  - Tests for improving the stability
+
+### Updated
+  - All dependencies
+  - The TypeScript-library
+
+[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.3.1...v1.4.0)
 
 ## NPMPackageEditor v1.3.1
 ### Fixed
