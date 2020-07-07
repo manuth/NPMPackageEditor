@@ -26,7 +26,7 @@ steps:
         from_secret: npm_token
     commands:
       - echo "//registry.npmjs.org/:_authToken=$${NPM_TOKEN}" > ~/.npmrc
-      - npm publish | exit 0
+      - npm publish
     when:
       event:
         - tag
