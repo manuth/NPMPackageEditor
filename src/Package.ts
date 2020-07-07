@@ -454,7 +454,7 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
 
                 if (!isNullOrUndefined(readmeFile))
                 {
-                    metadata.readme = (await readFile(readmeFile)).toString();
+                    metadata.readme = (await readFile(Path.join(packageRoot, readmeFile))).toString();
                 }
             }
         }

@@ -6,7 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## NPMPackageEditor [unreleased]
 
-[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.3.0...dev)
+[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.3.1...dev)
+
+## NPMPackageEditor v1.3.1
+### Fixed
+  - The path-determination of the `README` file during `Package` normalization
+
+[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.3.0...v1.3.1)
 
 ## NPMPackageEditor v1.3.0
 ### Added
