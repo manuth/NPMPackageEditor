@@ -143,6 +143,27 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
      * @inheritdoc
      *
      * @param key
+     * The `key` of the entry whose value to set.
+     *
+     * @param value
+     * The value to set for the specified `key`.
+     */
+    public Set(key: TKey, value: TValue): void
+    {
+        if (!this.innerCollection.has(key))
+        {
+            throw new RangeError();
+        }
+        else
+        {
+            this.innerCollection.set(key, value);
+        }
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param key
      * The `key` of the entry to check.
      *
      * @returns

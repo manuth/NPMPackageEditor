@@ -50,6 +50,17 @@ export interface IDictionary<TKey, TValue> extends ICollection<TKey, TValue>
     Get(key: TKey): TValue;
 
     /**
+     * Sets the value of the entry with the specified `key`.
+     *
+     * @param key
+     * The `key` of the entry whose value to set.
+     *
+     * @param value
+     * The value to set for the specified `key`.
+     */
+    Set(key: TKey, value: TValue): void;
+
+    /**
      * Checks whether the dictionary has an entry with the specified `key`.
      *
      * @param key
