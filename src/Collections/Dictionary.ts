@@ -129,7 +129,7 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
      */
     public Get(key: TKey): TValue
     {
-        if (!this.innerCollection.has(key))
+        if (!this.Has(key))
         {
             throw new RangeError();
         }
@@ -150,7 +150,7 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
      */
     public Set(key: TKey, value: TValue): void
     {
-        if (!this.innerCollection.has(key))
+        if (!this.Has(key))
         {
             throw new RangeError();
         }
