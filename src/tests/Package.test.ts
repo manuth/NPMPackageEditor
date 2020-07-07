@@ -357,7 +357,7 @@ suite(
                          */
                         function AssertDefault<TMetaKey extends keyof IPackageMetadata, TKey extends keyof Package>(key: TKey, expected: any, comparator?: AssertComparator<Package[TKey], any>, overwriteUndefined = true): void
                         {
-                            let optionsKey = new Map(npmPackage.PropertyMap.map((entry) => [entry[1], entry[0]])).get(key);
+                            let optionsKey = new Map(Array.from(npmPackage.PropertyMap).map((entry) => [entry[1], entry[0]])).get(key);
                             let packageOptions = new JSONObject(metadata);
 
                             comparator = comparator ?? (
@@ -522,7 +522,7 @@ suite(
             });
 
         suite(
-            "Promise<void> Normalize(string root?)",
+            "Promise<void> Normalize()",
             () =>
             {
                 let gitRoot: string;
@@ -624,6 +624,21 @@ suite(
                         npmPackage = new TestPackage();
                         npmPackage.GenerationLogics.set(property, GenerationLogic.Always);
                         Assert.ok(property in npmPackage.ToJSON());
+                    });
+
+                test(
+                    "Checking whether additional properties presist…",
+                    () =>
+                    {
+                        let testKey = random.string(20);
+                        let testValue = random.string(10);
+                        npmPackage = new TestPackage(
+                            {
+                                [testKey]: testValue
+                            });
+
+                        Assert.ok(testKey in npmPackage.ToJSON());
+                        Assert.strictEqual(npmPackage.ToJSON()[testKey], testValue);
                     });
             });
 

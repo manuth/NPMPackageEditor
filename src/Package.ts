@@ -10,6 +10,7 @@ import { Dictionary } from "./Collections/Dictionary";
 import { List } from "./Collections/List";
 import { PropertyDictionary } from "./Collections/PropertyDictionary";
 import { GenerationLogic } from "./GenerationLogic";
+import { IPackageJSON } from "./IPackageJSON";
 import { IPackageMetadata } from "./IPackageMetadata";
 import { LoadLogic } from "./LoadLogic";
 import { BugInfo } from "./Management/BugInfo";
@@ -29,7 +30,7 @@ import { JSONObjectBase } from "./Utilities/JSONObjectBase";
 /**
  * Represents a package.
  */
-export class Package extends JSONObjectBase<IPackageMetadata> implements IDependencyCollection
+export class Package extends JSONObjectBase<IPackageJSON> implements IDependencyCollection
 {
     /**
      * Gets or sets name of the package-file.
@@ -167,6 +168,11 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
     public DependencyCollection: DependencyCollection;
 
     /**
+     * Gets or sets a set of additional properties.
+     */
+    public AdditionalProperties: Dictionary<string, unknown>;
+
+    /**
      * The generation-logic for the properties.
      */
     private generationLogics: Map<keyof IPackageMetadata, GenerationLogic> = new Map<keyof IPackageMetadata, GenerationLogic>(
@@ -208,7 +214,7 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
      * @param metadata
      * The metadata of the package.
      */
-    public constructor(metadata: IPackageMetadata);
+    public constructor(metadata: IPackageMetadata | IPackageJSON);
 
     /**
      * Initializes a new instance of the `Package`.
@@ -219,7 +225,7 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
      * @param metadata
      * The metadata of the package.
      */
-    public constructor(path: string, metadata: IPackageMetadata);
+    public constructor(path: string, metadata: IPackageMetadata | IPackageJSON);
 
     /**
      * Initializes a new instance of the `Package` class.
@@ -227,11 +233,11 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
      * @param args
      * The passed arguments.
      */
-    public constructor(...args: [] | [string] | [IPackageMetadata] | [string, IPackageMetadata])
+    public constructor(...args: [] | [string] | [IPackageJSON] | [string, IPackageJSON])
     {
         super();
         let path: string = null;
-        let metadata: IPackageMetadata;
+        let metadata: IPackageJSON;
 
         if (args.length === 2)
         {
@@ -335,40 +341,41 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
     /**
      * Gets the mapping from the `IPackageMetadata`-properties to the `Package` properties.
      */
-    protected get PropertyMap(): Array<[keyof IPackageMetadata, keyof Package]>
+    protected get PropertyMap(): Map<keyof IPackageMetadata, keyof Package>
     {
-        return [
-            ["name", "Name"],
-            ["version", "Version"],
-            ["private", "Private"],
-            ["description", "Description"],
-            ["author", "Author"],
-            ["maintainers", "Maintainers"],
-            ["contributors", "Contributors"],
-            ["license", "License"],
-            ["keywords", "Keywords"],
-            ["engines", "Engines"],
-            ["os", "OS"],
-            ["cpu", "CPU"],
-            ["main", "Main"],
-            ["types", "Types"],
-            ["browser", "Browser"],
-            ["bin", "Binaries"],
-            ["man", "Manuals"],
-            ["files", "Files"],
-            ["directories", "Directories"],
-            ["homepage", "Homepage"],
-            ["repository", "Repository"],
-            ["bugs", "Bugs"],
-            ["config", "Config"],
-            ["publishConfig", "PublishConfig"],
-            ["scripts", "Scripts"],
-            ["dependencies", "Dependencies"],
-            ["devDependencies", "DevelpomentDependencies"],
-            ["peerDependencies", "PeerDependencies"],
-            ["optionalDependencies", "OptionalDependencies"],
-            ["bundledDependencies", "BundledDependencies"]
-        ];
+        return new Map<keyof IPackageMetadata, keyof Package>(
+            [
+                ["name", "Name"],
+                ["version", "Version"],
+                ["private", "Private"],
+                ["description", "Description"],
+                ["author", "Author"],
+                ["maintainers", "Maintainers"],
+                ["contributors", "Contributors"],
+                ["license", "License"],
+                ["keywords", "Keywords"],
+                ["engines", "Engines"],
+                ["os", "OS"],
+                ["cpu", "CPU"],
+                ["main", "Main"],
+                ["types", "Types"],
+                ["browser", "Browser"],
+                ["bin", "Binaries"],
+                ["man", "Manuals"],
+                ["files", "Files"],
+                ["directories", "Directories"],
+                ["homepage", "Homepage"],
+                ["repository", "Repository"],
+                ["bugs", "Bugs"],
+                ["config", "Config"],
+                ["publishConfig", "PublishConfig"],
+                ["scripts", "Scripts"],
+                ["dependencies", "Dependencies"],
+                ["devDependencies", "DevelpomentDependencies"],
+                ["peerDependencies", "PeerDependencies"],
+                ["optionalDependencies", "OptionalDependencies"],
+                ["bundledDependencies", "BundledDependencies"]
+            ]);
     }
 
     /**
@@ -420,7 +427,7 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
     public async Normalize(): Promise<void>
     {
         let directory: string = null;
-        let metadata: IPackageMetadata & normalize.Input = { ...this.ToJSON() };
+        let metadata: IPackageJSON = { ...this.ToJSON() };
 
         if (!isNullOrUndefined(this.FileName))
         {
@@ -461,7 +468,7 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
 
         normalize(metadata);
 
-        let newMetadata: IPackageMetadata = {
+        let newMetadata: IPackageJSON = {
             ...this.ToJSON(),
             description: metadata.description,
             bin: metadata.bin,
@@ -490,11 +497,11 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
      * @returns
      * A json-object representing this package.
      */
-    public ToJSON(): IPackageMetadata
+    public ToJSON(): IPackageJSON
     {
-        let result = new JSONObject<IPackageMetadata>();
+        let result = new JSONObject<IPackageJSON>();
 
-        for (let entry of this.PropertyMap)
+        for (let entry of this.PropertyMap.entries())
         {
             let value = this[entry[1]];
             let logic = GenerationLogic.Default;
@@ -524,6 +531,11 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
             }
         }
 
+        for (let property of this.AdditionalProperties.Entries)
+        {
+            result.Add(property[0], property[1]);
+        }
+
         return result.ToJSON();
     }
 
@@ -533,7 +545,7 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
      * @param metadata
      * The matadata to load.
      */
-    protected LoadMetadata(metadata: IPackageMetadata): void
+    protected LoadMetadata(metadata: IPackageJSON): void
     {
         for (let entry of this.PropertyMap)
         {
@@ -551,42 +563,59 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
                 });
         }
 
+        let additionalProperties: Record<string, unknown> = {};
+        let metaDictionary = new PropertyDictionary(metadata);
         this.DependencyCollection = this.LoadDependencyCollection(metadata);
 
-        for (let entry of this.PropertyMap)
+        for (let entry of metaDictionary.Entries)
         {
-            let value: any = metadata[entry[0]];
-            let logic = this.LoadLogics.get(entry[0]);
+            let key = entry[0] as keyof IPackageMetadata;
+            let value: any = metaDictionary.Get(entry[0]);
 
-            if (logic !== LoadLogic.None)
+            if (this.PropertyMap.has(key))
             {
-                switch (logic)
-                {
-                    case LoadLogic.Dictionary:
-                        value = this.LoadDictionary(value);
-                        break;
-                    case LoadLogic.Person:
-                        value = this.LoadPerson(value);
-                        break;
-                    case LoadLogic.PersonList:
-                        value = this.LoadPersonList(value);
-                        break;
-                    case LoadLogic.BugInfo:
-                        value = new BugInfo(value);
-                        break;
-                    case LoadLogic.Plain:
-                    default:
-                        value = this.LoadObject(value);
-                        break;
-                }
+                let logic = this.LoadLogics.get(key);
 
-                Object.assign(
-                    this,
+                if (logic !== LoadLogic.None)
+                {
+                    switch (logic)
                     {
-                        [entry[1]]: value
+                        case LoadLogic.Dictionary:
+                            value = this.LoadDictionary(value);
+                            break;
+                        case LoadLogic.Person:
+                            value = this.LoadPerson(value);
+                            break;
+                        case LoadLogic.PersonList:
+                            value = this.LoadPersonList(value);
+                            break;
+                        case LoadLogic.BugInfo:
+                            value = new BugInfo(value);
+                            break;
+                        case LoadLogic.Plain:
+                        default:
+                            value = this.LoadObject(value);
+                            break;
+                    }
+
+                    Object.assign(
+                        this,
+                        {
+                            [this.PropertyMap.get(key)]: value
+                        });
+                }
+            }
+            else
+            {
+                Object.assign(
+                    additionalProperties,
+                    {
+                        [entry[0]]: entry[1]
                     });
             }
         }
+
+        this.AdditionalProperties = this.LoadDictionary(additionalProperties);
     }
 
     /**
