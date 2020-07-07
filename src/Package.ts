@@ -167,6 +167,11 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
     public DependencyCollection: DependencyCollection;
 
     /**
+     * Gets or sets a set of additional properties.
+     */
+    public AdditionalProperties: Dictionary<string, unknown>;
+
+    /**
      * The generation-logic for the properties.
      */
     private generationLogics: Map<keyof IPackageMetadata, GenerationLogic> = new Map<keyof IPackageMetadata, GenerationLogic>(
@@ -208,7 +213,7 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
      * @param metadata
      * The metadata of the package.
      */
-    public constructor(metadata: IPackageMetadata);
+    public constructor(metadata: IPackageMetadata & Record<string, unknown>);
 
     /**
      * Initializes a new instance of the `Package`.
@@ -219,7 +224,7 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
      * @param metadata
      * The metadata of the package.
      */
-    public constructor(path: string, metadata: IPackageMetadata);
+    public constructor(path: string, metadata: IPackageMetadata & Record<string, unknown>);
 
     /**
      * Initializes a new instance of the `Package` class.
@@ -335,40 +340,41 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
     /**
      * Gets the mapping from the `IPackageMetadata`-properties to the `Package` properties.
      */
-    protected get PropertyMap(): Array<[keyof IPackageMetadata, keyof Package]>
+    protected get PropertyMap(): Map<keyof IPackageMetadata, keyof Package>
     {
-        return [
-            ["name", "Name"],
-            ["version", "Version"],
-            ["private", "Private"],
-            ["description", "Description"],
-            ["author", "Author"],
-            ["maintainers", "Maintainers"],
-            ["contributors", "Contributors"],
-            ["license", "License"],
-            ["keywords", "Keywords"],
-            ["engines", "Engines"],
-            ["os", "OS"],
-            ["cpu", "CPU"],
-            ["main", "Main"],
-            ["types", "Types"],
-            ["browser", "Browser"],
-            ["bin", "Binaries"],
-            ["man", "Manuals"],
-            ["files", "Files"],
-            ["directories", "Directories"],
-            ["homepage", "Homepage"],
-            ["repository", "Repository"],
-            ["bugs", "Bugs"],
-            ["config", "Config"],
-            ["publishConfig", "PublishConfig"],
-            ["scripts", "Scripts"],
-            ["dependencies", "Dependencies"],
-            ["devDependencies", "DevelpomentDependencies"],
-            ["peerDependencies", "PeerDependencies"],
-            ["optionalDependencies", "OptionalDependencies"],
-            ["bundledDependencies", "BundledDependencies"]
-        ];
+        return new Map<keyof IPackageMetadata, keyof Package>(
+            [
+                ["name", "Name"],
+                ["version", "Version"],
+                ["private", "Private"],
+                ["description", "Description"],
+                ["author", "Author"],
+                ["maintainers", "Maintainers"],
+                ["contributors", "Contributors"],
+                ["license", "License"],
+                ["keywords", "Keywords"],
+                ["engines", "Engines"],
+                ["os", "OS"],
+                ["cpu", "CPU"],
+                ["main", "Main"],
+                ["types", "Types"],
+                ["browser", "Browser"],
+                ["bin", "Binaries"],
+                ["man", "Manuals"],
+                ["files", "Files"],
+                ["directories", "Directories"],
+                ["homepage", "Homepage"],
+                ["repository", "Repository"],
+                ["bugs", "Bugs"],
+                ["config", "Config"],
+                ["publishConfig", "PublishConfig"],
+                ["scripts", "Scripts"],
+                ["dependencies", "Dependencies"],
+                ["devDependencies", "DevelpomentDependencies"],
+                ["peerDependencies", "PeerDependencies"],
+                ["optionalDependencies", "OptionalDependencies"],
+                ["bundledDependencies", "BundledDependencies"]
+            ]);
     }
 
     /**
@@ -494,7 +500,7 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
     {
         let result = new JSONObject<IPackageMetadata>();
 
-        for (let entry of this.PropertyMap)
+        for (let entry of this.PropertyMap.entries())
         {
             let value = this[entry[1]];
             let logic = GenerationLogic.Default;
@@ -551,42 +557,58 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
                 });
         }
 
+        let additionalProperties: Record<string, unknown> = {};
+        let metaDictionary = new PropertyDictionary(metadata);
         this.DependencyCollection = this.LoadDependencyCollection(metadata);
 
-        for (let entry of this.PropertyMap)
+        for (let entry of metaDictionary.Entries)
         {
-            let value: any = metadata[entry[0]];
-            let logic = this.LoadLogics.get(entry[0]);
+            let value: any = metaDictionary.Get(entry[0]);
 
-            if (logic !== LoadLogic.None)
+            if (this.PropertyMap.has(entry[0]))
             {
-                switch (logic)
-                {
-                    case LoadLogic.Dictionary:
-                        value = this.LoadDictionary(value);
-                        break;
-                    case LoadLogic.Person:
-                        value = this.LoadPerson(value);
-                        break;
-                    case LoadLogic.PersonList:
-                        value = this.LoadPersonList(value);
-                        break;
-                    case LoadLogic.BugInfo:
-                        value = new BugInfo(value);
-                        break;
-                    case LoadLogic.Plain:
-                    default:
-                        value = this.LoadObject(value);
-                        break;
-                }
+                let logic = this.LoadLogics.get(entry[0]);
 
-                Object.assign(
-                    this,
+                if (logic !== LoadLogic.None)
+                {
+                    switch (logic)
                     {
-                        [entry[1]]: value
+                        case LoadLogic.Dictionary:
+                            value = this.LoadDictionary(value);
+                            break;
+                        case LoadLogic.Person:
+                            value = this.LoadPerson(value);
+                            break;
+                        case LoadLogic.PersonList:
+                            value = this.LoadPersonList(value);
+                            break;
+                        case LoadLogic.BugInfo:
+                            value = new BugInfo(value);
+                            break;
+                        case LoadLogic.Plain:
+                        default:
+                            value = this.LoadObject(value);
+                            break;
+                    }
+
+                    Object.assign(
+                        this,
+                        {
+                            [this.PropertyMap.get(entry[0])]: value
+                        });
+                }
+            }
+            else
+            {
+                Object.assign(
+                    additionalProperties,
+                    {
+                        [entry[0]]: entry[1]
                     });
             }
         }
+
+        this.AdditionalProperties = this.LoadDictionary(additionalProperties);
     }
 
     /**
