@@ -1,3 +1,4 @@
+import { isNullOrUndefined } from "util";
 import { Dictionary } from "../Collections/Dictionary";
 import { ICollection } from "../Collections/ICollection";
 import { List } from "../Collections/List";
@@ -103,13 +104,15 @@ export class DependencyCollection implements IDependencyCollection
 
         for (let key of keys)
         {
-            if (overwrite)
+            if (!isNullOrUndefined(overwrite))
             {
+                let collectionToMutate = overwrite ? this : collection;
+
                 for (let dependency of collection[key].Entries)
                 {
                     if (this[key].Has(dependency[0]))
                     {
-                        this[key].Remove(dependency[0]);
+                        collectionToMutate[key].Remove(dependency[0]);
                     }
                 }
             }
