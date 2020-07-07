@@ -522,7 +522,7 @@ suite(
             });
 
         suite(
-            "Promise<void> Normalize(string root?)",
+            "Promise<void> Normalize()",
             () =>
             {
                 let gitRoot: string;
