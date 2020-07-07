@@ -357,7 +357,7 @@ suite(
                          */
                         function AssertDefault<TMetaKey extends keyof IPackageMetadata, TKey extends keyof Package>(key: TKey, expected: any, comparator?: AssertComparator<Package[TKey], any>, overwriteUndefined = true): void
                         {
-                            let optionsKey = new Map(npmPackage.PropertyMap.map((entry) => [entry[1], entry[0]])).get(key);
+                            let optionsKey = new Map(Array.from(npmPackage.PropertyMap).map((entry) => [entry[1], entry[0]])).get(key);
                             let packageOptions = new JSONObject(metadata);
 
                             comparator = comparator ?? (

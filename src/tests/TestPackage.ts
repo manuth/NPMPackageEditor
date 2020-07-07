@@ -13,7 +13,7 @@ export class TestPackage extends Package
     /**
      * @inheritdoc
      */
-    public get PropertyMap(): Array<[keyof IPackageMetadata, keyof Package]>
+    public get PropertyMap(): Map<keyof IPackageMetadata, keyof Package>
     {
         return super.PropertyMap;
     }

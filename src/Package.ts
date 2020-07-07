@@ -10,6 +10,7 @@ import { Dictionary } from "./Collections/Dictionary";
 import { List } from "./Collections/List";
 import { PropertyDictionary } from "./Collections/PropertyDictionary";
 import { GenerationLogic } from "./GenerationLogic";
+import { IPackageJSON } from "./IPackageJSON";
 import { IPackageMetadata } from "./IPackageMetadata";
 import { LoadLogic } from "./LoadLogic";
 import { BugInfo } from "./Management/BugInfo";
@@ -29,7 +30,7 @@ import { JSONObjectBase } from "./Utilities/JSONObjectBase";
 /**
  * Represents a package.
  */
-export class Package extends JSONObjectBase<IPackageMetadata> implements IDependencyCollection
+export class Package extends JSONObjectBase<IPackageJSON> implements IDependencyCollection
 {
     /**
      * Gets or sets name of the package-file.
@@ -213,7 +214,7 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
      * @param metadata
      * The metadata of the package.
      */
-    public constructor(metadata: IPackageMetadata & Record<string, unknown>);
+    public constructor(metadata: IPackageMetadata | IPackageJSON);
 
     /**
      * Initializes a new instance of the `Package`.
@@ -224,7 +225,7 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
      * @param metadata
      * The metadata of the package.
      */
-    public constructor(path: string, metadata: IPackageMetadata & Record<string, unknown>);
+    public constructor(path: string, metadata: IPackageMetadata | IPackageJSON);
 
     /**
      * Initializes a new instance of the `Package` class.
@@ -232,11 +233,11 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
      * @param args
      * The passed arguments.
      */
-    public constructor(...args: [] | [string] | [IPackageMetadata] | [string, IPackageMetadata])
+    public constructor(...args: [] | [string] | [IPackageJSON] | [string, IPackageJSON])
     {
         super();
         let path: string = null;
-        let metadata: IPackageMetadata;
+        let metadata: IPackageJSON;
 
         if (args.length === 2)
         {
@@ -426,7 +427,7 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
     public async Normalize(): Promise<void>
     {
         let directory: string = null;
-        let metadata: IPackageMetadata & normalize.Input = { ...this.ToJSON() };
+        let metadata: IPackageJSON = { ...this.ToJSON() };
 
         if (!isNullOrUndefined(this.FileName))
         {
@@ -467,7 +468,7 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
 
         normalize(metadata);
 
-        let newMetadata: IPackageMetadata = {
+        let newMetadata: IPackageJSON = {
             ...this.ToJSON(),
             description: metadata.description,
             bin: metadata.bin,
@@ -496,9 +497,9 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
      * @returns
      * A json-object representing this package.
      */
-    public ToJSON(): IPackageMetadata
+    public ToJSON(): IPackageJSON
     {
-        let result = new JSONObject<IPackageMetadata>();
+        let result = new JSONObject<IPackageJSON>();
 
         for (let entry of this.PropertyMap.entries())
         {
@@ -530,6 +531,11 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
             }
         }
 
+        for (let property of this.AdditionalProperties.Entries)
+        {
+            result.Add(property[0], property[1]);
+        }
+
         return result.ToJSON();
     }
 
@@ -539,7 +545,7 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
      * @param metadata
      * The matadata to load.
      */
-    protected LoadMetadata(metadata: IPackageMetadata): void
+    protected LoadMetadata(metadata: IPackageJSON): void
     {
         for (let entry of this.PropertyMap)
         {
@@ -563,11 +569,12 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
 
         for (let entry of metaDictionary.Entries)
         {
+            let key = entry[0] as keyof IPackageMetadata;
             let value: any = metaDictionary.Get(entry[0]);
 
-            if (this.PropertyMap.has(entry[0]))
+            if (this.PropertyMap.has(key))
             {
-                let logic = this.LoadLogics.get(entry[0]);
+                let logic = this.LoadLogics.get(key);
 
                 if (logic !== LoadLogic.None)
                 {
@@ -594,7 +601,7 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
                     Object.assign(
                         this,
                         {
-                            [this.PropertyMap.get(entry[0])]: value
+                            [this.PropertyMap.get(key)]: value
                         });
                 }
             }
