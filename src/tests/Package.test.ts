@@ -548,7 +548,7 @@ suite(
                     {
                         npmPackage = new TestPackage();
                         npmPackage.FileName = Path.join(gitRoot, "package.json");
-                        await npmPackage.Normalize(gitRoot);
+                        await npmPackage.Normalize();
                     });
 
                 test(

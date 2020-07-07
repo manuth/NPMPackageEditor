@@ -129,13 +129,34 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
      */
     public Get(key: TKey): TValue
     {
-        if (!this.innerCollection.has(key))
+        if (!this.Has(key))
         {
             throw new RangeError();
         }
         else
         {
             return this.innerCollection.get(key);
+        }
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param key
+     * The `key` of the entry whose value to set.
+     *
+     * @param value
+     * The value to set for the specified `key`.
+     */
+    public Set(key: TKey, value: TValue): void
+    {
+        if (!this.Has(key))
+        {
+            throw new RangeError();
+        }
+        else
+        {
+            this.innerCollection.set(key, value);
         }
     }
 

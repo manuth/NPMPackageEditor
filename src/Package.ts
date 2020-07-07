@@ -416,11 +416,8 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
 
     /**
      * Normalizes the package-metadata.
-     *
-     * @param root
-     * The root of the project.
      */
-    public async Normalize(root?: string): Promise<void>
+    public async Normalize(): Promise<void>
     {
         let directory: string = null;
         let metadata: IPackageMetadata & normalize.Input = { ...this.ToJSON() };
@@ -432,7 +429,7 @@ export class Package extends JSONObjectBase<IPackageMetadata> implements IDepend
             if (await pathExists(packageRoot))
             {
                 let gitRoot = await gitRootDir(packageRoot);
-                let readmeFile = await readmeFilename(root);
+                let readmeFile = await readmeFilename(packageRoot);
 
                 if (!isNullOrUndefined(gitRoot))
                 {
