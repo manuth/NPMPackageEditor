@@ -625,6 +625,21 @@ suite(
                         npmPackage.GenerationLogics.set(property, GenerationLogic.Always);
                         Assert.ok(property in npmPackage.ToJSON());
                     });
+
+                test(
+                    "Checking whether additional properties presist…",
+                    () =>
+                    {
+                        let testKey = random.string(20);
+                        let testValue = random.string(10);
+                        npmPackage = new TestPackage(
+                            {
+                                [testKey]: testValue
+                            });
+
+                        Assert.ok(testKey in npmPackage.ToJSON());
+                        Assert.strictEqual(npmPackage.ToJSON()[testKey], testValue);
+                    });
             });
 
         suite(
