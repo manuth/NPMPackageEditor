@@ -9,6 +9,7 @@ export { List } from "./Collections/List";
 export { PropertyDictionary } from "./Collections/PropertyDictionary";
 export { GenerationLogic } from "./GenerationLogic";
 export { IPackageMetadata } from "./IPackageMetadata";
+export { IPackageJSON } from "./IPackageJSON";
 export { LoadLogic } from "./LoadLogic";
 export { BugInfo } from "./Management/BugInfo";
 export { DependencyCollection } from "./Management/DependencyCollection";

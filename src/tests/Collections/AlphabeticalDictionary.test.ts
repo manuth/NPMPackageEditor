@@ -21,7 +21,7 @@ suite(
 
                 for (let i = random.integer(1, 50); i > 0; i--)
                 {
-                    incorrectOrder.push(random.string(10, "abc"));
+                    incorrectOrder.push(random.string(10 + i, "abc"));
                 }
 
                 for (let entry of incorrectOrder)
