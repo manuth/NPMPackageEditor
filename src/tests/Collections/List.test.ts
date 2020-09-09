@@ -36,7 +36,7 @@ export function ListTests(): void
                 });
 
             suite(
-                "int Count",
+                "Count",
                 () =>
                 {
                     test(
@@ -48,7 +48,7 @@ export function ListTests(): void
                 });
 
             suite(
-                "Array<[int, T]> Entries",
+                "Entries",
                 () =>
                 {
                     test(
@@ -79,7 +79,7 @@ export function ListTests(): void
                 });
 
             suite(
-                "bool Contains(T item)",
+                "Contains",
                 () =>
                 {
                     test(
@@ -94,7 +94,7 @@ export function ListTests(): void
                 });
 
             suite(
-                "void Add(T item)",
+                "Add",
                 () =>
                 {
                     test(
@@ -110,7 +110,7 @@ export function ListTests(): void
                 });
 
             suite(
-                "void AddRange(readonly T[] items)",
+                "AddRange",
                 () =>
                 {
                     test(
@@ -124,7 +124,7 @@ export function ListTests(): void
                 });
 
             suite(
-                "void Remove(T item)",
+                "Remove",
                 () =>
                 {
                     test(
@@ -146,7 +146,7 @@ export function ListTests(): void
                 });
 
             suite(
-                "void RemoveAt(int index)",
+                "RemoveAt",
                 () =>
                 {
                     test(
@@ -169,7 +169,7 @@ export function ListTests(): void
                 });
 
             suite(
-                "void Clear()",
+                "Clear",
                 () =>
                 {
                     test(
@@ -183,7 +183,7 @@ export function ListTests(): void
                 });
 
             suite(
-                "T[] ToJSON()",
+                "ToJSON",
                 () =>
                 {
                     test(

@@ -9,7 +9,7 @@ import { TestCollection } from "./TestCollection";
 export function CollectionTests(): void
 {
     suite(
-        "Collection<TKey, TValue>",
+        "Collection",
         () =>
         {
             let random: Random;
@@ -35,7 +35,7 @@ export function CollectionTests(): void
                 });
 
             suite(
-                "int Count",
+                "Count",
                 () =>
                 {
                     test(
@@ -47,7 +47,7 @@ export function CollectionTests(): void
                 });
 
             suite(
-                "TKey[] Keys",
+                "Keys",
                 () =>
                 {
                     test(
@@ -64,7 +64,7 @@ export function CollectionTests(): void
                 });
 
             suite(
-                "TValue[] Values",
+                "Values",
                 () =>
                 {
                     test(

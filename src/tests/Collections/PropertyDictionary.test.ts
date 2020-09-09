@@ -37,7 +37,7 @@ export function PropertyDictionaryTests(): void
                 });
 
             suite(
-                "constructor()",
+                "constructor",
                 () =>
                 {
                     setup(
@@ -55,7 +55,7 @@ export function PropertyDictionaryTests(): void
                 });
 
             suite(
-                "constructor(T collection)",
+                "constructor",
                 () =>
                 {
                     test(

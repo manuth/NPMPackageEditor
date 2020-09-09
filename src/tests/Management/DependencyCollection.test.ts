@@ -97,7 +97,7 @@ export function DependencyCollectionTests(): void
             }
 
             suite(
-                "void Register(IDependencyCollection collection)",
+                "Register",
                 () =>
                 {
                     /**

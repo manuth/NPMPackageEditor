@@ -49,7 +49,7 @@ export function PersonTests(): void
                 });
 
             suite(
-                "constructor(IPerson person)",
+                "constructor",
                 () =>
                 {
                     test(
@@ -61,7 +61,7 @@ export function PersonTests(): void
                 });
 
             suite(
-                "constructor(string person)",
+                "constructor",
                 () =>
                 {
                     setup(
@@ -79,7 +79,7 @@ export function PersonTests(): void
                 });
 
             suite(
-                "string ToJSON()",
+                "ToJSON",
                 () =>
                 {
                     test(

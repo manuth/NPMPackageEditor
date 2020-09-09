@@ -42,7 +42,7 @@ export function AlphabeticalDictionaryTests(): void
                 });
 
             suite(
-                "Array<[TKey, TValue]> Entries",
+                "Entries",
                 () =>
                 {
                     /**

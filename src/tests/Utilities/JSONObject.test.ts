@@ -111,7 +111,7 @@ export function JSONObjectTests(): void
             }
 
             suite(
-                "constructor(Partial<T> base)",
+                "constructor",
                 () =>
                 {
                     setup(
@@ -132,7 +132,7 @@ export function JSONObjectTests(): void
                 });
 
             suite(
-                "void Add<TKey>(TKey key, T[TKey] value)",
+                "Add",
                 () =>
                 {
                     test(
@@ -152,7 +152,7 @@ export function JSONObjectTests(): void
                 });
 
             suite(
-                "void AddIfNotNull<TKey>(TKey key, TValue value)",
+                "AddIfNotNull",
                 () =>
                 {
                     test(
@@ -164,7 +164,7 @@ export function JSONObjectTests(): void
                 });
 
             suite(
-                "void AddIfNotEmpty<TKey>(TKey key, TValue value)",
+                "AddIfNotEmpty",
                 () =>
                 {
                     let propertyInjector: PropertyInjector<ITest>;
@@ -228,7 +228,7 @@ export function JSONObjectTests(): void
                 });
 
             suite(
-                "bool Has(keyof T key)",
+                "Has",
                 () =>
                 {
                     test(
@@ -242,7 +242,7 @@ export function JSONObjectTests(): void
                 });
 
             suite(
-                "void Remove(keyof T key)",
+                "Remove",
                 () =>
                 {
                     test(

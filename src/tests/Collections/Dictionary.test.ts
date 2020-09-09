@@ -8,7 +8,7 @@ import { Dictionary } from "../../Collections/Dictionary";
 export function DictionaryTests(): void
 {
     suite(
-        "Dictionary<TKey, TValue>",
+        "Dictionary",
         () =>
         {
             let dictionary: Dictionary<string, string>;
@@ -55,7 +55,7 @@ export function DictionaryTests(): void
             }
 
             suite(
-                "constructor([Iterable<readonly [TKey, TValue]>?`] entries)",
+                "constructor",
                 () =>
                 {
                     test(
@@ -82,7 +82,7 @@ export function DictionaryTests(): void
                 });
 
             suite(
-                "int Count",
+                "Count",
                 () =>
                 {
                     test(
@@ -94,7 +94,7 @@ export function DictionaryTests(): void
                 });
 
             suite(
-                "Array<[TKey, TValue]> Entries",
+                "Entries",
                 () =>
                 {
                     test(
@@ -111,7 +111,7 @@ export function DictionaryTests(): void
                 });
 
             suite(
-                "void Add(TKey key, TValue value)",
+                "Add",
                 () =>
                 {
                     let key: string;
@@ -147,7 +147,7 @@ export function DictionaryTests(): void
                 });
 
             suite(
-                "void AddRange(Iterable<readonly [TKey, TValue]> | Dictionary<TKey, TValue> entries)",
+                "AddRange",
                 () =>
                 {
                     setup(
@@ -174,7 +174,7 @@ export function DictionaryTests(): void
                 });
 
             suite(
-                "void Remove(TKey key)",
+                "Remove",
                 () =>
                 {
                     test(
@@ -197,7 +197,7 @@ export function DictionaryTests(): void
                 });
 
             suite(
-                "TValue Get(TKey key)",
+                "Get",
                 () =>
                 {
                     test(
@@ -217,7 +217,7 @@ export function DictionaryTests(): void
                 });
 
             suite(
-                "bool Has(TKey key)",
+                "Has",
                 () =>
                 {
                     test(
@@ -231,7 +231,7 @@ export function DictionaryTests(): void
                 });
 
             suite(
-                "void Clear()",
+                "Clear",
                 () =>
                 {
                     test(
@@ -245,7 +245,7 @@ export function DictionaryTests(): void
                 });
 
             suite(
-                "Record<string, TValue> ToJSON()",
+                "ToJSON",
                 () =>
                 {
                     test(

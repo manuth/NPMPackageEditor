@@ -34,7 +34,7 @@ export function BugInfoTests(): void
                 });
 
             suite(
-                "constructor()",
+                "constructor",
                 () =>
                 {
                     setup(
@@ -53,7 +53,7 @@ export function BugInfoTests(): void
                 });
 
             suite(
-                "constructor(string url)",
+                "constructor",
                 () =>
                 {
                     setup(
@@ -71,7 +71,7 @@ export function BugInfoTests(): void
                 });
 
             suite(
-                "constructor(string url, string email)",
+                "constructor",
                 () =>
                 {
                     setup(
@@ -90,7 +90,7 @@ export function BugInfoTests(): void
                 });
 
             suite(
-                "IBugInfo ToJSON()",
+                "ToJSON",
                 () =>
                 {
                     test(

@@ -65,7 +65,7 @@ export function AlphabeticalListTests(): void
             }
 
             suite(
-                "constructor()",
+                "constructor",
                 () =>
                 {
                     test(
@@ -74,12 +74,7 @@ export function AlphabeticalListTests(): void
                         {
                             Assert.doesNotThrow(() => new AlphabeticalList());
                         });
-                });
 
-            suite(
-                "constructor(Itearble<T> entries)",
-                () =>
-                {
                     test(
                         "Checking whether a list with predefined entries can be created…",
                         () =>
@@ -89,7 +84,7 @@ export function AlphabeticalListTests(): void
                 });
 
             suite(
-                "int Count",
+                "Count",
                 () =>
                 {
                     test(
@@ -107,7 +102,7 @@ export function AlphabeticalListTests(): void
                 });
 
             suite(
-                "Array<[number, T]> Entries",
+                "Entries",
                 () =>
                 {
                     test(
@@ -126,7 +121,7 @@ export function AlphabeticalListTests(): void
                 });
 
             suite(
-                "void Add(T value)",
+                "Add",
                 () =>
                 {
                     test(
@@ -142,7 +137,7 @@ export function AlphabeticalListTests(): void
                 });
 
             suite(
-                "void AddRange(readonly T[] items)",
+                "AddRange",
                 () =>
                 {
                     test(
@@ -168,7 +163,7 @@ export function AlphabeticalListTests(): void
                 });
 
             suite(
-                "void Remove(item T)",
+                "Remove",
                 () =>
                 {
                     test(
@@ -183,7 +178,7 @@ export function AlphabeticalListTests(): void
                 });
 
             suite(
-                "void RemoveAt(number index)",
+                "RemoveAt",
                 () =>
                 {
                     test(
@@ -217,7 +212,7 @@ export function AlphabeticalListTests(): void
                 });
 
             suite(
-                "void Clear()",
+                "Clear",
                 () =>
                 {
                     test(

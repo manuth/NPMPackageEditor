@@ -310,29 +310,24 @@ export function PackageTests(): void
             }
 
             suite(
-                "constructor()",
-                () =>
-                {
-                    test(
-                        "Checking whether the package can be constructed…",
-                        () =>
-                        {
-                            Assert.doesNotThrow(
-                                () =>
-                                {
-                                    npmPackage = new TestPackage();
-                                });
-                        });
-                });
-
-            suite(
-                "constructor(IPackageMetadata metadata)",
+                "constructor",
                 () =>
                 {
                     suite(
                         "Testing basic functionality…",
                         () =>
                         {
+                            test(
+                                "Checking whether the package can be constructed…",
+                                () =>
+                                {
+                                    Assert.doesNotThrow(
+                                        () =>
+                                        {
+                                            npmPackage = new TestPackage();
+                                        });
+                                });
+
                             test(
                                 "Checking whether the values are loaded correctly…",
                                 () =>
@@ -429,105 +424,105 @@ export function PackageTests(): void
                                     AssertDefault("BundledDependencies", [], AssertList);
                                 });
                         });
+
+                    suite(
+                        "Testing the feature to load values from files…",
+                        () =>
+                        {
+                            let tempFile: TempFile;
+
+                            suiteSetup(
+                                async () =>
+                                {
+                                    tempFile = new TempFile();
+                                    await writeJSON(tempFile.FullName, metadata);
+                                });
+
+                            suiteTeardown(
+                                () =>
+                                {
+                                    tempFile.Dispose();
+                                });
+
+                            setup(
+                                () =>
+                                {
+                                    npmPackage = new TestPackage(tempFile.FullName);
+                                });
+
+                            test(
+                                "Checking whether values are loaded from the `package.json` file correctly…",
+                                () =>
+                                {
+                                    AssertPackageMeta(metadata);
+                                });
+
+                            test(
+                                "Checking whether the `FileName` is set to the path of the source-file…",
+                                () =>
+                                {
+                                    Assert.strictEqual(npmPackage.FileName, tempFile.FullName);
+                                });
+                        });
+
+                    suite(
+                        "Testing the feature to shim package-file contents…",
+                        () =>
+                        {
+                            let tempFile: TempFile;
+                            let inexistentFile: TempFile;
+                            let testValue: string;
+
+                            suiteSetup(
+                                async () =>
+                                {
+                                    tempFile = new TempFile();
+                                    inexistentFile = new TempFile();
+                                    testValue = random.string(20);
+                                    await writeJSON(tempFile.FullName, metadata);
+                                    await remove(inexistentFile.FullName);
+                                });
+
+                            suiteTeardown(
+                                () =>
+                                {
+                                    tempFile.Dispose();
+                                    inexistentFile.Dispose();
+                                });
+
+                            setup(
+                                () =>
+                                {
+                                    npmPackage = new TestPackage(tempFile.FullName, {});
+                                });
+
+                            test(
+                                "Checking whether values aren't loaded from the file…",
+                                () =>
+                                {
+                                    Assert.notStrictEqual(npmPackage.Name, metadata.name);
+                                    Assert.ok(isNullOrUndefined(npmPackage.Name));
+                                });
+
+                            test(
+                                "Checking whether passing inexistent file-names doesn't throw an error…",
+                                () =>
+                                {
+                                    Assert.doesNotThrow(() => new TestPackage(inexistentFile.FullName, {}));
+                                });
+
+                            test(
+                                "Checking whether the metadata is loaded from the object…",
+                                () =>
+                                {
+                                    npmPackage = new TestPackage(inexistentFile.FullName, { name: testValue });
+                                    Assert.strictEqual(npmPackage.Name, testValue);
+                                });
+                        });
                 });
 
             suite(
-                "constructor(string path)",
-                () =>
-                {
-                    let tempFile: TempFile;
-
-                    suiteSetup(
-                        async () =>
-                        {
-                            tempFile = new TempFile();
-                            await writeJSON(tempFile.FullName, metadata);
-                        });
-
-                    suiteTeardown(
-                        () =>
-                        {
-                            tempFile.Dispose();
-                        });
-
-                    setup(
-                        () =>
-                        {
-                            npmPackage = new TestPackage(tempFile.FullName);
-                        });
-
-                    test(
-                        "Checking whether values are loaded from the `package.json` file correctly…",
-                        () =>
-                        {
-                            AssertPackageMeta(metadata);
-                        });
-
-                    test(
-                        "Checking whether the `FileName` is set to the path of the source-file…",
-                        () =>
-                        {
-                            Assert.strictEqual(npmPackage.FileName, tempFile.FullName);
-                        });
-                });
-
-            suite(
-                "constructor(string path, IPackageMetadata metadata)",
-                () =>
-                {
-                    let tempFile: TempFile;
-                    let inexistentFile: TempFile;
-                    let testValue: string;
-
-                    suiteSetup(
-                        async () =>
-                        {
-                            tempFile = new TempFile();
-                            inexistentFile = new TempFile();
-                            testValue = random.string(20);
-                            await writeJSON(tempFile.FullName, metadata);
-                            await remove(inexistentFile.FullName);
-                        });
-
-                    suiteTeardown(
-                        () =>
-                        {
-                            tempFile.Dispose();
-                            inexistentFile.Dispose();
-                        });
-
-                    setup(
-                        () =>
-                        {
-                            npmPackage = new TestPackage(tempFile.FullName, {});
-                        });
-
-                    test(
-                        "Checking whether values aren't loaded from the file…",
-                        () =>
-                        {
-                            Assert.notStrictEqual(npmPackage.Name, metadata.name);
-                            Assert.ok(isNullOrUndefined(npmPackage.Name));
-                        });
-
-                    test(
-                        "Checking whether passing inexistent file-names doesn't throw an error…",
-                        () =>
-                        {
-                            Assert.doesNotThrow(() => new TestPackage(inexistentFile.FullName, {}));
-                        });
-
-                    test(
-                        "Checking whether the metadata is loaded from the object…",
-                        () =>
-                        {
-                            npmPackage = new TestPackage(inexistentFile.FullName, { name: testValue });
-                            Assert.strictEqual(npmPackage.Name, testValue);
-                        });
-                });
-
-            suite(
-                "Promise<void> Normalize()",
+                "Normalize",
                 () =>
                 {
                     let gitRoot: string;
@@ -590,7 +585,7 @@ export function PackageTests(): void
                 });
 
             suite(
-                "IPackageMetadata ToJSON()",
+                "ToJSON",
                 () =>
                 {
                     let generatedMeta: IPackageMetadata;
@@ -648,7 +643,7 @@ export function PackageTests(): void
                 });
 
             suite(
-                "any LoadObject(any object)",
+                "LoadObject",
                 () =>
                 {
                     test(
@@ -674,7 +669,7 @@ export function PackageTests(): void
                 });
 
             suite(
-                "Dictionary<keyof T, T[keyof T]> LoadDictionary<T>(T collection)",
+                "LoadDictionary",
                 () =>
                 {
                     let randomKey: string;
@@ -698,7 +693,7 @@ export function PackageTests(): void
                 });
 
             suite(
-                "Person LoadPerson(IPerson | string person)",
+                "LoadPerson",
                 () =>
                 {
                     let personOptions: IPerson;
@@ -725,7 +720,7 @@ export function PackageTests(): void
                 });
 
             suite(
-                "Person[] LoadPersonList(Array<IPerson | string> personList)",
+                "LoadPersonList",
                 () =>
                 {
                     /**
