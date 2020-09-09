@@ -1,8 +1,8 @@
 import Assert = require("assert");
-import { platform, arch } from "os";
+import { arch, platform } from "os";
 import { URL } from "url";
 import { isNullOrUndefined } from "util";
-import { writeJSON, readdir, statSync, readFile, remove } from "fs-extra";
+import { readdir, readFile, remove, statSync, writeJSON } from "fs-extra";
 import gitRemoteOriginUrl = require("git-remote-origin-url");
 import gitRootDir = require("git-root-dir");
 import { Random } from "random-js";

@@ -1,6 +1,6 @@
 import { readFileSync } from "fs";
 import { isNullOrUndefined } from "util";
-import { readFile, pathExists } from "fs-extra";
+import { pathExists, readFile } from "fs-extra";
 import gitRemoteOriginUrl = require("git-remote-origin-url");
 import gitRootDir = require("git-root-dir");
 import normalize = require("normalize-package-data");
