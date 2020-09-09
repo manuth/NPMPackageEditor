@@ -4,7 +4,14 @@
   "description": "Provides types and tools for editing `package.json` files",
   "author": "Manuel Thalmann <m@nuth.ch>",
   "license": "MIT",
-  "keywords": [],
+  "keywords": [
+    "package.json",
+    "package",
+    "manifest",
+    "edit",
+    "editor",
+    "mutate"
+  ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "directories": {
@@ -23,10 +30,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc -p .",
+    "build": "tsc -b tsconfig.build.json",
     "rebuild": "npm run clean && npm run build",
-    "watch": "tsc -p . --watch",
-    "clean": "rimraf ./lib",
+    "watch": "npm run build -- --watch",
+    "clean": "npm run build -- --clean && rimraf ./lib",
     "lint-base": "eslint --max-warnings 0 --ignore-pattern \"!.eslintrc.js\"",
     "lint": "npm run lint-base -- --ext .js,.jsx,.ts,.tsx ./src .eslintrc.js",
     "lint-compact": "npm run lint -- -f compact || exit 0",
@@ -43,7 +50,7 @@
     "upath": "^1.2.0"
   },
   "devDependencies": {
-    "@manuth/eslint-plugin-typescript": "^2.2.1",
+    "@manuth/eslint-plugin-typescript": "^2.1.2",
     "@manuth/tsconfig": "^1.2.3",
     "@manuth/tslint-presets": "^1.0.4",
     "@types/fs-extra": "^9.0.1",
@@ -54,12 +61,12 @@
     "@types/parse-author": "^2.0.0",
     "@types/readme-filename": "^1.0.0",
     "@types/stringify-author": "^0.1.0",
-    "@typescript-eslint/eslint-plugin": "^4.1.0",
-    "@typescript-eslint/eslint-plugin-tslint": "^4.1.0",
-    "@typescript-eslint/parser": "^4.1.0",
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/eslint-plugin-tslint": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.1",
     "eslint": "^7.8.1",
     "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jsdoc": "^30.4.0",
+    "eslint-plugin-jsdoc": "^30.3.2",
     "fs-extra": "^9.0.1",
     "mocha": "^8.1.3",
     "random-js": "^2.1.0",

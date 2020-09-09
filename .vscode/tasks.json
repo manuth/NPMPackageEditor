@@ -32,8 +32,7 @@
             "script": "lint-compact",
             "problemMatcher": "$eslint-compact",
             "presentation": {
-                "reveal": "never",
-                "clear": true
+                "reveal": "never"
             }
         }
     ]

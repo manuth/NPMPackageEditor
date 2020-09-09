@@ -115,7 +115,7 @@ tsconfig.*.json
 .eslintrc.*
 
 # Source-maps
-[Ll]ib/**/*.js.map
+[Ll]ib/**/*.map
 
 # Unit-Tests
 .mocharc.*

@@ -1,4 +1,4 @@
-name: node-module
+name: NPMPackageEditor
 kind: pipeline
 type: docker
 
@@ -6,15 +6,15 @@ steps:
   - name: install
     image: node
     commands:
-      - npm install
-  - name: lint
-    image: node
-    commands:
-      - npm run lint
+      - npm install --unsafe-perm
   - name: build
     image: node
     commands:
       - npm run build
+  - name: lint
+    image: node
+    commands:
+      - npm run lint
   - name: test
     image: node
     commands:
