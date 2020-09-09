@@ -2,69 +2,75 @@ import Assert = require("assert");
 import { Random } from "random-js";
 import { PropertyDictionary } from "../../Collections/PropertyDictionary";
 
-suite(
-    "PropertyDictionary",
-    () =>
-    {
-        let random: Random;
-        let randomData: Record<string, number>;
-        let dictionary: PropertyDictionary<Record<string, number>>;
+/**
+ * Registers tests for the `PropertyDictionary` class.
+ */
+export function PropertyDictionaryTests(): void
+{
+    suite(
+        "PropertyDictionary",
+        () =>
+        {
+            let random: Random;
+            let randomData: Record<string, number>;
+            let dictionary: PropertyDictionary<Record<string, number>>;
 
-        suiteSetup(
-            () =>
-            {
-                random = new Random();
-                randomData = {};
-
-                for (let i = random.integer(1, 10); i > 0; i--)
+            suiteSetup(
+                () =>
                 {
-                    randomData = {
-                        ...randomData,
-                        [random.string(i)]: random.int32()
-                    };
-                }
-            });
+                    random = new Random();
+                    randomData = {};
 
-        setup(
-            () =>
-            {
-                dictionary = new PropertyDictionary(randomData);
-            });
-
-        suite(
-            "constructor()",
-            () =>
-            {
-                setup(
-                    () =>
+                    for (let i = random.integer(1, 10); i > 0; i--)
                     {
-                        dictionary = new PropertyDictionary();
-                    });
+                        randomData = {
+                            ...randomData,
+                            [random.string(i)]: random.int32()
+                        };
+                    }
+                });
 
-                test(
-                    "Checking whether a `PropertyDictionary` can be created without passing arguments…",
-                    () =>
-                    {
-                        Assert.doesNotThrow(() => new PropertyDictionary());
-                    });
-            });
+            setup(
+                () =>
+                {
+                    dictionary = new PropertyDictionary(randomData);
+                });
 
-        suite(
-            "constructor(T collection)",
-            () =>
-            {
-                test(
-                    "Checking whether a `PropertyDictionary` can be created based on an object…",
-                    () =>
-                    {
-                        Assert.strictEqual(dictionary.Count, Object.keys(randomData).length);
+            suite(
+                "constructor()",
+                () =>
+                {
+                    setup(
+                        () =>
+                        {
+                            dictionary = new PropertyDictionary();
+                        });
 
-                        Assert.ok(
-                            dictionary.Entries.every(
-                                (entry) =>
-                                {
-                                    return randomData[entry[0]] === entry[1];
-                                }));
-                    });
-            });
-    });
+                    test(
+                        "Checking whether a `PropertyDictionary` can be created without passing arguments…",
+                        () =>
+                        {
+                            Assert.doesNotThrow(() => new PropertyDictionary());
+                        });
+                });
+
+            suite(
+                "constructor(T collection)",
+                () =>
+                {
+                    test(
+                        "Checking whether a `PropertyDictionary` can be created based on an object…",
+                        () =>
+                        {
+                            Assert.strictEqual(dictionary.Count, Object.keys(randomData).length);
+
+                            Assert.ok(
+                                dictionary.Entries.every(
+                                    (entry) =>
+                                    {
+                                        return randomData[entry[0]] === entry[1];
+                                    }));
+                        });
+                });
+        });
+}
