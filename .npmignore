@@ -124,5 +124,8 @@ tsconfig.*.json
 # Visual Studio Code-Environment
 .vscode/
 
+# GitHub configuration
+.github/
+
 # Drone configuration
 .drone.yml

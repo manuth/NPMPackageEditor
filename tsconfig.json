@@ -1,6 +1,5 @@
 {
     "extends": "./tsconfig.base.json",
-    "compileOnSave": true,
     "compilerOptions": {
         "composite": true,
         "rootDir": "./src",
