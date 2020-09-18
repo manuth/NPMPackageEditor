@@ -1,7 +1,6 @@
 import Assert = require("assert");
 import { arch, platform } from "os";
 import { URL } from "url";
-import { isNullOrUndefined } from "util";
 import { TempFile } from "@manuth/temp-files";
 import { readdir, readFile, remove, statSync, writeJSON } from "fs-extra";
 import gitRemoteOriginUrl = require("git-remote-origin-url");
@@ -501,7 +500,7 @@ export function PackageTests(): void
                                 () =>
                                 {
                                     Assert.notStrictEqual(npmPackage.Name, metadata.name);
-                                    Assert.ok(isNullOrUndefined(npmPackage.Name));
+                                    Assert.ok(npmPackage.Name !== null && npmPackage.Name !== undefined);
                                 });
 
                             test(

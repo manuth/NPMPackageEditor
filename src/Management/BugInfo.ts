@@ -1,4 +1,3 @@
-import { isNullOrUndefined } from "util";
 import { JSONObject } from "../Utilities/JSONObject";
 import { JSONObjectBase } from "../Utilities/JSONObjectBase";
 import { IBugInfo } from "./IBugInfo";
@@ -88,7 +87,7 @@ export class BugInfo extends JSONObjectBase<IBugInfo>
      */
     public ToJSON(): IBugInfo
     {
-        if (isNullOrUndefined(this.EMail) && isNullOrUndefined(this.URL))
+        if (!this.EMail && !this.URL)
         {
             return null;
         }

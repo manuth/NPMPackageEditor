@@ -1,5 +1,4 @@
 import Assert = require("assert");
-import { isNullOrUndefined } from "util";
 import { Random } from "random-js";
 import { IPerson } from "../../Management/IPerson";
 import { JSONObject } from "../../Utilities/JSONObject";
@@ -80,7 +79,7 @@ export function JSONObjectTests(): void
             {
                 for (let value of [undefined, null, randomValue])
                 {
-                    AssertPropertyPresence(propertyInjector, randomKeyGenerator.next().value, value, !isNullOrUndefined(value) || present);
+                    AssertPropertyPresence(propertyInjector, randomKeyGenerator.next().value, value, (value !== null && value !== undefined) || present);
                 }
             }
 

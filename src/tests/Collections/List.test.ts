@@ -157,7 +157,7 @@ export function ListTests(): void
                             Assert.strictEqual(list.Values[index], randomItem);
                             Assert.doesNotThrow(() => list.RemoveAt(index));
                             Assert.strictEqual(list.Count, randomData.length - 1);
-                            Assert.notEqual(list.Values[index], randomItem);
+                            Assert.notStrictEqual(list.Values[index], randomItem);
                         });
 
                     test(

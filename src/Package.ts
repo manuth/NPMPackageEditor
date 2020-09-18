@@ -1,5 +1,4 @@
 import { readFileSync } from "fs";
-import { isNullOrUndefined } from "util";
 import { pathExists, readFile } from "fs-extra";
 import gitRemoteOriginUrl = require("git-remote-origin-url");
 import gitRootDir = require("git-root-dir");
@@ -429,7 +428,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
         let directory: string = null;
         let metadata: IPackageJSON = { ...this.ToJSON() };
 
-        if (!isNullOrUndefined(this.FileName))
+        if (this.FileName)
         {
             let packageRoot = Path.dirname(Path.resolve(this.FileName));
 
@@ -438,7 +437,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
                 let gitRoot = await gitRootDir(packageRoot);
                 let readmeFile = await readmeFilename(packageRoot);
 
-                if (!isNullOrUndefined(gitRoot))
+                if (gitRoot)
                 {
                     let remote: string;
 
@@ -459,7 +458,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
                     }
                 }
 
-                if (!isNullOrUndefined(readmeFile))
+                if (readmeFile)
                 {
                     metadata.readme = (await readFile(Path.join(packageRoot, readmeFile))).toString();
                 }
@@ -481,7 +480,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
         if (directory !== null)
         {
             if (
-                !isNullOrUndefined(newMetadata.repository) &&
+                newMetadata.repository &&
                 typeof newMetadata.repository !== "string")
             {
                 newMetadata.repository.directory = directory;
@@ -629,7 +628,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
      */
     protected LoadObject(object: any): any
     {
-        return !isNullOrUndefined(object) ? (typeof object === "object" ? (Array.isArray(object) ? [...object] : { ...object }) : object) : null;
+        return object ? (typeof object === "object" ? (Array.isArray(object) ? [...object] : { ...object }) : object) : null;
     }
 
     /**
