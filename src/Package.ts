@@ -628,7 +628,9 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
      */
     protected LoadObject(object: any): any
     {
-        return object ? (typeof object === "object" ? (Array.isArray(object) ? [...object] : { ...object }) : object) : null;
+        return (object !== null && object !== undefined) ?
+            (typeof object === "object" ? (Array.isArray(object) ? [...object] : { ...object }) : object) :
+            null;
     }
 
     /**
