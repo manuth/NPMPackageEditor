@@ -500,7 +500,7 @@ export function PackageTests(): void
                                 () =>
                                 {
                                     Assert.notStrictEqual(npmPackage.Name, metadata.name);
-                                    Assert.ok(npmPackage.Name !== null && npmPackage.Name !== undefined);
+                                    Assert.ok(npmPackage.Name === null || npmPackage.Name === undefined);
                                 });
 
                             test(
