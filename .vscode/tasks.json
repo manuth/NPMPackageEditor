@@ -29,11 +29,10 @@
         {
             "label": "Lint",
             "type": "npm",
-            "script": "lint-compact",
-            "problemMatcher": "$eslint-compact",
+            "script": "lint-ide",
+            "problemMatcher": "$eslint-stylish",
             "presentation": {
-                "reveal": "never",
-                "clear": true
+                "reveal": "never"
             }
         }
     ]

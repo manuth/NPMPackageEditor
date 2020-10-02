@@ -1,4 +1,3 @@
-import { isNullOrUndefined } from "util";
 import { Dictionary } from "../Collections/Dictionary";
 import { ICollection } from "../Collections/ICollection";
 import { List } from "../Collections/List";
@@ -104,7 +103,7 @@ export class DependencyCollection implements IDependencyCollection
 
         for (let key of keys)
         {
-            if (!isNullOrUndefined(overwrite))
+            if (overwrite !== null && overwrite !== undefined)
             {
                 let collectionToMutate = overwrite ? this : collection;
 

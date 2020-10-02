@@ -6,7 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## NPMPackageEditor [Unreleased]
 
-[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.4.1...dev)
+[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.4.2...dev)
+
+## NPMPackageEditor v1.4.2
+### Updated
+  - ESLint rules for preveinting usage of deprecated API
+
+[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.4.1...v1.4.2)
 
 ## NPMPackageEditor v1.4.1
 ### Added

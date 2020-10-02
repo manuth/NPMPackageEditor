@@ -1,4 +1,3 @@
-import { isNullOrUndefined } from "util";
 import { JSONObjectBase } from "./JSONObjectBase";
 
 /**
@@ -61,7 +60,7 @@ export class JSONObject<T extends Record<never, never> = Record<string, unknown>
      */
     public AddIfNotNull<TKey extends keyof T>(key: TKey, value: T[TKey]): void
     {
-        if (!isNullOrUndefined(value))
+        if (value !== null && value !== undefined)
         {
             this.Add(key, value);
         }

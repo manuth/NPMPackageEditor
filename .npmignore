@@ -115,7 +115,7 @@ tsconfig.*.json
 .eslintrc.*
 
 # Source-maps
-[Ll]ib/**/*.js.map
+[Ll]ib/**/*.map
 
 # Unit-Tests
 .mocharc.*
@@ -123,6 +123,9 @@ tsconfig.*.json
 
 # Visual Studio Code-Environment
 .vscode/
+
+# GitHub configuration
+.github/
 
 # Drone configuration
 .drone.yml

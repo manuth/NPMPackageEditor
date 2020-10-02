@@ -4,92 +4,98 @@ import StringifyAuthor = require("stringify-author");
 import { IPerson } from "../../Management/IPerson";
 import { Person } from "../../Management/Person";
 
-suite(
-    "Person",
-    () =>
-    {
-        let random: Random;
-        let person: Person;
-        let personOptions: IPerson;
-
-        /**
-         * Âsserts the options of the `person` variable.
-         *
-         * @param personOptions
-         * The person-options to assert.
-         */
-        function AssertPerson(personOptions: IPerson): void
+/**
+ * Registers tests for the `Person` class.
+ */
+export function PersonTests(): void
+{
+    suite(
+        "Person",
+        () =>
         {
-            Assert.strictEqual(person.Name, personOptions.name);
-            Assert.strictEqual(person.EMail, personOptions.email);
-            Assert.strictEqual(person.URL, personOptions.url);
-        }
+            let random: Random;
+            let person: Person;
+            let personOptions: IPerson;
 
-        suiteSetup(
-            () =>
+            /**
+             * Âsserts the options of the `person` variable.
+             *
+             * @param personOptions
+             * The person-options to assert.
+             */
+            function AssertPerson(personOptions: IPerson): void
             {
-                random = new Random();
+                Assert.strictEqual(person.Name, personOptions.name);
+                Assert.strictEqual(person.EMail, personOptions.email);
+                Assert.strictEqual(person.URL, personOptions.url);
+            }
 
-                personOptions = {
-                    name: random.string(10),
-                    email: random.string(10),
-                    url: random.string(10)
-                };
-            });
+            suiteSetup(
+                () =>
+                {
+                    random = new Random();
 
-        setup(
-            () =>
-            {
-                person = new Person(personOptions);
-            });
+                    personOptions = {
+                        name: random.string(10),
+                        email: random.string(10),
+                        url: random.string(10)
+                    };
+                });
 
-        suite(
-            "constructor(IPerson person)",
-            () =>
-            {
-                test(
-                    "Checking whether the object is created correctly…",
-                    () =>
-                    {
-                        AssertPerson(personOptions);
-                    });
-            });
+            setup(
+                () =>
+                {
+                    person = new Person(personOptions);
+                });
 
-        suite(
-            "constructor(string person)",
-            () =>
-            {
-                setup(
-                    () =>
-                    {
-                        new Person(StringifyAuthor(personOptions));
-                    });
+            suite(
+                "constructor",
+                () =>
+                {
+                    test(
+                        "Checking whether the object is created correctly…",
+                        () =>
+                        {
+                            AssertPerson(personOptions);
+                        });
+                });
 
-                test(
-                    "Checking whether the text is parsed correctly…",
-                    () =>
-                    {
-                        AssertPerson(personOptions);
-                    });
-            });
+            suite(
+                "constructor",
+                () =>
+                {
+                    setup(
+                        () =>
+                        {
+                            new Person(StringifyAuthor(personOptions));
+                        });
 
-        suite(
-            "string ToJSON()",
-            () =>
-            {
-                test(
-                    "Checking whether this method returns `null` for persons without any information…",
-                    () =>
-                    {
-                        person = new Person("");
-                        Assert.strictEqual(person.ToJSON(), null);
-                    });
+                    test(
+                        "Checking whether the text is parsed correctly…",
+                        () =>
+                        {
+                            AssertPerson(personOptions);
+                        });
+                });
 
-                test(
-                    "Checking whether the person is represented correctly…",
-                    () =>
-                    {
-                        Assert.strictEqual(person.ToJSON(), StringifyAuthor(personOptions));
-                    });
-            });
-    });
+            suite(
+                "ToJSON",
+                () =>
+                {
+                    test(
+                        "Checking whether this method returns `null` for persons without any information…",
+                        () =>
+                        {
+                            person = new Person("");
+                            Assert.strictEqual(person.ToJSON(), null);
+                        });
+
+                    test(
+                        "Checking whether the person is represented correctly…",
+                        () =>
+                        {
+                            Assert.strictEqual(person.ToJSON(), StringifyAuthor(personOptions));
+                        });
+                });
+        });
+}
