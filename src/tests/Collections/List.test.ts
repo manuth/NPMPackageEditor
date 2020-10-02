@@ -1,4 +1,4 @@
-import Assert = require("assert");
+import { deepStrictEqual, doesNotThrow, notStrictEqual, ok, strictEqual, throws } from "assert";
 import { Random } from "random-js";
 import { List } from "../../Collections/List";
 
@@ -43,7 +43,7 @@ export function ListTests(): void
                         "Checking whether `Count` returns the number of entries…",
                         () =>
                         {
-                            Assert.strictEqual(randomData.length, list.Count);
+                            strictEqual(randomData.length, list.Count);
                         });
                 });
 
@@ -62,14 +62,14 @@ export function ListTests(): void
                                 expected.push(i);
                             }
 
-                            Assert.deepStrictEqual(list.Entries.map((entry) => entry[0]), expected);
+                            deepStrictEqual(list.Entries.map((entry) => entry[0]), expected);
                         });
 
                     test(
                         "Checking whether all entries are present…",
                         () =>
                         {
-                            Assert.ok(
+                            ok(
                                 list.Entries.every(
                                     (entry) =>
                                     {
@@ -87,9 +87,9 @@ export function ListTests(): void
                         () =>
                         {
                             list = new List();
-                            Assert.ok(!list.Contains(randomItem));
+                            ok(!list.Contains(randomItem));
                             list.Add(randomItem);
-                            Assert.ok(list.Contains(randomItem));
+                            ok(list.Contains(randomItem));
                         });
                 });
 
@@ -102,10 +102,10 @@ export function ListTests(): void
                         () =>
                         {
                             list = new List();
-                            Assert.strictEqual(list.Count, 0);
-                            Assert.doesNotThrow(() => list.Add(randomItem));
-                            Assert.strictEqual(list.Count, 1);
-                            Assert.ok(list.Contains(randomItem));
+                            strictEqual(list.Count, 0);
+                            doesNotThrow(() => list.Add(randomItem));
+                            strictEqual(list.Count, 1);
+                            ok(list.Contains(randomItem));
                         });
                 });
 
@@ -119,7 +119,7 @@ export function ListTests(): void
                         {
                             list = new List();
                             list.AddRange(randomData);
-                            Assert.strictEqual(list.Count, randomData.length);
+                            strictEqual(list.Count, randomData.length);
                         });
                 });
 
@@ -131,9 +131,9 @@ export function ListTests(): void
                         "Checking whether items can be removed…",
                         () =>
                         {
-                            Assert.ok(list.Contains(randomItem));
-                            Assert.doesNotThrow(() => list.Remove(randomItem));
-                            Assert.ok(!list.Contains(randomItem));
+                            ok(list.Contains(randomItem));
+                            doesNotThrow(() => list.Remove(randomItem));
+                            ok(!list.Contains(randomItem));
                         });
 
                     test(
@@ -141,7 +141,7 @@ export function ListTests(): void
                         () =>
                         {
                             list.Remove(randomItem);
-                            Assert.throws(() => list.Remove(randomItem));
+                            throws(() => list.Remove(randomItem));
                         });
                 });
 
@@ -154,17 +154,17 @@ export function ListTests(): void
                         () =>
                         {
                             let index = randomData.indexOf(randomItem);
-                            Assert.strictEqual(list.Values[index], randomItem);
-                            Assert.doesNotThrow(() => list.RemoveAt(index));
-                            Assert.strictEqual(list.Count, randomData.length - 1);
-                            Assert.notStrictEqual(list.Values[index], randomItem);
+                            strictEqual(list.Values[index], randomItem);
+                            doesNotThrow(() => list.RemoveAt(index));
+                            strictEqual(list.Count, randomData.length - 1);
+                            notStrictEqual(list.Values[index], randomItem);
                         });
 
                     test(
                         "Checking whether trying to remove an inexistent index throws an error…",
                         () =>
                         {
-                            Assert.throws(() => list.RemoveAt(list.Count));
+                            throws(() => list.RemoveAt(list.Count));
                         });
                 });
 
@@ -176,9 +176,9 @@ export function ListTests(): void
                         "Checking whether the list can be cleared…",
                         () =>
                         {
-                            Assert.strictEqual(list.Count, randomData.length);
-                            Assert.doesNotThrow(() => list.Clear());
-                            Assert.strictEqual(list.Count, 0);
+                            strictEqual(list.Count, randomData.length);
+                            doesNotThrow(() => list.Clear());
+                            strictEqual(list.Count, 0);
                         });
                 });
 
@@ -190,7 +190,7 @@ export function ListTests(): void
                         "Checking whether lists are converted to json correctly…",
                         () =>
                         {
-                            Assert.deepStrictEqual(list.ToJSON(), randomData);
+                            deepStrictEqual(list.ToJSON(), randomData);
                         });
                 });
         });

@@ -1,4 +1,4 @@
-import Assert = require("assert");
+import { ok, strictEqual, throws } from "assert";
 import { Random } from "random-js";
 import readPkgUp = require("read-pkg-up");
 import { Dictionary } from "../../Collections/Dictionary";
@@ -153,11 +153,11 @@ export function DependencyCollectionTests(): void
 
                             for (let dependencySet of GetDependencySets())
                             {
-                                Assert.ok(dependencySet.Has(dependencyName));
-                                Assert.strictEqual(dependencySet.Get(dependencyName), dependencyVersion);
+                                ok(dependencySet.Has(dependencyName));
+                                strictEqual(dependencySet.Get(dependencyName), dependencyVersion);
                             }
 
-                            Assert.ok(collection.BundledDependencies.Contains(dependencyName));
+                            ok(collection.BundledDependencies.Contains(dependencyName));
                         });
 
                     test(
@@ -169,7 +169,7 @@ export function DependencyCollectionTests(): void
                                 let otherCollection = new DependencyCollection();
                                 let dependency = random.pick(collection[dependencySet].Keys);
                                 otherCollection[dependencySet].Add(dependency, null);
-                                Assert.throws(() => collection.Register(otherCollection));
+                                throws(() => collection.Register(otherCollection));
                             }
                         });
 
@@ -181,7 +181,7 @@ export function DependencyCollectionTests(): void
                             let startLength = collection.BundledDependencies.Count;
                             otherCollection.BundledDependencies.Add(random.pick(collection.BundledDependencies.Values));
                             collection.Register(otherCollection);
-                            Assert.strictEqual(collection.BundledDependencies.Count, startLength);
+                            strictEqual(collection.BundledDependencies.Count, startLength);
                         });
                 });
         });

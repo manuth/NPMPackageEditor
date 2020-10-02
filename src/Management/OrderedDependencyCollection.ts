@@ -4,6 +4,7 @@ import { Dictionary } from "../Collections/Dictionary";
 import { List } from "../Collections/List";
 import { DependencyCollection } from "./DependencyCollection";
 import { IDependencyCollectionOptions } from "./IDependencyCollectionOptions";
+
 /**
  * Represents a set of dependencies which are ordered alphabetically.
  */

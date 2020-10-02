@@ -1,4 +1,4 @@
-import Assert = require("assert");
+import { doesNotThrow, notStrictEqual, ok, strictEqual, throws } from "assert";
 import { Random } from "random-js";
 import { Dictionary } from "../../Collections/Dictionary";
 
@@ -44,9 +44,9 @@ export function DictionaryTests(): void
             function AssertEntries(entries: Iterable<readonly [string, string]>): void
             {
                 let entryArray = Array.from(entries);
-                Assert.strictEqual(dictionary.Count, entryArray.length);
+                strictEqual(dictionary.Count, entryArray.length);
 
-                Assert.ok(
+                ok(
                     entryArray.every(
                         (entry) =>
                         {
@@ -62,22 +62,18 @@ export function DictionaryTests(): void
                         "Checking whether a dictionary can be constructed without arguments…",
                         () =>
                         {
-                            Assert.doesNotThrow(() => new Dictionary());
+                            doesNotThrow(() => new Dictionary());
                         });
 
                     test(
                         "Checking whether a dictionary can be constructed with predefined entries…",
                         () =>
                         {
-                            Assert.doesNotThrow(
-                                () =>
-                                {
-                                    Assert.doesNotThrow(
-                                        () => new Dictionary(
-                                            [
-                                                ["", ""]
-                                            ]));
-                                });
+                            doesNotThrow(
+                                () => new Dictionary(
+                                    [
+                                        ["", ""]
+                                    ]));
                         });
                 });
 
@@ -89,7 +85,7 @@ export function DictionaryTests(): void
                         "Checking whether `Count` returns the number of entries…",
                         () =>
                         {
-                            Assert.strictEqual(randomMap.length, dictionary.Count);
+                            strictEqual(randomMap.length, dictionary.Count);
                         });
                 });
 
@@ -101,7 +97,7 @@ export function DictionaryTests(): void
                         "Checking whether all entries are present…",
                         () =>
                         {
-                            Assert.ok(
+                            ok(
                                 randomMap.every(
                                     (mapEntry) =>
                                     {
@@ -142,7 +138,7 @@ export function DictionaryTests(): void
                         () =>
                         {
                             dictionary.Add(key, value);
-                            Assert.throws(() => dictionary.Add(key, ""));
+                            throws(() => dictionary.Add(key, ""));
                         });
                 });
 
@@ -192,7 +188,7 @@ export function DictionaryTests(): void
                         () =>
                         {
                             dictionary.Remove(randomKey);
-                            Assert.throws(() => dictionary.Remove(randomKey));
+                            throws(() => dictionary.Remove(randomKey));
                         });
                 });
 
@@ -204,7 +200,7 @@ export function DictionaryTests(): void
                         "Checking whether values can be requested correctly…",
                         () =>
                         {
-                            Assert.strictEqual(dictionary.Get(randomKey), new Map(randomMap).get(randomKey));
+                            strictEqual(dictionary.Get(randomKey), new Map(randomMap).get(randomKey));
                         });
 
                     test(
@@ -212,7 +208,7 @@ export function DictionaryTests(): void
                         () =>
                         {
                             dictionary.Remove(randomKey);
-                            Assert.throws(() => dictionary.Get(randomKey));
+                            throws(() => dictionary.Get(randomKey));
                         });
                 });
 
@@ -224,9 +220,9 @@ export function DictionaryTests(): void
                         "Checking whether key-existence is computed correctly…",
                         () =>
                         {
-                            Assert.ok(dictionary.Has(randomKey));
+                            ok(dictionary.Has(randomKey));
                             dictionary.Remove(randomKey);
-                            Assert.ok(!dictionary.Has(randomKey));
+                            ok(!dictionary.Has(randomKey));
                         });
                 });
 
@@ -239,8 +235,8 @@ export function DictionaryTests(): void
                         () =>
                         {
                             dictionary.Clear();
-                            Assert.notStrictEqual(dictionary.Count, randomMap.length);
-                            Assert.strictEqual(dictionary.Count, 0);
+                            notStrictEqual(dictionary.Count, randomMap.length);
+                            strictEqual(dictionary.Count, 0);
                         });
                 });
 
@@ -256,8 +252,8 @@ export function DictionaryTests(): void
 
                             for (let key of Object.keys(jsonObject))
                             {
-                                Assert.ok(dictionary.Has(key));
-                                Assert.strictEqual(jsonObject[key], dictionary.Get(key));
+                                ok(dictionary.Has(key));
+                                strictEqual(jsonObject[key], dictionary.Get(key));
                             }
                         });
                 });

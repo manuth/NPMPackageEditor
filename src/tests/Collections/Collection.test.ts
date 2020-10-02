@@ -1,4 +1,4 @@
-import Assert = require("assert");
+import { ok, strictEqual } from "assert";
 import { Random } from "random-js";
 import { Collection } from "../../Collections/Collection";
 import { TestCollection } from "./TestCollection";
@@ -42,7 +42,7 @@ export function CollectionTests(): void
                         "Checking whether `Count` returns the number of entries…",
                         () =>
                         {
-                            Assert.strictEqual(randomMap.length, collection.Count);
+                            strictEqual(randomMap.length, collection.Count);
                         });
                 });
 
@@ -54,7 +54,7 @@ export function CollectionTests(): void
                         "Checking whether all keys are present…",
                         () =>
                         {
-                            Assert.ok(
+                            ok(
                                 randomMap.every(
                                     (entry) =>
                                     {
@@ -71,7 +71,7 @@ export function CollectionTests(): void
                         "Checking whether all values are present…",
                         () =>
                         {
-                            Assert.ok(
+                            ok(
                                 randomMap.every(
                                     (entry) =>
                                     {

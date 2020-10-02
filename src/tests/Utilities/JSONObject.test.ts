@@ -1,4 +1,4 @@
-import Assert = require("assert");
+import { doesNotThrow, ok, strictEqual, throws } from "assert";
 import { Random } from "random-js";
 import { IPerson } from "../../Management/IPerson";
 import { JSONObject } from "../../Utilities/JSONObject";
@@ -101,7 +101,7 @@ export function JSONObjectTests(): void
             function AssertPropertyPresence<TKey extends keyof ITest>(propertyInjector: PropertyInjector<ITest>, key: TKey, value: ITest[TKey], present: boolean): void
             {
                 propertyInjector(jsonObject, key, value);
-                Assert.strictEqual(key in jsonObject.ToJSON(), present);
+                strictEqual(key in jsonObject.ToJSON(), present);
 
                 if (jsonObject.Has(key))
                 {
@@ -126,7 +126,7 @@ export function JSONObjectTests(): void
                         "Checking whether base-values are loaded correctly…",
                         () =>
                         {
-                            Assert.strictEqual(jsonObject.ToJSON()[randomKey], randomValue);
+                            strictEqual(jsonObject.ToJSON()[randomKey], randomValue);
                         });
                 });
 
@@ -139,7 +139,7 @@ export function JSONObjectTests(): void
                         () =>
                         {
                             jsonObject.Add(randomKey, randomValue);
-                            Assert.strictEqual(jsonObject.ToJSON()[randomKey], randomValue);
+                            strictEqual(jsonObject.ToJSON()[randomKey], randomValue);
                         });
 
                     test(
@@ -234,9 +234,9 @@ export function JSONObjectTests(): void
                         "Checking whether properties are checked for existence correctly…",
                         () =>
                         {
-                            Assert.ok(!jsonObject.Has(randomKey));
+                            ok(!jsonObject.Has(randomKey));
                             jsonObject.Add(randomKey, randomValue);
-                            Assert.ok(jsonObject.Has(randomKey));
+                            ok(jsonObject.Has(randomKey));
                         });
                 });
 
@@ -249,16 +249,16 @@ export function JSONObjectTests(): void
                         () =>
                         {
                             jsonObject.Add(randomKey, randomValue);
-                            Assert.ok(jsonObject.Has(randomKey));
-                            Assert.doesNotThrow(() => jsonObject.Remove(randomKey));
-                            Assert.ok(!jsonObject.Has(randomKey));
+                            ok(jsonObject.Has(randomKey));
+                            doesNotThrow(() => jsonObject.Remove(randomKey));
+                            ok(!jsonObject.Has(randomKey));
                         });
 
                     test(
                         "Checking whether trying to remove an inexistent property throws an error…",
                         () =>
                         {
-                            Assert.throws(() => jsonObject.Remove(randomKey));
+                            throws(() => jsonObject.Remove(randomKey));
                         });
                 });
         });
