@@ -1,6 +1,6 @@
-import Assert = require("assert");
+import { strictEqual } from "assert";
 import { Random } from "random-js";
-import StringifyAuthor = require("stringify-author");
+import stringify = require("stringify-author");
 import { IPerson } from "../../Management/IPerson";
 import { Person } from "../../Management/Person";
 
@@ -25,9 +25,9 @@ export function PersonTests(): void
              */
             function AssertPerson(personOptions: IPerson): void
             {
-                Assert.strictEqual(person.Name, personOptions.name);
-                Assert.strictEqual(person.EMail, personOptions.email);
-                Assert.strictEqual(person.URL, personOptions.url);
+                strictEqual(person.Name, personOptions.name);
+                strictEqual(person.EMail, personOptions.email);
+                strictEqual(person.URL, personOptions.url);
             }
 
             suiteSetup(
@@ -67,7 +67,7 @@ export function PersonTests(): void
                     setup(
                         () =>
                         {
-                            new Person(StringifyAuthor(personOptions));
+                            new Person(stringify(personOptions));
                         });
 
                     test(
@@ -87,14 +87,14 @@ export function PersonTests(): void
                         () =>
                         {
                             person = new Person("");
-                            Assert.strictEqual(person.ToJSON(), null);
+                            strictEqual(person.ToJSON(), null);
                         });
 
                     test(
                         "Checking whether the person is represented correctly…",
                         () =>
                         {
-                            Assert.strictEqual(person.ToJSON(), StringifyAuthor(personOptions));
+                            strictEqual(person.ToJSON(), stringify(personOptions));
                         });
                 });
         });

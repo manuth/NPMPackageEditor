@@ -1,4 +1,4 @@
-import Assert = require("assert");
+import { doesNotThrow, notStrictEqual, ok, strictEqual, throws } from "assert";
 import { Random } from "random-js";
 import { AlphabeticalList } from "../../Collections/AlphabeticalList";
 import { List } from "../../Collections/List";
@@ -48,11 +48,11 @@ export function AlphabeticalListTests(): void
             function AssertItemsWithoutOrder<T>(list: List<T>, items: T[]): void
             {
                 let correctOrder: string[] = [];
-                Assert.strictEqual(list.Count, items.length);
+                strictEqual(list.Count, items.length);
 
                 for (let item of items)
                 {
-                    Assert.ok(list.Contains(item));
+                    ok(list.Contains(item));
                     correctOrder.push(`${item}`);
                 }
 
@@ -60,7 +60,7 @@ export function AlphabeticalListTests(): void
 
                 for (let i = 0; i < correctOrder.length; i++)
                 {
-                    Assert.strictEqual(`${list.Values[i]}`, correctOrder[i]);
+                    strictEqual(`${list.Values[i]}`, correctOrder[i]);
                 }
             }
 
@@ -72,7 +72,7 @@ export function AlphabeticalListTests(): void
                         "Checking whether an empty list can be created…",
                         () =>
                         {
-                            Assert.doesNotThrow(() => new AlphabeticalList());
+                            doesNotThrow(() => new AlphabeticalList());
                         });
 
                     test(
@@ -93,11 +93,11 @@ export function AlphabeticalListTests(): void
                         {
                             for (let i = incorrectOrder.length; i > 0; i--)
                             {
-                                Assert.strictEqual(list.Count, i);
+                                strictEqual(list.Count, i);
                                 list.RemoveAt(i - 1);
                             }
 
-                            Assert.strictEqual(list.Count, 0);
+                            strictEqual(list.Count, 0);
                         });
                 });
 
@@ -114,8 +114,8 @@ export function AlphabeticalListTests(): void
                             for (let i = 0; i < correctOrder.length; i++)
                             {
                                 let entry = list.Entries[i];
-                                Assert.strictEqual(entry[0], i);
-                                Assert.strictEqual(entry[1], correctOrder[i]);
+                                strictEqual(entry[0], i);
+                                strictEqual(entry[1], correctOrder[i]);
                             }
                         });
                 });
@@ -129,10 +129,10 @@ export function AlphabeticalListTests(): void
                         () =>
                         {
                             let startCount = list.Count;
-                            Assert.ok(!list.Contains(randomValue));
+                            ok(!list.Contains(randomValue));
                             list.Add(randomValue);
-                            Assert.ok(list.Contains(randomValue));
-                            Assert.strictEqual(list.Count, startCount + 1);
+                            ok(list.Contains(randomValue));
+                            strictEqual(list.Count, startCount + 1);
                         });
                 });
 
@@ -153,11 +153,11 @@ export function AlphabeticalListTests(): void
                             }
 
                             list.AddRange(otherRange);
-                            Assert.strictEqual(list.Count, startCount + otherRange.length);
+                            strictEqual(list.Count, startCount + otherRange.length);
 
                             for (let item of otherRange)
                             {
-                                Assert.ok(list.Contains(item));
+                                ok(list.Contains(item));
                             }
                         });
                 });
@@ -171,9 +171,9 @@ export function AlphabeticalListTests(): void
                         () =>
                         {
                             list.Add(randomValue);
-                            Assert.ok(list.Contains(randomValue));
-                            Assert.doesNotThrow(() => list.Remove(randomValue));
-                            Assert.ok(!list.Contains(randomValue));
+                            ok(list.Contains(randomValue));
+                            doesNotThrow(() => list.Remove(randomValue));
+                            ok(!list.Contains(randomValue));
                         });
                 });
 
@@ -187,9 +187,9 @@ export function AlphabeticalListTests(): void
                         {
                             list.Add(randomValue);
                             let index = list.Values.indexOf(randomValue);
-                            Assert.ok(list.Contains(randomValue));
-                            Assert.doesNotThrow(() => list.RemoveAt(index));
-                            Assert.ok(!list.Contains(randomValue));
+                            ok(list.Contains(randomValue));
+                            doesNotThrow(() => list.RemoveAt(index));
+                            ok(!list.Contains(randomValue));
                         });
 
                     test(
@@ -198,16 +198,16 @@ export function AlphabeticalListTests(): void
                         {
                             list.Add(randomValue);
                             let index = list.Values.indexOf(randomValue);
-                            Assert.strictEqual(list.Entries[index][1], randomValue);
-                            Assert.doesNotThrow(() => list.RemoveAt(index));
-                            Assert.notStrictEqual(list.Entries[index]?.[1], randomValue);
+                            strictEqual(list.Entries[index][1], randomValue);
+                            doesNotThrow(() => list.RemoveAt(index));
+                            notStrictEqual(list.Entries[index]?.[1], randomValue);
                         });
 
                     test(
                         "Checking whether trying to remove an inexistent index throws an error…",
                         () =>
                         {
-                            Assert.throws(() => list.RemoveAt(list.Count));
+                            throws(() => list.RemoveAt(list.Count));
                         });
                 });
 
@@ -219,8 +219,8 @@ export function AlphabeticalListTests(): void
                         "Checking whether the list can be emptied…",
                         () =>
                         {
-                            Assert.doesNotThrow(() => list.Clear());
-                            Assert.strictEqual(list.Count, 0);
+                            doesNotThrow(() => list.Clear());
+                            strictEqual(list.Count, 0);
                         });
                 });
         });

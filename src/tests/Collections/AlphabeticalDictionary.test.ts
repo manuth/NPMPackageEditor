@@ -1,4 +1,4 @@
-import Assert = require("assert");
+import { strictEqual } from "assert";
 import { Random } from "random-js";
 import { AlphabeticalDictionary } from "../../Collections/AlphabeticalDictionary";
 import { Dictionary } from "../../Collections/Dictionary";
@@ -57,11 +57,11 @@ export function AlphabeticalDictionaryTests(): void
                     function AssertEntriesWithoutOrder<TKey, TValue>(dictionary: Dictionary<TKey, TValue>, map: Array<[TKey, TValue]>): void
                     {
                         let correctOrder: string[] = [];
-                        Assert.strictEqual(dictionary.Count, map.length);
+                        strictEqual(dictionary.Count, map.length);
 
                         for (let entry of map)
                         {
-                            Assert.strictEqual(dictionary.Get(entry[0]), entry[1]);
+                            strictEqual(dictionary.Get(entry[0]), entry[1]);
                             correctOrder.push(`${entry[0]}`);
                         }
 
@@ -69,7 +69,7 @@ export function AlphabeticalDictionaryTests(): void
 
                         for (let i = 0; i < correctOrder.length; i++)
                         {
-                            Assert.strictEqual(`${dictionary.Keys[i]}`, correctOrder[i]);
+                            strictEqual(`${dictionary.Keys[i]}`, correctOrder[i]);
                         }
                     }
 

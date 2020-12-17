@@ -4,7 +4,7 @@ import gitRemoteOriginUrl = require("git-remote-origin-url");
 import gitRootDir = require("git-root-dir");
 import normalize = require("normalize-package-data");
 import readmeFilename = require("readme-filename");
-import Path = require("upath");
+import { dirname, join, relative, resolve } from "upath";
 import { Dictionary } from "./Collections/Dictionary";
 import { List } from "./Collections/List";
 import { PropertyDictionary } from "./Collections/PropertyDictionary";
@@ -430,7 +430,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
 
         if (this.FileName)
         {
-            let packageRoot = Path.dirname(Path.resolve(this.FileName));
+            let packageRoot = dirname(resolve(this.FileName));
 
             if (await pathExists(packageRoot))
             {
@@ -452,15 +452,15 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
 
                     metadata.repository = remote;
 
-                    if (Path.resolve(gitRoot) !== Path.resolve(packageRoot))
+                    if (resolve(gitRoot) !== resolve(packageRoot))
                     {
-                        directory = Path.relative(gitRoot, packageRoot);
+                        directory = relative(gitRoot, packageRoot);
                     }
                 }
 
                 if (readmeFile)
                 {
-                    metadata.readme = (await readFile(Path.join(packageRoot, readmeFile))).toString();
+                    metadata.readme = (await readFile(join(packageRoot, readmeFile))).toString();
                 }
             }
         }

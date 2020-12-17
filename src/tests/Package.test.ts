@@ -1,4 +1,4 @@
-import Assert = require("assert");
+import { deepStrictEqual, doesNotThrow, notStrictEqual, ok, strictEqual } from "assert";
 import { arch, platform } from "os";
 import { URL } from "url";
 import { TempFile } from "@manuth/temp-files";
@@ -8,7 +8,7 @@ import gitRootDir = require("git-root-dir");
 import { Random } from "random-js";
 import readmeFilename = require("readme-filename");
 import stringify = require("stringify-author");
-import Path = require("upath");
+import { join, parse } from "upath";
 import { Dictionary } from "../Collections/Dictionary";
 import { List } from "../Collections/List";
 import { GenerationLogic } from "../GenerationLogic";
@@ -47,7 +47,7 @@ export function PackageTests(): void
              */
             function AssertDictionary<TKey extends string | number | symbol, TValue>(actual: Dictionary<TKey, TValue>, expected: Record<TKey, TValue>): void
             {
-                Assert.deepStrictEqual(actual.ToJSON(), expected);
+                deepStrictEqual(actual.ToJSON(), expected);
             }
 
             /**
@@ -61,7 +61,7 @@ export function PackageTests(): void
              */
             function AssertList<T>(actual: List<T>, expected: T[]): void
             {
-                Assert.deepStrictEqual(actual.ToJSON(), expected);
+                deepStrictEqual(actual.ToJSON(), expected);
             }
 
             /**
@@ -75,7 +75,7 @@ export function PackageTests(): void
              */
             function AssertPerson(actual: Person, expected: IPerson | string): void
             {
-                Assert.strictEqual(actual.ToJSON(), new Person(expected).ToJSON());
+                strictEqual(actual.ToJSON(), new Person(expected).ToJSON());
             }
 
             /**
@@ -89,7 +89,7 @@ export function PackageTests(): void
              */
             function AssertPersonList(actual: Person[], expected: Array<IPerson | string>): void
             {
-                Assert.deepStrictEqual(actual.keys(), expected.keys());
+                deepStrictEqual(actual.keys(), expected.keys());
 
                 for (let key of expected.keys())
                 {
@@ -108,7 +108,7 @@ export function PackageTests(): void
              */
             function AssertBugInfo(actual: BugInfo, expected: string | IBugInfo): void
             {
-                Assert.deepStrictEqual(actual.ToJSON(), new BugInfo(expected).ToJSON());
+                deepStrictEqual(actual.ToJSON(), new BugInfo(expected).ToJSON());
             }
 
             /**
@@ -276,36 +276,36 @@ export function PackageTests(): void
              */
             function AssertPackageMeta(metadata: IPackageMetadata): void
             {
-                Assert.strictEqual(npmPackage.Name, metadata.name);
-                Assert.strictEqual(npmPackage.Version, metadata.version);
-                Assert.strictEqual(npmPackage.Private, metadata.private);
-                Assert.strictEqual(npmPackage.Description, metadata.description);
+                strictEqual(npmPackage.Name, metadata.name);
+                strictEqual(npmPackage.Version, metadata.version);
+                strictEqual(npmPackage.Private, metadata.private);
+                strictEqual(npmPackage.Description, metadata.description);
                 AssertPerson(npmPackage.Author, metadata.author);
                 AssertPersonList(npmPackage.Maintainers, metadata.maintainers);
                 AssertPersonList(npmPackage.Contributors, metadata.contributors);
-                Assert.strictEqual(npmPackage.License, metadata.license);
-                Assert.deepStrictEqual(npmPackage.Keywords, metadata.keywords);
+                strictEqual(npmPackage.License, metadata.license);
+                deepStrictEqual(npmPackage.Keywords, metadata.keywords);
                 AssertDictionary(npmPackage.Engines, metadata.engines);
-                Assert.deepStrictEqual(npmPackage.OS, metadata.os);
-                Assert.deepStrictEqual(npmPackage.CPU, metadata.cpu);
-                Assert.strictEqual(npmPackage.Main, metadata.main);
-                Assert.strictEqual(npmPackage.Types, metadata.types);
-                Assert.deepStrictEqual(npmPackage.Browser, metadata.browser);
-                Assert.deepStrictEqual(npmPackage.Binaries, metadata.bin);
-                Assert.deepStrictEqual(npmPackage.Manuals, metadata.man);
-                Assert.deepStrictEqual(npmPackage.Files, metadata.files);
-                Assert.deepStrictEqual(npmPackage.Directories, metadata.directories);
-                Assert.strictEqual(npmPackage.Homepage, metadata.homepage);
-                Assert.deepStrictEqual(npmPackage.Repository, metadata.repository);
+                deepStrictEqual(npmPackage.OS, metadata.os);
+                deepStrictEqual(npmPackage.CPU, metadata.cpu);
+                strictEqual(npmPackage.Main, metadata.main);
+                strictEqual(npmPackage.Types, metadata.types);
+                deepStrictEqual(npmPackage.Browser, metadata.browser);
+                deepStrictEqual(npmPackage.Binaries, metadata.bin);
+                deepStrictEqual(npmPackage.Manuals, metadata.man);
+                deepStrictEqual(npmPackage.Files, metadata.files);
+                deepStrictEqual(npmPackage.Directories, metadata.directories);
+                strictEqual(npmPackage.Homepage, metadata.homepage);
+                deepStrictEqual(npmPackage.Repository, metadata.repository);
                 AssertBugInfo(npmPackage.Bugs, metadata.bugs);
-                Assert.deepStrictEqual(npmPackage.Config, metadata.config);
-                Assert.deepStrictEqual(npmPackage.PublishConfig, metadata.publishConfig);
+                deepStrictEqual(npmPackage.Config, metadata.config);
+                deepStrictEqual(npmPackage.PublishConfig, metadata.publishConfig);
                 AssertDictionary(npmPackage.Scripts, metadata.scripts);
                 AssertDictionary(npmPackage.Dependencies, metadata.dependencies);
                 AssertDictionary(npmPackage.DevelpomentDependencies, metadata.devDependencies);
                 AssertDictionary(npmPackage.PeerDependencies, metadata.peerDependencies);
                 AssertDictionary(npmPackage.OptionalDependencies, metadata.optionalDependencies);
-                Assert.deepStrictEqual(npmPackage.BundledDependencies.ToJSON(), metadata.bundledDependencies);
+                deepStrictEqual(npmPackage.BundledDependencies.ToJSON(), metadata.bundledDependencies);
             }
 
             suite(
@@ -320,7 +320,7 @@ export function PackageTests(): void
                                 "Checking whether the package can be constructed…",
                                 () =>
                                 {
-                                    Assert.doesNotThrow(
+                                    doesNotThrow(
                                         () =>
                                         {
                                             npmPackage = new TestPackage();
@@ -362,7 +362,7 @@ export function PackageTests(): void
                                 comparator = comparator ?? (
                                     (x, y) =>
                                     {
-                                        Assert.deepStrictEqual(x, y);
+                                        deepStrictEqual(x, y);
                                     });
 
                                 /**
@@ -460,7 +460,7 @@ export function PackageTests(): void
                                 "Checking whether the `FileName` is set to the path of the source-file…",
                                 () =>
                                 {
-                                    Assert.strictEqual(npmPackage.FileName, tempFile.FullName);
+                                    strictEqual(npmPackage.FileName, tempFile.FullName);
                                 });
                         });
 
@@ -499,15 +499,15 @@ export function PackageTests(): void
                                 "Checking whether values aren't loaded from the file…",
                                 () =>
                                 {
-                                    Assert.notStrictEqual(npmPackage.Name, metadata.name);
-                                    Assert.ok(npmPackage.Name === null || npmPackage.Name === undefined);
+                                    notStrictEqual(npmPackage.Name, metadata.name);
+                                    ok(npmPackage.Name === null || npmPackage.Name === undefined);
                                 });
 
                             test(
                                 "Checking whether passing inexistent file-names doesn't throw an error…",
                                 () =>
                                 {
-                                    Assert.doesNotThrow(() => new TestPackage(inexistentFile.FullName, {}));
+                                    doesNotThrow(() => new TestPackage(inexistentFile.FullName, {}));
                                 });
 
                             test(
@@ -515,7 +515,7 @@ export function PackageTests(): void
                                 () =>
                                 {
                                     npmPackage = new TestPackage(inexistentFile.FullName, { name: testValue });
-                                    Assert.strictEqual(npmPackage.Name, testValue);
+                                    strictEqual(npmPackage.Name, testValue);
                                 });
                         });
                 });
@@ -546,7 +546,7 @@ export function PackageTests(): void
                         async () =>
                         {
                             npmPackage = new TestPackage();
-                            npmPackage.FileName = Path.join(gitRoot, "package.json");
+                            npmPackage.FileName = join(gitRoot, "package.json");
                             await npmPackage.Normalize();
                         });
 
@@ -554,32 +554,32 @@ export function PackageTests(): void
                         "Checking whether the git-info are applied correctly…",
                         () =>
                         {
-                            Assert.ok(typeof npmPackage.Repository !== "string");
-                            Assert.strictEqual(npmPackage.Repository.url, `git+${gitRemoteUrl}`);
-                            Assert.strictEqual(npmPackage.Homepage, homepage);
-                            Assert.strictEqual(npmPackage.Bugs.URL, bugUrl);
+                            ok(typeof npmPackage.Repository !== "string");
+                            strictEqual(npmPackage.Repository.url, `git+${gitRemoteUrl}`);
+                            strictEqual(npmPackage.Homepage, homepage);
+                            strictEqual(npmPackage.Bugs.URL, bugUrl);
                         });
 
                     test(
                         "Checking whether the description is generated correctly…",
                         async () =>
                         {
-                            Assert.ok((await readFile(await readmeFilename(gitRoot))).toString().includes(npmPackage.Description));
+                            ok((await readFile(await readmeFilename(gitRoot))).toString().includes(npmPackage.Description));
                         });
 
                     test(
                         "Checking whether sub-directories are applied correctly…",
                         async () =>
                         {
-                            let parsedPath = Path.parse(npmPackage.FileName);
+                            let parsedPath = parse(npmPackage.FileName);
                             let subDirectories = (await readdir(gitRoot)).filter((entry) => statSync(entry).isDirectory());
                             let directory = random.pick(subDirectories);
-                            let fileName = Path.join(parsedPath.dir, directory, parsedPath.base);
+                            let fileName = join(parsedPath.dir, directory, parsedPath.base);
                             npmPackage = new TestPackage();
                             npmPackage.FileName = fileName;
                             await npmPackage.Normalize();
-                            Assert.ok(typeof npmPackage.Repository !== "string");
-                            Assert.strictEqual(npmPackage.Repository.directory, directory);
+                            ok(typeof npmPackage.Repository !== "string");
+                            strictEqual(npmPackage.Repository.directory, directory);
                         });
                 });
 
@@ -607,7 +607,7 @@ export function PackageTests(): void
 
                             generatedMeta = new TestPackage().ToJSON();
 
-                            Assert.ok(
+                            ok(
                                 Object.keys(generatedMeta).every(
                                     (key: keyof IPackageMetadata) =>
                                     {
@@ -622,7 +622,7 @@ export function PackageTests(): void
                             let property: keyof IPackageMetadata = "name";
                             npmPackage = new TestPackage();
                             npmPackage.GenerationLogics.set(property, GenerationLogic.Always);
-                            Assert.ok(property in npmPackage.ToJSON());
+                            ok(property in npmPackage.ToJSON());
                         });
 
                     test(
@@ -636,8 +636,8 @@ export function PackageTests(): void
                                     [testKey]: testValue
                                 });
 
-                            Assert.ok(testKey in npmPackage.ToJSON());
-                            Assert.strictEqual(npmPackage.ToJSON()[testKey], testValue);
+                            ok(testKey in npmPackage.ToJSON());
+                            strictEqual(npmPackage.ToJSON()[testKey], testValue);
                         });
                 });
 
@@ -651,8 +651,8 @@ export function PackageTests(): void
                         {
                             for (let value of [[], {}])
                             {
-                                Assert.deepStrictEqual(value, npmPackage.LoadObject(value));
-                                Assert.notStrictEqual(value, npmPackage.LoadObject(value));
+                                deepStrictEqual(value, npmPackage.LoadObject(value));
+                                notStrictEqual(value, npmPackage.LoadObject(value));
                             }
                         });
 
@@ -662,7 +662,7 @@ export function PackageTests(): void
                         {
                             for (let value of [null, undefined] as any[])
                             {
-                                Assert.strictEqual(null, npmPackage.LoadObject(value));
+                                strictEqual(null, npmPackage.LoadObject(value));
                             }
                         });
                 });
@@ -686,8 +686,8 @@ export function PackageTests(): void
                         () =>
                         {
                             let dictionary = npmPackage.LoadDictionary({ [randomKey]: randomValue });
-                            Assert.deepStrictEqual(dictionary.Keys, [randomKey]);
-                            Assert.strictEqual(dictionary.Get(randomKey), randomValue);
+                            deepStrictEqual(dictionary.Keys, [randomKey]);
+                            strictEqual(dictionary.Get(randomKey), randomValue);
                         });
                 });
 

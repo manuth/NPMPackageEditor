@@ -1,5 +1,5 @@
-import ParseAuthor = require("parse-author");
-import StringifyAuthor = require("stringify-author");
+import parse = require("parse-author");
+import stringify = require("stringify-author");
 import { JSONObjectBase } from "../Utilities/JSONObjectBase";
 import { IPerson } from "./IPerson";
 
@@ -60,7 +60,7 @@ export class Person extends JSONObjectBase<string>
 
         if (typeof person === "string")
         {
-            info = ParseAuthor(person) as IPerson;
+            info = parse(person) as IPerson;
         }
         else
         {
@@ -80,7 +80,7 @@ export class Person extends JSONObjectBase<string>
      */
     public ToJSON(): string
     {
-        let result = StringifyAuthor(
+        let result = stringify(
             {
                 name: this.Name,
                 email: this.EMail,

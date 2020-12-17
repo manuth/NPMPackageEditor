@@ -1,4 +1,4 @@
-import Assert = require("assert");
+import { doesNotThrow, ok, strictEqual } from "assert";
 import { Random } from "random-js";
 import { PropertyDictionary } from "../../Collections/PropertyDictionary";
 
@@ -50,7 +50,7 @@ export function PropertyDictionaryTests(): void
                         "Checking whether a `PropertyDictionary` can be created without passing arguments…",
                         () =>
                         {
-                            Assert.doesNotThrow(() => new PropertyDictionary());
+                            doesNotThrow(() => new PropertyDictionary());
                         });
                 });
 
@@ -62,9 +62,9 @@ export function PropertyDictionaryTests(): void
                         "Checking whether a `PropertyDictionary` can be created based on an object…",
                         () =>
                         {
-                            Assert.strictEqual(dictionary.Count, Object.keys(randomData).length);
+                            strictEqual(dictionary.Count, Object.keys(randomData).length);
 
-                            Assert.ok(
+                            ok(
                                 dictionary.Entries.every(
                                     (entry) =>
                                     {

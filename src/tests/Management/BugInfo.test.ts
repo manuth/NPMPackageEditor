@@ -1,4 +1,4 @@
-import Assert = require("assert");
+import { ok, strictEqual } from "assert";
 import { Random } from "random-js";
 import { BugInfo } from "../../Management/BugInfo";
 import { IBugInfo } from "../../Management/IBugInfo";
@@ -47,8 +47,8 @@ export function BugInfoTests(): void
                         "Checking whether the object is created correctly…",
                         () =>
                         {
-                            Assert.strictEqual(bugInfo.URL, null);
-                            Assert.strictEqual(bugInfo.EMail, null);
+                            strictEqual(bugInfo.URL, null);
+                            strictEqual(bugInfo.EMail, null);
                         });
                 });
 
@@ -66,7 +66,7 @@ export function BugInfoTests(): void
                         "Checking whether the object is created as expected…",
                         () =>
                         {
-                            Assert.strictEqual(bugInfo.URL, bugInfoOptions.url);
+                            strictEqual(bugInfo.URL, bugInfoOptions.url);
                         });
                 });
 
@@ -84,8 +84,8 @@ export function BugInfoTests(): void
                         "Checking whether the object is created as expected…",
                         () =>
                         {
-                            Assert.strictEqual(bugInfo.URL, bugInfoOptions.url);
-                            Assert.strictEqual(bugInfo.EMail, bugInfoOptions.email);
+                            strictEqual(bugInfo.URL, bugInfoOptions.url);
+                            strictEqual(bugInfo.EMail, bugInfoOptions.email);
                         });
                 });
 
@@ -97,8 +97,8 @@ export function BugInfoTests(): void
                         "Checking whether properties are added correctly…",
                         () =>
                         {
-                            Assert.strictEqual(bugInfo.ToJSON().url, bugInfo.URL);
-                            Assert.strictEqual(bugInfo.ToJSON().email, bugInfo.EMail);
+                            strictEqual(bugInfo.ToJSON().url, bugInfo.URL);
+                            strictEqual(bugInfo.ToJSON().email, bugInfo.EMail);
                         });
 
                     test(
@@ -108,11 +108,11 @@ export function BugInfoTests(): void
                             let key: keyof IBugInfo;
                             bugInfo.URL = null;
                             key = "url";
-                            Assert.ok(!(key in bugInfo.ToJSON()));
+                            ok(!(key in bugInfo.ToJSON()));
                             bugInfo.URL = bugInfoOptions.url;
                             bugInfo.EMail = null;
                             key = "email";
-                            Assert.ok(!(key in bugInfo.ToJSON()));
+                            ok(!(key in bugInfo.ToJSON()));
                         });
 
                     test(
@@ -121,7 +121,7 @@ export function BugInfoTests(): void
                         {
                             bugInfo.URL = null;
                             bugInfo.EMail = null;
-                            Assert.strictEqual(bugInfo.ToJSON(), null);
+                            strictEqual(bugInfo.ToJSON(), null);
                         });
                 });
         });

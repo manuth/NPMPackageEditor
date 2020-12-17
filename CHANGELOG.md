@@ -6,19 +6,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## NPMPackageEditor [Unreleased]
 
-[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.4.2...dev)
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v1.4.3...dev)
+
+## NPMPackageEditor v1.4.3
+### Fixed
+  - Broken dependabot-settings
+  - Vulnerabilities
+
+### Updated
+  - All dependencies
+
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v1.4.2...v1.4.3)
 
 ## NPMPackageEditor v1.4.2
 ### Updated
   - ESLint rules for preveinting usage of deprecated API
 
-[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.4.1...v1.4.2)
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v1.4.1...v1.4.2)
 
 ## NPMPackageEditor v1.4.1
 ### Added
   - A component for representing `package.json`-files with additional properties
 
-[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.4.0...v1.4.1)
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v1.4.0...v1.4.1)
 
 ## NPMPackageEditor v1.4.0
 ### Added
@@ -29,13 +39,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - All dependencies
   - The TypeScript-library
 
-[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.3.1...v1.4.0)
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v1.3.1...v1.4.0)
 
 ## NPMPackageEditor v1.3.1
 ### Fixed
   - The path-determination of the `README` file during `Package` normalization
 
-[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.3.0...v1.3.1)
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v1.3.0...v1.3.1)
 
 ## NPMPackageEditor v1.3.0
 ### Added
@@ -46,7 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `Normalize` method of the `Package` class
   - `Key`-existence checking in the `Dictionary` class
 
-[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.2.0...v1.3.0)
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v1.2.0...v1.3.0)
 
 ## NPMPackageEditor v1.2.0
 ### Added
@@ -59,7 +69,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - The `README` file
   - All dependencies
 
-[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.1.0...v1.2.0)
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v1.1.0...v1.2.0)
 
 ## NPMPackageEditor v1.1.0
 ### Added
@@ -67,7 +77,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Support for automatically setting git-related info
   - Functionality to automatically load the `description` from `README` files
 
-[Show differences](https://github.com/manuth/ESLintPresets/compare/v1.0.0...v1.1.0)
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v1.0.0...v1.1.0)
 
 ## NPMPackageEditor v1.0.0
 ### Added
