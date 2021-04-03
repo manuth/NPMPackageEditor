@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## NPMPackageEditor v1.4.3
 ### Fixed
   - Broken dependabot-settings
-  - Vulnerabilities
+  - Vulnerabilities in dependencies
 
 ### Updated
   - All dependencies
