@@ -1,6 +1,7 @@
 import { ok, strictEqual, throws } from "assert";
+import findUp = require("find-up");
+import { readFile } from "fs-extra";
 import { Random } from "random-js";
-import readPkgUp = require("read-pkg-up");
 import { Dictionary } from "../../Collections/Dictionary";
 import { DependencyCollection } from "../../Management/DependencyCollection";
 import { IDependencyCollectionOptions } from "../../Management/IDependencyCollectionOptions";
@@ -59,7 +60,10 @@ export function DependencyCollectionTests(): void
                     return random.integer(0, 9);
                 }
 
-                let dependencies = Object.keys((await readPkgUp({ cwd: __dirname })).packageJson.dependencies);
+                let dependencies = Object.keys(
+                    JSON.parse(
+                        (await readFile(
+                            (await findUp("package.json", { cwd: __dirname })))).toString()).dependencies);
 
                 /**
                  * Creates the generator.

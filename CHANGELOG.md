@@ -6,7 +6,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## NPMPackageEditor [Unreleased]
 
-[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v1.4.4...dev)
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v1.4.5...dev)
+
+## NPMPackageEditor v1.4.5
+### Fixed
+  - Vulnerabilities in dependencies
+
+### Added
+  - A workflow for merging Dependabot-PRs
+  - A workflow for analyzing the code
+
+### Updated
+  - All dependencies
+
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v1.4.4...v1.4.5)
 
 ## NPMPackageEditor v1.4.4
 ### Updated
@@ -17,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## NPMPackageEditor v1.4.3
 ### Fixed
   - Broken dependabot-settings
-  - Vulnerabilities
+  - Vulnerabilities in dependencies
 
 ### Updated
   - All dependencies
