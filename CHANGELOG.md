@@ -6,7 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## NPMPackageEditor [Unreleased]
 
-[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v1.4.5...dev)
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v1.4.6...dev)
+
+## NPMPackageEditor v1.4.6
+### Fixed
+  - Broken dependabot-settings
+  - Broken drone-pipelines
+  - Broken Auto-Merge workflow
+
+### Updated
+  - All dependencies
+  - Drone-pipelines to use small-sized images
+
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v1.4.5...v1.4.6)
 
 ## NPMPackageEditor v1.4.5
 ### Fixed
