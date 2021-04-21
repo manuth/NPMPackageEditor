@@ -10,7 +10,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## NPMPackageEditor v1.4.6
 ### Fixed
-  - Broken dependabot-settings
   - Broken drone-pipelines
   - Broken Auto-Merge workflow
 
