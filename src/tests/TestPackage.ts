@@ -13,7 +13,7 @@ export class TestPackage extends Package
     /**
      * @inheritdoc
      */
-    public get PropertyMap(): Map<keyof IPackageMetadata, keyof Package>
+    public override get PropertyMap(): Map<keyof IPackageMetadata, keyof Package>
     {
         return super.PropertyMap;
     }
@@ -21,7 +21,7 @@ export class TestPackage extends Package
     /**
      * @inheritdoc
      */
-    public get GenerationLogics(): Map<keyof IPackageMetadata, GenerationLogic>
+    public override get GenerationLogics(): Map<keyof IPackageMetadata, GenerationLogic>
     {
         return super.GenerationLogics;
     }
@@ -35,7 +35,7 @@ export class TestPackage extends Package
      * @returns
      * The loaded object.
      */
-    public LoadObject(object: any): any
+    public override LoadObject(object: any): any
     {
         return super.LoadObject(object);
     }
@@ -49,7 +49,7 @@ export class TestPackage extends Package
      * @returns
      * The loaded dictionary.
      */
-    public LoadDictionary<T>(collection: T): Dictionary<keyof T, T[keyof T]>
+    public override LoadDictionary<T>(collection: T): Dictionary<keyof T, T[keyof T]>
     {
         return super.LoadDictionary(collection);
     }
@@ -63,7 +63,7 @@ export class TestPackage extends Package
      * @returns
      * The loaded person.
      */
-    public LoadPerson(person: IPerson | string): Person
+    public override LoadPerson(person: IPerson | string): Person
     {
         return super.LoadPerson(person);
     }
@@ -77,7 +77,7 @@ export class TestPackage extends Package
      * @returns
      * The loaded list.
      */
-    public LoadPersonList(personList: Array<IPerson | string>): Person[]
+    public override LoadPersonList(personList: Array<IPerson | string>): Person[]
     {
         return super.LoadPersonList(personList);
     }

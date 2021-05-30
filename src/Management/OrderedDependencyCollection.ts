@@ -43,7 +43,7 @@ export class OrderedDependencyCollection extends DependencyCollection
      * @returns
      * The dependency-dictionary.
      */
-    protected LoadDependencyDictionary(source: Record<string, string>): Dictionary<string, string>
+    protected override LoadDependencyDictionary(source: Record<string, string>): Dictionary<string, string>
     {
         return new AlphabeticalDictionary(super.LoadDependencyDictionary(source));
     }
@@ -57,7 +57,7 @@ export class OrderedDependencyCollection extends DependencyCollection
      * @returns
      * The newly created dependency-list.
      */
-    protected LoadDependencyList(source: string[]): List<string>
+    protected override LoadDependencyList(source: string[]): List<string>
     {
         return new AlphabeticalList(source);
     }

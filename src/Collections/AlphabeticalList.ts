@@ -39,7 +39,7 @@ export class AlphabeticalList<T> extends List<T>
     /**
      * @inheritdoc
      */
-    public get Count(): number
+    public override get Count(): number
     {
         return this.innerCollection.Count;
     }
@@ -47,7 +47,7 @@ export class AlphabeticalList<T> extends List<T>
     /**
      * @inheritdoc
      */
-    public get Entries(): Array<[number, T]>
+    public override get Entries(): Array<[number, T]>
     {
         return Array.from(
             this.innerCollection.Entries.map(
@@ -63,7 +63,7 @@ export class AlphabeticalList<T> extends List<T>
      * @param value
      * The item to add.
      */
-    public Add(value: T): void
+    public override Add(value: T): void
     {
         this.innerCollection.Add(value, null);
     }
@@ -74,7 +74,7 @@ export class AlphabeticalList<T> extends List<T>
      * @param items
      * The items to add.
      */
-    public AddRange(items: readonly T[]): void
+    public override AddRange(items: readonly T[]): void
     {
         this.innerCollection.AddRange(items.map((entry) => [entry, null]));
     }
@@ -85,7 +85,7 @@ export class AlphabeticalList<T> extends List<T>
      * @param item
      * The item to remove.
      */
-    public Remove(item: T): void
+    public override Remove(item: T): void
     {
         this.innerCollection.Remove(item);
     }
@@ -96,7 +96,7 @@ export class AlphabeticalList<T> extends List<T>
      * @param index
      * The index of the item to remove.
      */
-    public RemoveAt(index: number): void
+    public override RemoveAt(index: number): void
     {
         if (this.Count > index)
         {
@@ -111,7 +111,7 @@ export class AlphabeticalList<T> extends List<T>
     /**
      * @inheritdoc
      */
-    public Clear(): void
+    public override Clear(): void
     {
         this.innerCollection.Clear();
     }
