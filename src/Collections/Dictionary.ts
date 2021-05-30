@@ -51,7 +51,7 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
     /**
      * @inheritdoc
      */
-    public get Count(): number
+    public override get Count(): number
     {
         return this.innerCollection.size;
     }

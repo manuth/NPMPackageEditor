@@ -46,5 +46,5 @@ export abstract class Collection<TKey, TValue> extends JSONObjectBase<any> imple
      * @returns
      * An object representing this collection.
      */
-    public abstract ToJSON(): any;
+    public abstract override ToJSON(): any;
 }

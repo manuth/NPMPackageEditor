@@ -40,7 +40,7 @@ export class List<T> extends Collection<number, T> implements IList<T>, JSONObje
     /**
      * @inheritdoc
      */
-    public get Count(): number
+    public override get Count(): number
     {
         return this.innerList.length;
     }

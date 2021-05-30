@@ -1,6 +1,6 @@
 {
   "name": "@manuth/package-json-editor",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "description": "Provides types and tools for editing `package.json` files",
   "author": "Manuel Thalmann <m@nuth.ch>",
   "license": "MIT",
@@ -42,7 +42,7 @@
     "prepare": "npm run rebuild"
   },
   "dependencies": {
-    "fs-extra": "^9.1.0",
+    "fs-extra": "^10.0.0",
     "git-remote-origin-url": "^3.1.0",
     "git-root-dir": "^1.0.2",
     "normalize-package-data": "^3.0.2",
@@ -52,31 +52,31 @@
     "upath": "^2.0.1"
   },
   "devDependencies": {
-    "@manuth/eslint-plugin-typescript": "^2.3.9",
+    "@manuth/eslint-plugin-typescript": "^3.0.1",
     "@manuth/temp-files": "^2.0.4",
-    "@manuth/tsconfig": "^1.2.9",
+    "@manuth/tsconfig": "^2.0.0",
     "@manuth/tslint-presets": "^1.0.5",
-    "@manuth/typescript-eslint-plugin": "^1.3.5",
+    "@manuth/typescript-eslint-plugin": "^1.3.6",
     "@types/fs-extra": "^9.0.11",
     "@types/git-root-dir": "^1.0.0",
     "@types/mocha": "^8.2.2",
-    "@types/node": "^14.14.41",
+    "@types/node": "^15.6.1",
     "@types/normalize-package-data": "^2.4.0",
     "@types/parse-author": "^2.0.0",
     "@types/readme-filename": "^1.0.0",
     "@types/stringify-author": "^0.1.0",
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
-    "@typescript-eslint/eslint-plugin-tslint": "^4.22.0",
-    "@typescript-eslint/parser": "^4.22.0",
-    "eslint": "^7.24.0",
-    "eslint-plugin-deprecation": "^1.2.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsdoc": "^32.3.0",
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/eslint-plugin-tslint": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
+    "eslint": "^7.27.0",
+    "eslint-plugin-deprecation": "^1.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsdoc": "^35.1.0",
     "find-up": "^5.0.0",
-    "mocha": "^8.3.2",
+    "mocha": "^8.4.0",
     "random-js": "^2.1.0",
     "rimraf": "^3.0.2",
     "tslint": "^6.1.3",
-    "typescript": "^4.2.4"
+    "typescript": "^4.3.2"
   }
 }
