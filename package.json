@@ -1,6 +1,6 @@
 {
   "name": "@manuth/package-json-editor",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "description": "Provides types and tools for editing `package.json` files",
   "author": "Manuel Thalmann <m@nuth.ch>",
   "license": "MIT",
