@@ -14,7 +14,7 @@ export interface IDependencyCollection
     /**
      * Gets a set dependencies for development purposes.
      */
-    readonly DevelpomentDependencies: Dictionary<string, string>;
+    readonly DevelopmentDependencies: Dictionary<string, string>;
 
     /**
      * Gets a set of peer-dependencies.

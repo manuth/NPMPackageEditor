@@ -302,7 +302,7 @@ export function PackageTests(): void
                 deepStrictEqual(npmPackage.PublishConfig, metadata.publishConfig);
                 AssertDictionary(npmPackage.Scripts, metadata.scripts);
                 AssertDictionary(npmPackage.Dependencies, metadata.dependencies);
-                AssertDictionary(npmPackage.DevelpomentDependencies, metadata.devDependencies);
+                AssertDictionary(npmPackage.DevelopmentDependencies, metadata.devDependencies);
                 AssertDictionary(npmPackage.PeerDependencies, metadata.peerDependencies);
                 AssertDictionary(npmPackage.OptionalDependencies, metadata.optionalDependencies);
                 deepStrictEqual(npmPackage.BundledDependencies.ToJSON(), metadata.bundledDependencies);
@@ -340,7 +340,7 @@ export function PackageTests(): void
                         () =>
                         {
                             /**
-                             * Asserts the default value of a package-porperty.
+                             * Asserts the default value of a package-property.
                              *
                              * @param key
                              * The key of the property to check.
@@ -417,7 +417,7 @@ export function PackageTests(): void
                                     AssertDefault("PublishConfig", {});
                                     AssertDefault("Scripts", {}, AssertDictionary);
                                     AssertDefault("Dependencies", {}, AssertDictionary);
-                                    AssertDefault("DevelpomentDependencies", {}, AssertDictionary);
+                                    AssertDefault("DevelopmentDependencies", {}, AssertDictionary);
                                     AssertDefault("PeerDependencies", {}, AssertDictionary);
                                     AssertDefault("OptionalDependencies", {}, AssertDictionary);
                                     AssertDefault("BundledDependencies", [], AssertList);
@@ -626,7 +626,7 @@ export function PackageTests(): void
                         });
 
                     test(
-                        "Checking whether additional properties presist…",
+                        "Checking whether additional properties persist…",
                         () =>
                         {
                             let testKey = random.string(20);

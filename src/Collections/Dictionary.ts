@@ -167,7 +167,7 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
      * The `key` of the entry to check.
      *
      * @returns
-     * A value indicating whether the dictionary contains an entryx with the specified `key`.
+     * A value indicating whether the dictionary contains an entry with the specified `key`.
      */
     public Has(key: TKey): boolean
     {

@@ -113,7 +113,7 @@ export function DependencyCollectionTests(): void
                     {
                         return [
                             "Dependencies",
-                            "DevelpomentDependencies",
+                            "DevelopmentDependencies",
                             "OptionalDependencies",
                             "PeerDependencies"
                         ];

@@ -143,7 +143,7 @@ export function JSONObjectTests(): void
                         });
 
                     test(
-                        "Checking whether `null` and `undevined`-values presist…",
+                        "Checking whether `null` and `undefined`-values persist…",
                         () =>
                         {
                             AssertNullishPresence((object, key, value) => object.Add(key, value), true);

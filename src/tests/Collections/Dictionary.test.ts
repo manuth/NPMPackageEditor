@@ -245,7 +245,7 @@ export function DictionaryTests(): void
                 () =>
                 {
                     test(
-                        "Checking whether dictionaries are converted to JSON correclty…",
+                        "Checking whether dictionaries are converted to JSON correctly…",
                         () =>
                         {
                             let jsonObject = dictionary.ToJSON();

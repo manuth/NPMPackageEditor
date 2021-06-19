@@ -60,7 +60,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## NPMPackageEditor v1.4.2
 ### Updated
-  - ESLint rules for preveinting usage of deprecated API
+  - ESLint rules for preventing usage of deprecated API
 
 [Show differences](https://github.com/manuth/NPMPackageEditor/compare/v1.4.1...v1.4.2)
 

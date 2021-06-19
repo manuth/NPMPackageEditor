@@ -67,7 +67,7 @@ export interface IDictionary<TKey, TValue> extends ICollection<TKey, TValue>
      * The `key` of the entry to check.
      *
      * @returns
-     * A value indicating whether the dictionary contains an entryx with the specified `key`.
+     * A value indicating whether the dictionary contains an entry with the specified `key`.
      */
     Has(key: TKey): boolean;
 }

@@ -52,7 +52,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     public Private: boolean;
 
     /**
-     * Gets or sets the descrption of the package.
+     * Gets or sets the description of the package.
      */
     public Description: string;
 
@@ -102,7 +102,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     public Main: string;
 
     /**
-     * Gets or sets the path to the bundlet declaration file.
+     * Gets or sets the path to the bundled declaration file.
      */
     public Types: string;
 
@@ -272,9 +272,9 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     /**
      * @inheritdoc
      */
-    public get DevelpomentDependencies(): Dictionary<string, string>
+    public get DevelopmentDependencies(): Dictionary<string, string>
     {
-        return this.DependencyCollection.DevelpomentDependencies;
+        return this.DependencyCollection.DevelopmentDependencies;
     }
 
     /**
@@ -370,7 +370,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
                 ["publishConfig", "PublishConfig"],
                 ["scripts", "Scripts"],
                 ["dependencies", "Dependencies"],
-                ["devDependencies", "DevelpomentDependencies"],
+                ["devDependencies", "DevelopmentDependencies"],
                 ["peerDependencies", "PeerDependencies"],
                 ["optionalDependencies", "OptionalDependencies"],
                 ["bundledDependencies", "BundledDependencies"]
