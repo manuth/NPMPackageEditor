@@ -5,7 +5,7 @@ import { UtilityTests } from "./Utilities";
 
 suite(
     "NPMPackageEditor",
-    async () =>
+    () =>
     {
         CollectionTests();
         UtilityTests();
