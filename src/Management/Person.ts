@@ -80,12 +80,13 @@ export class Person extends JSONObjectBase<string>
      */
     public ToJSON(): string
     {
-        let result = stringify(
-            {
-                name: this.Name,
-                email: this.EMail,
-                url: this.URL
-            });
+        let person: IPerson = {
+            name: this.Name,
+            email: this.EMail,
+            url: this.URL
+        };
+
+        let result = stringify(person);
 
         if (result.length === 0)
         {

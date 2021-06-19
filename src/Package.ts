@@ -334,7 +334,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
                 peerDependencies: {},
                 optionalDependencies: {},
                 bundledDependencies: []
-            } as IPackageMetadata);
+            });
     }
 
     /**
