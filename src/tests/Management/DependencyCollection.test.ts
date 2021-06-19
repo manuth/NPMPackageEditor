@@ -3,6 +3,7 @@ import findUp = require("find-up");
 import { readFile } from "fs-extra";
 import { Random } from "random-js";
 import { Dictionary } from "../../Collections/Dictionary";
+import { IPackageMetadata } from "../../IPackageMetadata";
 import { DependencyCollection } from "../../Management/DependencyCollection";
 import { IDependencyCollectionOptions } from "../../Management/IDependencyCollectionOptions";
 import { KeyOfType } from "../../Management/KeyOfType";
@@ -62,9 +63,11 @@ export function DependencyCollectionTests(): void
                 }
 
                 let dependencies = Object.keys(
-                    JSON.parse(
-                        (await readFile(
-                            (await findUp("package.json", { cwd: __dirname })))).toString()).dependencies);
+                    (
+                        JSON.parse(
+                            (await readFile(
+                                (await findUp("package.json", { cwd: __dirname })))).toString()) as IPackageMetadata
+                    ).dependencies);
 
                 /**
                  * Creates the generator.
