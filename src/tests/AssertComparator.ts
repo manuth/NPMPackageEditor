@@ -1,14 +1,14 @@
 /**
- * Provides the functionality to assert the equality of two objects.
+ * Provides the functionality to check the validity of a property.
  */
-export type AssertComparator<T1, T2> =
+export type PropertyChecker<T1, T2> =
     /**
-     * Asserts the equality of two objects.
+     * Checks the validity of a property.
      *
      * @param x
-     * The first object to compare.
+     * The value of the property.
      *
      * @param y
-     * The second object to compare.
+     * The value to check the property against.
      */
     (x: T1, y: T2) => void;
