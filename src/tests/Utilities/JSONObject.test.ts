@@ -143,7 +143,7 @@ export function JSONObjectTests(): void
                         });
 
                     test(
-                        "Checking whether `null` and `undefined`-values persist…",
+                        `Checking whether \`${null}\` and \`${undefined}\`-values persist…`,
                         () =>
                         {
                             AssertNullishPresence((object, key, value) => object.Add(key, value), true);
@@ -155,7 +155,7 @@ export function JSONObjectTests(): void
                 () =>
                 {
                     test(
-                        "Checking whether properties are added only if the value neither equals `null` nor `undefined`…",
+                        `Checking whether properties are added only if the value neither equals \`${null}\` nor \`${undefined}\`…`,
                         () =>
                         {
                             AssertNullishPresence((object, key, value) => object.AddIfNotNull(key, value), false);
@@ -219,7 +219,7 @@ export function JSONObjectTests(): void
                         });
 
                     test(
-                        "Checking whether other sorts of properties are added only if they neither equal `null` nor `undefined`…",
+                        `Checking whether other sorts of properties are added only if they neither equal \`${null}\` nor \`${undefined}\`…`,
                         () =>
                         {
                             AssertNullishPresence(propertyInjector, false);

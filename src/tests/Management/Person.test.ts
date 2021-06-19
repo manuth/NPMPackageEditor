@@ -88,7 +88,7 @@ export function PersonTests(): void
                 () =>
                 {
                     test(
-                        "Checking whether this method returns `null` for persons without any information…",
+                        `Checking whether this method returns \`${null}\` for persons without any information…`,
                         () =>
                         {
                             person = new Person("");
