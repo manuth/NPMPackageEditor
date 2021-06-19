@@ -20,7 +20,7 @@ import { PackagePerson } from "../Management/PackagePerson";
 import { Person } from "../Management/Person";
 import { Package } from "../Package";
 import { JSONObject } from "../Utilities/JSONObject";
-import { AssertComparator } from "./AssertComparator";
+import { PropertyChecker } from "./PropertyChecker";
 import { TestPackage } from "./TestPackage";
 
 /**
@@ -348,18 +348,18 @@ export function PackageTests(): void
                              * @param expected
                              * The expected default value.
                              *
-                             * @param comparator
-                             * A component for comparing the objects.
+                             * @param propertyChecker
+                             * A component for checking the validity of a property.
                              *
                              * @param overwriteUndefined
                              * A value indicating whether `undefined`s are being overwritten.
                              */
-                            function AssertDefault<TMetaKey extends keyof IPackageMetadata, TKey extends keyof Package>(key: TKey, expected: any, comparator?: AssertComparator<Package[TKey], any>, overwriteUndefined = true): void
+                            function AssertDefault<TMetaKey extends keyof IPackageMetadata, TKey extends keyof Package>(key: TKey, expected: any, propertyChecker?: PropertyChecker<Package[TKey], any>, overwriteUndefined = true): void
                             {
                                 let optionsKey = new Map(Array.from(npmPackage.PropertyMap).map((entry) => [entry[1], entry[0]])).get(key);
                                 let packageOptions = new JSONObject(metadata);
 
-                                comparator = comparator ?? (
+                                propertyChecker = propertyChecker ?? (
                                     (x, y) =>
                                     {
                                         deepStrictEqual(x, y);
@@ -373,7 +373,7 @@ export function PackageTests(): void
                                  */
                                 function AssertValue(expected: IPackageMetadata[TMetaKey]): void
                                 {
-                                    comparator(new TestPackage(packageOptions.ToJSON())[key], expected);
+                                    propertyChecker(new TestPackage(packageOptions.ToJSON())[key], expected);
                                 }
 
                                 packageOptions.Remove(optionsKey);
