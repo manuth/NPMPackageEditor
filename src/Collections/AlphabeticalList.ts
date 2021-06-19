@@ -3,6 +3,9 @@ import { List } from "./List";
 
 /**
  * Represents an alphabetical list.
+ *
+ * @template T
+ * The type of the items.
  */
 export class AlphabeticalList<T> extends List<T>
 {
@@ -17,7 +20,7 @@ export class AlphabeticalList<T> extends List<T>
     public constructor();
 
     /**
-     * Initializes a new instance of the `AlphabeticalArray` class.
+     * Initializes a new instance of the {@link AlphabeticalArray `AlphabeticalArray<T>`} class.
      *
      * @param entries
      * The entries to add.
@@ -25,7 +28,7 @@ export class AlphabeticalList<T> extends List<T>
     public constructor(entries: Iterable<T>);
 
     /**
-     * Initializes a new instance of the `AlphabeticalArray` class.
+     * Initializes a new instance of the {@link AlphabeticalArray `AlphabeticalArray<T>`} class.
      *
      * @param entries
      * The entries to add.
@@ -60,12 +63,12 @@ export class AlphabeticalList<T> extends List<T>
     /**
      * @inheritdoc
      *
-     * @param value
+     * @param item
      * The item to add.
      */
-    public override Add(value: T): void
+    public override Add(item: T): void
     {
-        this.innerCollection.Add(value, null);
+        this.innerCollection.Add(item, null);
     }
 
     /**

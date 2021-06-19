@@ -1,7 +1,13 @@
 import { Dictionary } from "./Dictionary";
 
 /**
- * Represents a dictionary which is sorted alphabetically.
+ * Represents a dictionary that is sorted alphabetically.
+ *
+ * @template TKey
+ * The type of the keys.
+ *
+ * @template TValue
+ * The type of the values.
  */
 export class AlphabeticalDictionary<TKey, TValue> extends Dictionary<TKey, TValue>
 {

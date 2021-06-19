@@ -3,7 +3,7 @@ import { Random } from "random-js";
 import { List } from "../../Collections/List";
 
 /**
- * Registers tests for the `List` class.
+ * Registers tests for the {@link List `List<T>`} class.
  */
 export function ListTests(): void
 {

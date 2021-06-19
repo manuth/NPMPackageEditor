@@ -5,7 +5,7 @@ import { JSONObject } from "../../Utilities/JSONObject";
 import { PropertyInjector } from "./PropertyInjector";
 
 /**
- * Registers tests for the `JSONObject` class.
+ * Registers tests for the {@link JSONObject `JSONObject<T>`} class.
  */
 export function JSONObjectTests(): void
 {
@@ -67,7 +67,7 @@ export function JSONObjectTests(): void
                 });
 
             /**
-             * Asserts whether nullish values are present in the `jsonObject` object.
+             * Asserts whether nullish values are present in the {@link jsonObject `jsonObject`} object.
              *
              * @param propertyInjector
              * A method for injecting properties.
@@ -175,10 +175,10 @@ export function JSONObjectTests(): void
                         });
 
                     /**
-                     * Asserts the presence of an `object` after adding it as a property.
+                     * Asserts the presence of the specified {@link object `object`} after adding it as a property.
                      *
                      * @param object
-                     * The object to inject into the `jsonObject`.
+                     * The object to inject into the {@link jsonObject `jsonObject`}.
                      *
                      * @param present
                      * A value indicating whether the property is expected to be present.
@@ -189,10 +189,10 @@ export function JSONObjectTests(): void
                     }
 
                     /**
-                     * Asserts the presence of an `array` after adding it as a property.
+                     * Asserts the presence of an {@link array `array`} after adding it as a property.
                      *
                      * @param array
-                     * The array to inject into the `jsonObject`.
+                     * The array to inject into the {@link jsonObject `jsonObject`}.
                      *
                      * @param present
                      * A value indicating whether the property is expected to be present.

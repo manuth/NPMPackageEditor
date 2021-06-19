@@ -5,7 +5,7 @@ import { IPerson } from "../../Management/IPerson";
 import { Person } from "../../Management/Person";
 
 /**
- * Registers tests for the `Person` class.
+ * Registers tests for the {@link Person `Person`} class.
  */
 export function PersonTests(): void
 {
@@ -18,7 +18,7 @@ export function PersonTests(): void
             let personOptions: IPerson;
 
             /**
-             * Âsserts the options of the `person` variable.
+             * Asserts the options of the {@link person `person`} variable.
              *
              * @param personOptions
              * The person-options to assert.

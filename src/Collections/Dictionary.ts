@@ -20,12 +20,12 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
     private innerCollection: Map<TKey, TValue> = new Map();
 
     /**
-     * Initializes a new instance of the `Dictionary` class.
+     * Initializes a new instance of the {@link Dictionary `Dictionary<TKey, TValue>`} class.
      */
     public constructor();
 
     /**
-     * Initializes a new instance of the `Dictionary` class.
+     * Initializes a new instance of the {@link Dictionary `Dictionary<TKey, TValue>`} class.
      *
      * @param entries
      * The entries to add.
@@ -33,7 +33,7 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
     public constructor(entries: Iterable<readonly [TKey, TValue]> | Dictionary<TKey, TValue>);
 
     /**
-     * Initializes a new instance of the `Dictionary` class.
+     * Initializes a new instance of the {@link Dictionary `Dictionary<TKey, TValue>`} class.
      *
      * @param args
      * The passed arguments.
@@ -122,10 +122,10 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
      * @inheritdoc
      *
      * @param key
-     * The `key` of the entry whose value to get.
+     * The {@link key `key`} of the entry whose value to get.
      *
      * @returns
-     * The value of the entry with the specified `key`.
+     * The value of the entry with the specified {@link key `key`}.
      */
     public Get(key: TKey): TValue
     {
@@ -143,10 +143,10 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
      * @inheritdoc
      *
      * @param key
-     * The `key` of the entry whose value to set.
+     * The {@link key `key`} of the entry whose value to set.
      *
      * @param value
-     * The value to set for the specified `key`.
+     * The value to set for the specified {@link key `key`}.
      */
     public Set(key: TKey, value: TValue): void
     {
@@ -164,10 +164,10 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
      * @inheritdoc
      *
      * @param key
-     * The `key` of the entry to check.
+     * The {@link key `key`} of the entry to check.
      *
      * @returns
-     * A value indicating whether the dictionary contains an entry with the specified `key`.
+     * A value indicating whether the dictionary contains an entry with the specified {@link key `key`}.
      */
     public Has(key: TKey): boolean
     {

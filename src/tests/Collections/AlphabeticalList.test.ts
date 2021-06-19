@@ -4,7 +4,7 @@ import { AlphabeticalList } from "../../Collections/AlphabeticalList";
 import { List } from "../../Collections/List";
 
 /**
- * Registers tests for the `AlphabeticalList` class.
+ * Registers tests for the {@link AlphabeticalList `AlphabeticalList<T>`} class.
  */
 export function AlphabeticalListTests(): void
 {
@@ -37,7 +37,7 @@ export function AlphabeticalListTests(): void
                 });
 
             /**
-             * Asserts the items of a `list`.
+             * Asserts that the specified unordered {@link items `items`} have been sorted and added to the {@link list `list`}.
              *
              * @param list
              * The actual list.

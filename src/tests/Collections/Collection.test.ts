@@ -4,7 +4,7 @@ import { Collection } from "../../Collections/Collection";
 import { TestCollection } from "./TestCollection";
 
 /**
- * Registers tests for the `Collection` class.
+ * Registers tests for the {@link Collection `Collection<TKey, TValue>`} class.
  */
 export function CollectionTests(): void
 {

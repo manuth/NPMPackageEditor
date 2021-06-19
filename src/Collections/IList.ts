@@ -2,22 +2,25 @@ import { ICollection } from "./ICollection";
 
 /**
  * Represents a list.
+ *
+ * @template T
+ * The type of the items.
  */
 export interface IList<T> extends ICollection<number, T>
 {
     /**
-     * Checks whether the specified `item` exists in the list.
+     * Checks whether the specified {@link item `item`} exists in the list.
      *
      * @param item
      * The item to check.
      *
      * @returns
-     * A value indicating whether the specified `item` exists.
+     * A value indicating whether the specified {@link item `item`} exists.
      */
     Contains(item: T): boolean;
 
     /**
-     * Adds an item to the list.
+     * Adds the specified {@link item `item`} to the list.
      *
      * @param item
      * The item to add.
@@ -25,7 +28,7 @@ export interface IList<T> extends ICollection<number, T>
     Add(item: T): void;
 
     /**
-     * Adds elements to the list.
+     * Adds the specified {@link items `items`} to the list.
      *
      * @param items
      * The items to add.
@@ -33,7 +36,7 @@ export interface IList<T> extends ICollection<number, T>
     AddRange(items: readonly T[]): void;
 
     /**
-     * Removes an item from the list.
+     * Removes the specified {@link item `item`} from the list.
      *
      * @param item
      * The item to remove.
@@ -41,7 +44,7 @@ export interface IList<T> extends ICollection<number, T>
     Remove(item: T): void;
 
     /**
-     * Removes the item at the specified `index`.
+     * Removes the item at the specified {@link index `index`}.
      *
      * @param index
      * The index of the item to remove.

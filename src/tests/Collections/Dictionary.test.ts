@@ -3,7 +3,7 @@ import { Random } from "random-js";
 import { Dictionary } from "../../Collections/Dictionary";
 
 /**
- * Registers tests for the `Dictionary` class.
+ * Registers tests for the {@link Dictionary `Dictionary<TKey, TValue>`} class.
  */
 export function DictionaryTests(): void
 {
@@ -36,7 +36,7 @@ export function DictionaryTests(): void
                 });
 
             /**
-             * Checks whether all entries are present.
+             * Checks whether the specified {@link entries `entries`} are present.
              *
              * @param entries
              * The entries to check against.
@@ -59,7 +59,7 @@ export function DictionaryTests(): void
                 () =>
                 {
                     test(
-                        "Checking whether a dictionary can be constructed without arguments…",
+                        "Checking whether a dictionary can be constructed without any arguments…",
                         () =>
                         {
                             doesNotThrow(() => new Dictionary());

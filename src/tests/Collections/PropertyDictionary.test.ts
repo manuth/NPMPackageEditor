@@ -3,7 +3,7 @@ import { Random } from "random-js";
 import { PropertyDictionary } from "../../Collections/PropertyDictionary";
 
 /**
- * Registers tests for the `PropertyDictionary` class.
+ * Registers tests for the {@link PropertyDictionary `PropertyDictionary<T>`} class.
  */
 export function PropertyDictionaryTests(): void
 {

@@ -4,7 +4,7 @@ import { BugInfo } from "../../Management/BugInfo";
 import { IBugInfo } from "../../Management/IBugInfo";
 
 /**
- * Registers tests for the `BugInfo` class.
+ * Registers tests for the {@link BugInfo `BugInfo`} class.
  */
 export function BugInfoTests(): void
 {

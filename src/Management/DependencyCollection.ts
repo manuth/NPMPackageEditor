@@ -36,12 +36,12 @@ export class DependencyCollection implements IDependencyCollection
     public readonly BundledDependencies: List<string>;
 
     /**
-     * Initializes a new instance of the `DependencyCollection` class.
+     * Initializes a new instance of the {@link DependencyCollection `DependencyCollection`} class.
      */
     public constructor();
 
     /**
-     * Initializes a new instance of the `DependencyCollection` class.
+     * Initializes a new instance of the {@link DependencyCollection `DependencyCollection`} class.
      *
      * @param collection
      * The base collection.
@@ -49,7 +49,7 @@ export class DependencyCollection implements IDependencyCollection
     public constructor(collection: IDependencyCollectionOptions);
 
     /**
-     * Initializes a new instance of the `DependencyCollection` class.
+     * Initializes a new instance of the {@link DependencyCollection `DependencyCollection`} class.
      *
      * @param collection
      * The base collection.

@@ -7,7 +7,7 @@ import { DependencyCollection } from "../../Management/DependencyCollection";
 import { IDependencyCollectionOptions } from "../../Management/IDependencyCollectionOptions";
 
 /**
- * Registers tests for the `DependencyCollection` class.
+ * Registers tests for the {@link DependencyCollection `DependencyCollection`} class.
  */
 export function DependencyCollectionTests(): void
 {
@@ -120,10 +120,10 @@ export function DependencyCollectionTests(): void
                     }
 
                     /**
-                     * Gets the dependency-sets of the `collection`.
+                     * Gets the dependency-sets of the {@link collection `collection`}.
                      *
                      * @returns
-                     * The dependency-sets of the `collection`.
+                     * The dependency-sets of the {@link collection `collection`}.
                      */
                     function GetDependencySets(): Array<Dictionary<string, string>>
                     {

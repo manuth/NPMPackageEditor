@@ -4,6 +4,9 @@ import { IList } from "./IList";
 
 /**
  * Provides the functionality to store a list of values.
+ *
+ * @template T
+ * The type of the items.
  */
 export class List<T> extends Collection<number, T> implements IList<T>, JSONObjectBase<T[]>
 {
@@ -13,12 +16,12 @@ export class List<T> extends Collection<number, T> implements IList<T>, JSONObje
     private innerList: T[] = [];
 
     /**
-     * Initializes a new instance of the `List` class.
+     * Initializes a new instance of the {@link List `List<T>`} class.
      */
     public constructor();
 
     /**
-     * Initializes a new instance of the `List` class.
+     * Initializes a new instance of the {@link List `List<T>`} class.
      *
      * @param entries
      * The entries to add.
@@ -26,7 +29,7 @@ export class List<T> extends Collection<number, T> implements IList<T>, JSONObje
     public constructor(entries: Iterable<T>);
 
     /**
-     * Initializes a new instance of the `List` class.
+     * Initializes a new instance of the {@link List `List<T>`} class.
      *
      * @param entries
      * The entries to add.
@@ -64,7 +67,7 @@ export class List<T> extends Collection<number, T> implements IList<T>, JSONObje
      * The item to check.
      *
      * @returns
-     * A value indicating whether the specified `item` exists.
+     * A value indicating whether the specified {@link item `item`} exists.
      */
     public Contains(item: T): boolean
     {

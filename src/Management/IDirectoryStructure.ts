@@ -11,7 +11,7 @@ export interface IDirectoryStructure
     lib?: string;
 
     /**
-     * The location of the executable files to add to `bin`.
+     * The location of the executable files to add to `PATH`.
      *
      * @see https://docs.npmjs.com/files/package.json#directoriesbin
      */

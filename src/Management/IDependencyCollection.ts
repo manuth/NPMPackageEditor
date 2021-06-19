@@ -12,7 +12,7 @@ export interface IDependencyCollection
     readonly Dependencies: Dictionary<string, string>;
 
     /**
-     * Gets a set dependencies for development purposes.
+     * Gets a set of dependencies for development purposes.
      */
     readonly DevelopmentDependencies: Dictionary<string, string>;
 
@@ -37,7 +37,7 @@ export interface IDependencyCollection
     readonly BundledDependencies: List<string>;
 
     /**
-     * Registers dependencies from another `collection`.
+     * Registers dependencies from the specified {@link collection `collection`}.
      *
      * @param collection
      * The collection to register.

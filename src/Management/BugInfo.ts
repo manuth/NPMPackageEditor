@@ -18,12 +18,12 @@ export class BugInfo extends JSONObjectBase<IBugInfo>
     public EMail: string;
 
     /**
-     * Initializes a new instance of the `BugInfo` class.
+     * Initializes a new instance of the {@link BugInfo `BugInfo`} class.
      */
     public constructor();
 
     /**
-     * Initializes a new instance of the `BugInfo` class.
+     * Initializes a new instance of the {@link BugInfo `BugInfo`} class.
      *
      * @param bugInfo
      * The info for reporting bugs.
@@ -31,7 +31,7 @@ export class BugInfo extends JSONObjectBase<IBugInfo>
     public constructor(bugInfo: IBugInfo);
 
     /**
-     * Initializes a new instance of the `BugInfo` class with the specified `url`.
+     * Initializes a new instance of the {@link BugInfo `BugInfo`} class with the specified `url`.
      *
      * @param url
      * The url for reporting bugs.
@@ -39,7 +39,7 @@ export class BugInfo extends JSONObjectBase<IBugInfo>
     public constructor(url: string);
 
     /**
-     * Initializes a new instance of the `BugInfo` class with the specified `url` and `email`.
+     * Initializes a new instance of the {@link BugInfo `BugInfo`} class with the specified `url` and `email`.
      *
      * @param url
      * The url for reporting bugs.
@@ -50,7 +50,7 @@ export class BugInfo extends JSONObjectBase<IBugInfo>
     public constructor(url: string, email: string);
 
     /**
-     * Initializes a new instance of the `BugInfo` class.
+     * Initializes a new instance of the {@link BugInfo `BugInfo`} class.
      *
      * @param bugInfo
      * The info for reporting bugs.
@@ -58,7 +58,7 @@ export class BugInfo extends JSONObjectBase<IBugInfo>
     public constructor(bugInfo: string | IBugInfo);
 
     /**
-     * Initializes a new instance of the `BugInfo` class.
+     * Initializes a new instance of the {@link BugInfo `BugInfo`} class.
      *
      * @param args
      * The arguments which have been passed.

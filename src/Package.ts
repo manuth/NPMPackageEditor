@@ -157,7 +157,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     public PublishConfig: Record<string, any>;
 
     /**
-     * Gets or sets of script-commands for the package.
+     * Gets or sets a set of script-commands for the package.
      */
     public Scripts: Dictionary<string, string>;
 
@@ -195,12 +195,12 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
         ]);
 
     /**
-     * Initializes a new instance of the `Package` class.
+     * Initializes a new instance of the {@link Package `Package`} class.
      */
     public constructor();
 
     /**
-     * Initializes a new instance of the `Package` class based on an existing `package.json`-file.
+     * Initializes a new instance of the {@link Package `Package`} class based on an existing `package.json`-file.
      *
      * @param path
      * The path to the `package.json`-file to load.
@@ -208,7 +208,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     public constructor(path: string);
 
     /**
-     * Initializes a new instance of the `Package` class.
+     * Initializes a new instance of the {@link Package `Package`} class.
      *
      * @param metadata
      * The metadata of the package.
@@ -216,7 +216,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     public constructor(metadata: IPackageMetadata | IPackageJSON);
 
     /**
-     * Initializes a new instance of the `Package`.
+     * Initializes a new instance of the {@link Package `Package`}.
      *
      * @param path
      * The path to the `package.json` file.
@@ -227,7 +227,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     public constructor(path: string, metadata: IPackageMetadata | IPackageJSON);
 
     /**
-     * Initializes a new instance of the `Package` class.
+     * Initializes a new instance of the {@link Package `Package`} class.
      *
      * @param args
      * The passed arguments.
@@ -338,7 +338,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     }
 
     /**
-     * Gets the mapping from the `IPackageMetadata`-properties to the `Package` properties.
+     * Gets the mapping from the {@link IPackageMetadata `IPackageMetadata`}-properties to the {@link Package `Package`} properties.
      */
     protected get PropertyMap(): Map<keyof IPackageMetadata, keyof Package>
     {

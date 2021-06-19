@@ -24,7 +24,7 @@ import { AssertComparator } from "./AssertComparator";
 import { TestPackage } from "./TestPackage";
 
 /**
- * Registers tests for the `Package` class.
+ * Registers tests for the {@link Package `Package`} class.
  */
 export function PackageTests(): void
 {
@@ -65,7 +65,7 @@ export function PackageTests(): void
             }
 
             /**
-             * Asserts the info about a person.
+             * Asserts the info about a {@link Person `Person`}.
              *
              * @param actual
              * The actual person.
@@ -98,7 +98,7 @@ export function PackageTests(): void
             }
 
             /**
-             * Asserts the contents of a bug-info object.
+             * Asserts the contents of a {@link BugInfo `BugInfo`} object.
              *
              * @param actual
              * The actual bug-info.
@@ -269,7 +269,7 @@ export function PackageTests(): void
                 });
 
             /**
-             * Asserts the contents of the `npmPackage`.
+             * Asserts the contents of the {@link npmPackage `npmPackage`}.
              *
              * @param metadata
              * The expected meta-data.
@@ -723,7 +723,7 @@ export function PackageTests(): void
                 () =>
                 {
                     /**
-                     * Asserts the equality of loaded person-lists and the passed `personList`.
+                     * Asserts the equality of loaded person-lists and the passed {@link personList `personList`}.
                      *
                      * @param personList
                      * The list to test.
