@@ -43,7 +43,7 @@ export function JSONObjectTests(): void
                 {
                     random = new Random();
                     randomKeyGenerator = (
-                        function* ble()
+                        function* generate()
                         {
                             while (true)
                             {
