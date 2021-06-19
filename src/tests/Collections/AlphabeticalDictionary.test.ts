@@ -75,15 +75,20 @@ export function AlphabeticalDictionaryTests(): void
 
                     test(
                         "Checking whether the entries are sorted alphabetically…",
-                        () =>
+                        function()
                         {
+                            this.slow(2 * 1000);
+                            this.timeout(4 * 1000);
                             AssertEntriesWithoutOrder(dictionary, randomMap);
                         });
 
                     test(
                         `Checking whether entries can be sorted using the \`${nameof(Object.toString)}\`-method, too…`,
-                        () =>
+                        function()
                         {
+                            this.slow(2 * 1000);
+                            this.timeout(4 * 1000);
+
                             let objectMap = randomMap.map<[Record<string, unknown>, number]>(
                                 (entry) =>
                                 {

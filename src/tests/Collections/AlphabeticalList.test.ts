@@ -77,8 +77,10 @@ export function AlphabeticalListTests(): void
 
                     test(
                         "Checking whether a list with predefined entries can be created…",
-                        () =>
+                        function()
                         {
+                            this.slow(2 * 1000);
+                            this.timeout(4 * 1000);
                             AssertItemsWithoutOrder(list, incorrectOrder);
                         });
                 });
@@ -89,8 +91,11 @@ export function AlphabeticalListTests(): void
                 {
                     test(
                         "Checking whether the count is computed correctly…",
-                        () =>
+                        function()
                         {
+                            this.slow(2 * 1000);
+                            this.timeout(4 * 1000);
+
                             for (let i = incorrectOrder.length; i > 0; i--)
                             {
                                 strictEqual(list.Count, i);
@@ -107,8 +112,11 @@ export function AlphabeticalListTests(): void
                 {
                     test(
                         "Checking whether the entries are generated correctly…",
-                        () =>
+                        function()
                         {
+                            this.slow(2 * 1000);
+                            this.timeout(4 * 1000);
+
                             let correctOrder = incorrectOrder.sort();
 
                             for (let i = 0; i < correctOrder.length; i++)

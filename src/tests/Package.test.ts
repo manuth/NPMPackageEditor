@@ -389,7 +389,7 @@ export function PackageTests(): void
 
                             test(
                                 "Checking whether default values are set as expected…",
-                                () =>
+                                function()
                                 {
                                     /**
                                      * Represents an assertion of the value of a property.
@@ -428,6 +428,9 @@ export function PackageTests(): void
                                         [nameof<Package>((pkg) => pkg.OptionalDependencies), {}, AssertDictionary],
                                         [nameof<Package>((pkg) => pkg.BundledDependencies), [], AssertList]
                                     ] as Array<PropertyAssertion<keyof Package>>;
+
+                                    this.slow(2 * 1000);
+                                    this.timeout(4 * 1000);
 
                                     for (let assertion of assertions)
                                     {
