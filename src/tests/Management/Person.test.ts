@@ -10,7 +10,7 @@ import { Person } from "../../Management/Person";
 export function PersonTests(): void
 {
     suite(
-        "Person",
+        nameof(Person),
         () =>
         {
             let random: Random;
@@ -49,7 +49,7 @@ export function PersonTests(): void
                 });
 
             suite(
-                "constructor",
+                nameof(Person.constructor),
                 () =>
                 {
                     test(
@@ -61,7 +61,7 @@ export function PersonTests(): void
                 });
 
             suite(
-                "constructor",
+                nameof(Person.constructor),
                 () =>
                 {
                     setup(
@@ -79,7 +79,7 @@ export function PersonTests(): void
                 });
 
             suite(
-                "ToJSON",
+                nameof<Person>((person) => person.ToJSON),
                 () =>
                 {
                     test(

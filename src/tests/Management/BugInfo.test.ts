@@ -9,7 +9,7 @@ import { IBugInfo } from "../../Management/IBugInfo";
 export function BugInfoTests(): void
 {
     suite(
-        "BugInfo",
+        nameof(BugInfo),
         () =>
         {
             let random: Random;
@@ -34,7 +34,7 @@ export function BugInfoTests(): void
                 });
 
             suite(
-                "constructor",
+                nameof(BugInfo.constructor),
                 () =>
                 {
                     setup(
@@ -53,7 +53,7 @@ export function BugInfoTests(): void
                 });
 
             suite(
-                "constructor",
+                nameof(BugInfo.constructor),
                 () =>
                 {
                     setup(
@@ -71,7 +71,7 @@ export function BugInfoTests(): void
                 });
 
             suite(
-                "constructor",
+                nameof(BugInfo.constructor),
                 () =>
                 {
                     setup(
@@ -90,7 +90,7 @@ export function BugInfoTests(): void
                 });
 
             suite(
-                "ToJSON",
+                nameof<BugInfo>((bugInfo) => bugInfo.ToJSON),
                 () =>
                 {
                     test(

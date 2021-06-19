@@ -13,7 +13,7 @@ import { KeyOfType } from "../../Management/KeyOfType";
 export function DependencyCollectionTests(): void
 {
     suite(
-        "DependencyCollection",
+        nameof(DependencyCollection),
         () =>
         {
             let random: Random;
@@ -102,7 +102,7 @@ export function DependencyCollectionTests(): void
             }
 
             suite(
-                "Register",
+                nameof<DependencyCollection>((collection) => collection.Register),
                 () =>
                 {
                     /**
@@ -113,10 +113,10 @@ export function DependencyCollectionTests(): void
                     function GetDependencySetNames(): Array<KeyOfType<DependencyCollection, Dictionary<string, string>>>
                     {
                         return [
-                            "Dependencies",
-                            "DevelopmentDependencies",
-                            "OptionalDependencies",
-                            "PeerDependencies"
+                            nameof<DependencyCollection>((collection) => collection.Dependencies),
+                            nameof<DependencyCollection>((collection) => collection.DevelopmentDependencies),
+                            nameof<DependencyCollection>((collection) => collection.OptionalDependencies),
+                            nameof<DependencyCollection>((collection) => collection.PeerDependencies)
                         ] as Array<KeyOfType<DependencyCollection, Dictionary<string, string>>>;
                     }
 
@@ -179,7 +179,7 @@ export function DependencyCollectionTests(): void
                         });
 
                     test(
-                        "Checking whether duplicate `BundledDependencies` are ignored…",
+                        `Checking whether duplicate \`${nameof<DependencyCollection>((dc) => dc.BundledDependencies)}\` are ignored…`,
                         () =>
                         {
                             let otherCollection = new DependencyCollection();

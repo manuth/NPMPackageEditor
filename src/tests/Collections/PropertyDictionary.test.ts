@@ -8,7 +8,7 @@ import { PropertyDictionary } from "../../Collections/PropertyDictionary";
 export function PropertyDictionaryTests(): void
 {
     suite(
-        "PropertyDictionary",
+        nameof(PropertyDictionary),
         () =>
         {
             let random: Random;
@@ -37,7 +37,7 @@ export function PropertyDictionaryTests(): void
                 });
 
             suite(
-                "constructor",
+                nameof(PropertyDictionary.constructor),
                 () =>
                 {
                     setup(
@@ -47,7 +47,7 @@ export function PropertyDictionaryTests(): void
                         });
 
                     test(
-                        "Checking whether a `PropertyDictionary` can be created without passing arguments…",
+                        `Checking whether a \`${nameof(PropertyDictionary)}\` can be created without passing arguments…`,
                         () =>
                         {
                             doesNotThrow(() => new PropertyDictionary());
@@ -55,11 +55,11 @@ export function PropertyDictionaryTests(): void
                 });
 
             suite(
-                "constructor",
+                nameof(PropertyDictionary.constructor),
                 () =>
                 {
                     test(
-                        "Checking whether a `PropertyDictionary` can be created based on an object…",
+                        `Checking whether a \`${nameof(PropertyDictionary)}\` can be created based on an object…`,
                         () =>
                         {
                             strictEqual(dictionary.Count, Object.keys(randomData).length);

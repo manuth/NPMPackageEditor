@@ -9,7 +9,7 @@ import { List } from "../../Collections/List";
 export function AlphabeticalListTests(): void
 {
     suite(
-        "AlphabeticalList",
+        nameof(AlphabeticalList),
         () =>
         {
             let random: Random;
@@ -65,7 +65,7 @@ export function AlphabeticalListTests(): void
             }
 
             suite(
-                "constructor",
+                nameof(AlphabeticalList.constructor),
                 () =>
                 {
                     test(
@@ -84,7 +84,7 @@ export function AlphabeticalListTests(): void
                 });
 
             suite(
-                "Count",
+                nameof<AlphabeticalList<any>>((list) => list.Count),
                 () =>
                 {
                     test(
@@ -102,7 +102,7 @@ export function AlphabeticalListTests(): void
                 });
 
             suite(
-                "Entries",
+                nameof<AlphabeticalList<any>>((list) => list.Entries),
                 () =>
                 {
                     test(
@@ -121,7 +121,7 @@ export function AlphabeticalListTests(): void
                 });
 
             suite(
-                "Add",
+                nameof<AlphabeticalList<any>>((list) => list.Add),
                 () =>
                 {
                     test(
@@ -137,7 +137,7 @@ export function AlphabeticalListTests(): void
                 });
 
             suite(
-                "AddRange",
+                nameof<AlphabeticalList<any>>((list) => list.AddRange),
                 () =>
                 {
                     test(
@@ -163,7 +163,7 @@ export function AlphabeticalListTests(): void
                 });
 
             suite(
-                "Remove",
+                nameof<AlphabeticalList<any>>((list) => list.Remove),
                 () =>
                 {
                     test(
@@ -178,7 +178,7 @@ export function AlphabeticalListTests(): void
                 });
 
             suite(
-                "RemoveAt",
+                nameof<AlphabeticalList<any>>((list) => list.RemoveAt),
                 () =>
                 {
                     test(
@@ -212,7 +212,7 @@ export function AlphabeticalListTests(): void
                 });
 
             suite(
-                "Clear",
+                nameof<AlphabeticalList<any>>((list) => list.Clear),
                 () =>
                 {
                     test(

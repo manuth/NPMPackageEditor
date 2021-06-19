@@ -176,23 +176,23 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
      */
     private generationLogics: Map<keyof IPackageMetadata, GenerationLogic> = new Map<keyof IPackageMetadata, GenerationLogic>(
         [
-            ["maintainers", GenerationLogic.NonEmpty],
-            ["contributors", GenerationLogic.NonEmpty],
-            ["keywords", GenerationLogic.NonEmpty],
-            ["engines", GenerationLogic.NonEmpty],
-            ["browser", GenerationLogic.NonEmpty],
-            ["bin", GenerationLogic.NonEmpty],
-            ["man", GenerationLogic.NonEmpty],
-            ["directories", GenerationLogic.NonEmpty],
-            ["config", GenerationLogic.NonEmpty],
-            ["publishConfig", GenerationLogic.NonEmpty],
-            ["scripts", GenerationLogic.Always],
-            ["dependencies", GenerationLogic.Always],
-            ["devDependencies", GenerationLogic.Always],
-            ["peerDependencies", GenerationLogic.NonEmpty],
-            ["optionalDependencies", GenerationLogic.NonEmpty],
-            ["bundledDependencies", GenerationLogic.NonEmpty]
-        ]);
+            [nameof<IPackageMetadata>((meta) => meta.maintainers), GenerationLogic.NonEmpty],
+            [nameof<IPackageMetadata>((meta) => meta.contributors), GenerationLogic.NonEmpty],
+            [nameof<IPackageMetadata>((meta) => meta.keywords), GenerationLogic.NonEmpty],
+            [nameof<IPackageMetadata>((meta) => meta.engines), GenerationLogic.NonEmpty],
+            [nameof<IPackageMetadata>((meta) => meta.browser), GenerationLogic.NonEmpty],
+            [nameof<IPackageMetadata>((meta) => meta.bin), GenerationLogic.NonEmpty],
+            [nameof<IPackageMetadata>((meta) => meta.man), GenerationLogic.NonEmpty],
+            [nameof<IPackageMetadata>((meta) => meta.directories), GenerationLogic.NonEmpty],
+            [nameof<IPackageMetadata>((meta) => meta.config), GenerationLogic.NonEmpty],
+            [nameof<IPackageMetadata>((meta) => meta.publishConfig), GenerationLogic.NonEmpty],
+            [nameof<IPackageMetadata>((meta) => meta.scripts), GenerationLogic.Always],
+            [nameof<IPackageMetadata>((meta) => meta.dependencies), GenerationLogic.Always],
+            [nameof<IPackageMetadata>((meta) => meta.devDependencies), GenerationLogic.Always],
+            [nameof<IPackageMetadata>((meta) => meta.peerDependencies), GenerationLogic.NonEmpty],
+            [nameof<IPackageMetadata>((meta) => meta.optionalDependencies), GenerationLogic.NonEmpty],
+            [nameof<IPackageMetadata>((meta) => meta.bundledDependencies), GenerationLogic.NonEmpty]
+        ] as Array<[keyof IPackageMetadata, GenerationLogic]>);
 
     /**
      * Initializes a new instance of the {@link Package `Package`} class.
@@ -344,37 +344,37 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     {
         return new Map<keyof IPackageMetadata, keyof Package>(
             [
-                ["name", "Name"],
-                ["version", "Version"],
-                ["private", "Private"],
-                ["description", "Description"],
-                ["author", "Author"],
-                ["maintainers", "Maintainers"],
-                ["contributors", "Contributors"],
-                ["license", "License"],
-                ["keywords", "Keywords"],
-                ["engines", "Engines"],
-                ["os", "OS"],
-                ["cpu", "CPU"],
-                ["main", "Main"],
-                ["types", "Types"],
-                ["browser", "Browser"],
-                ["bin", "Binaries"],
-                ["man", "Manuals"],
-                ["files", "Files"],
-                ["directories", "Directories"],
-                ["homepage", "Homepage"],
-                ["repository", "Repository"],
-                ["bugs", "Bugs"],
-                ["config", "Config"],
-                ["publishConfig", "PublishConfig"],
-                ["scripts", "Scripts"],
-                ["dependencies", "Dependencies"],
-                ["devDependencies", "DevelopmentDependencies"],
-                ["peerDependencies", "PeerDependencies"],
-                ["optionalDependencies", "OptionalDependencies"],
-                ["bundledDependencies", "BundledDependencies"]
-            ]);
+                [nameof<IPackageMetadata>((meta) => meta.name), nameof<Package>((pkg) => pkg.Name)],
+                [nameof<IPackageMetadata>((meta) => meta.version), nameof<Package>((pkg) => pkg.Version)],
+                [nameof<IPackageMetadata>((meta) => meta.private), nameof<Package>((pkg) => pkg.Private)],
+                [nameof<IPackageMetadata>((meta) => meta.description), nameof<Package>((pkg) => pkg.Description)],
+                [nameof<IPackageMetadata>((meta) => meta.author), nameof<Package>((pkg) => pkg.Author)],
+                [nameof<IPackageMetadata>((meta) => meta.maintainers), nameof<Package>((pkg) => pkg.Maintainers)],
+                [nameof<IPackageMetadata>((meta) => meta.contributors), nameof<Package>((pkg) => pkg.Contributors)],
+                [nameof<IPackageMetadata>((meta) => meta.license), nameof<Package>((pkg) => pkg.License)],
+                [nameof<IPackageMetadata>((meta) => meta.keywords), nameof<Package>((pkg) => pkg.Keywords)],
+                [nameof<IPackageMetadata>((meta) => meta.engines), nameof<Package>((pkg) => pkg.Engines)],
+                [nameof<IPackageMetadata>((meta) => meta.os), nameof<Package>((pkg) => pkg.OS)],
+                [nameof<IPackageMetadata>((meta) => meta.cpu), nameof<Package>((pkg) => pkg.CPU)],
+                [nameof<IPackageMetadata>((meta) => meta.main), nameof<Package>((pkg) => pkg.Main)],
+                [nameof<IPackageMetadata>((meta) => meta.types), nameof<Package>((pkg) => pkg.Types)],
+                [nameof<IPackageMetadata>((meta) => meta.browser), nameof<Package>((pkg) => pkg.Browser)],
+                [nameof<IPackageMetadata>((meta) => meta.bin), nameof<Package>((pkg) => pkg.Binaries)],
+                [nameof<IPackageMetadata>((meta) => meta.man), nameof<Package>((pkg) => pkg.Manuals)],
+                [nameof<IPackageMetadata>((meta) => meta.files), nameof<Package>((pkg) => pkg.Files)],
+                [nameof<IPackageMetadata>((meta) => meta.directories), nameof<Package>((pkg) => pkg.Directories)],
+                [nameof<IPackageMetadata>((meta) => meta.homepage), nameof<Package>((pkg) => pkg.Homepage)],
+                [nameof<IPackageMetadata>((meta) => meta.repository), nameof<Package>((pkg) => pkg.Repository)],
+                [nameof<IPackageMetadata>((meta) => meta.bugs), nameof<Package>((pkg) => pkg.Bugs)],
+                [nameof<IPackageMetadata>((meta) => meta.config), nameof<Package>((pkg) => pkg.Config)],
+                [nameof<IPackageMetadata>((meta) => meta.publishConfig), nameof<Package>((pkg) => pkg.PublishConfig)],
+                [nameof<IPackageMetadata>((meta) => meta.scripts), nameof<Package>((pkg) => pkg.Scripts)],
+                [nameof<IPackageMetadata>((meta) => meta.dependencies), nameof<Package>((pkg) => pkg.Dependencies)],
+                [nameof<IPackageMetadata>((meta) => meta.devDependencies), nameof<Package>((pkg) => pkg.DevelopmentDependencies)],
+                [nameof<IPackageMetadata>((meta) => meta.peerDependencies), nameof<Package>((pkg) => pkg.PeerDependencies)],
+                [nameof<IPackageMetadata>((meta) => meta.optionalDependencies), nameof<Package>((pkg) => pkg.OptionalDependencies)],
+                [nameof<IPackageMetadata>((meta) => meta.bundledDependencies), nameof<Package>((pkg) => pkg.BundledDependencies)]
+            ] as Array<[keyof IPackageMetadata, keyof Package]>);
     }
 
     /**
@@ -384,18 +384,18 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     {
         return new Map<keyof IPackageMetadata, LoadLogic>(
             [
-                ["author", LoadLogic.Person],
-                ["maintainers", LoadLogic.PersonList],
-                ["contributors", LoadLogic.PersonList],
-                ["engines", LoadLogic.Dictionary],
-                ["bugs", LoadLogic.BugInfo],
-                ["scripts", LoadLogic.Dictionary],
-                ["dependencies", LoadLogic.None],
-                ["devDependencies", LoadLogic.None],
-                ["peerDependencies", LoadLogic.None],
-                ["optionalDependencies", LoadLogic.None],
-                ["bundledDependencies", LoadLogic.None]
-            ]);
+                [nameof<IPackageMetadata>((meta) => meta.author), LoadLogic.Person],
+                [nameof<IPackageMetadata>((meta) => meta.maintainers), LoadLogic.PersonList],
+                [nameof<IPackageMetadata>((meta) => meta.contributors), LoadLogic.PersonList],
+                [nameof<IPackageMetadata>((meta) => meta.engines), LoadLogic.Dictionary],
+                [nameof<IPackageMetadata>((meta) => meta.bugs), LoadLogic.BugInfo],
+                [nameof<IPackageMetadata>((meta) => meta.scripts), LoadLogic.Dictionary],
+                [nameof<IPackageMetadata>((meta) => meta.dependencies), LoadLogic.None],
+                [nameof<IPackageMetadata>((meta) => meta.devDependencies), LoadLogic.None],
+                [nameof<IPackageMetadata>((meta) => meta.peerDependencies), LoadLogic.None],
+                [nameof<IPackageMetadata>((meta) => meta.optionalDependencies), LoadLogic.None],
+                [nameof<IPackageMetadata>((meta) => meta.bundledDependencies), LoadLogic.None]
+            ] as Array<[keyof IPackageMetadata, LoadLogic]>);
     }
 
     /**

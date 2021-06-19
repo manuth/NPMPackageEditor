@@ -8,7 +8,7 @@ import { Dictionary } from "../../Collections/Dictionary";
 export function DictionaryTests(): void
 {
     suite(
-        "Dictionary",
+        nameof(Dictionary),
         () =>
         {
             let dictionary: Dictionary<string, string>;
@@ -55,7 +55,7 @@ export function DictionaryTests(): void
             }
 
             suite(
-                "constructor",
+                nameof(Dictionary.constructor),
                 () =>
                 {
                     test(
@@ -78,11 +78,11 @@ export function DictionaryTests(): void
                 });
 
             suite(
-                "Count",
+                nameof<Dictionary<any, any>>((dictionary) => dictionary.Count),
                 () =>
                 {
                     test(
-                        "Checking whether `Count` returns the number of entries…",
+                        `Checking whether \`${nameof<Dictionary<any, any>>((d) => d.Count)}\` returns the number of entries…`,
                         () =>
                         {
                             strictEqual(randomMap.length, dictionary.Count);
@@ -90,7 +90,7 @@ export function DictionaryTests(): void
                 });
 
             suite(
-                "Entries",
+                nameof<Dictionary<any, any>>((dictionary) => dictionary.Entries),
                 () =>
                 {
                     test(
@@ -107,7 +107,7 @@ export function DictionaryTests(): void
                 });
 
             suite(
-                "Add",
+                nameof<Dictionary<any, any>>((dictionary) => dictionary.Add),
                 () =>
                 {
                     let key: string;
@@ -143,7 +143,7 @@ export function DictionaryTests(): void
                 });
 
             suite(
-                "AddRange",
+                nameof<Dictionary<any, any>>((dictionary) => dictionary.AddRange),
                 () =>
                 {
                     setup(
@@ -170,7 +170,7 @@ export function DictionaryTests(): void
                 });
 
             suite(
-                "Remove",
+                nameof<Dictionary<any, any>>((dictionary) => dictionary.Remove),
                 () =>
                 {
                     test(
@@ -193,7 +193,7 @@ export function DictionaryTests(): void
                 });
 
             suite(
-                "Get",
+                nameof<Dictionary<any, any>>((dictionary) => dictionary.Get),
                 () =>
                 {
                     test(
@@ -213,7 +213,7 @@ export function DictionaryTests(): void
                 });
 
             suite(
-                "Has",
+                nameof<Dictionary<any, any>>((dictionary) => dictionary.Has),
                 () =>
                 {
                     test(
@@ -227,7 +227,7 @@ export function DictionaryTests(): void
                 });
 
             suite(
-                "Clear",
+                nameof<Dictionary<any, any>>((dictionary) => dictionary.Clear),
                 () =>
                 {
                     test(
@@ -241,7 +241,7 @@ export function DictionaryTests(): void
                 });
 
             suite(
-                "ToJSON",
+                nameof<Dictionary<any, any>>((dictionary) => dictionary.ToJSON),
                 () =>
                 {
                     test(

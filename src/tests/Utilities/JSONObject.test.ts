@@ -10,7 +10,7 @@ import { PropertyInjector } from "./PropertyInjector";
 export function JSONObjectTests(): void
 {
     suite(
-        "JSONObject",
+        nameof(JSONObject),
         () =>
         {
             let random: Random;
@@ -110,7 +110,7 @@ export function JSONObjectTests(): void
             }
 
             suite(
-                "constructor",
+                nameof(JSONObject.constructor),
                 () =>
                 {
                     setup(
@@ -131,7 +131,7 @@ export function JSONObjectTests(): void
                 });
 
             suite(
-                "Add",
+                nameof<JSONObject>((object) => object.Add),
                 () =>
                 {
                     test(
@@ -151,7 +151,7 @@ export function JSONObjectTests(): void
                 });
 
             suite(
-                "AddIfNotNull",
+                nameof<JSONObject>((object) => object.AddIfNotNull),
                 () =>
                 {
                     test(
@@ -163,7 +163,7 @@ export function JSONObjectTests(): void
                 });
 
             suite(
-                "AddIfNotEmpty",
+                nameof<JSONObject>((object) => object.AddIfNotEmpty),
                 () =>
                 {
                     let propertyInjector: PropertyInjector<ITest>;
@@ -227,7 +227,7 @@ export function JSONObjectTests(): void
                 });
 
             suite(
-                "Has",
+                nameof<JSONObject>((object) => object.Has),
                 () =>
                 {
                     test(
@@ -241,7 +241,7 @@ export function JSONObjectTests(): void
                 });
 
             suite(
-                "Remove",
+                nameof<JSONObject>((object) => object.Remove),
                 () =>
                 {
                     test(

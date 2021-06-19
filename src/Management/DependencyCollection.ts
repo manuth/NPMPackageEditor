@@ -88,10 +88,10 @@ export class DependencyCollection implements IDependencyCollection
     public Register(collection: IDependencyCollection, overwrite?: boolean): void
     {
         let keys = [
-            "Dependencies",
-            "DevelopmentDependencies",
-            "PeerDependencies",
-            "OptionalDependencies"
+            nameof(this.Dependencies),
+            nameof(this.DevelopmentDependencies),
+            nameof(this.PeerDependencies),
+            nameof(this.OptionalDependencies)
         ] as Array<KeyOfType<DependencyCollection, Dictionary<string, string>>>;
 
         for (let key of keys)

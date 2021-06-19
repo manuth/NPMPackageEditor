@@ -9,7 +9,7 @@ import { TestCollection } from "./TestCollection";
 export function CollectionTests(): void
 {
     suite(
-        "Collection",
+        nameof(Collection),
         () =>
         {
             let random: Random;
@@ -35,11 +35,11 @@ export function CollectionTests(): void
                 });
 
             suite(
-                "Count",
+                nameof<Collection<any, any>>((collection) => collection.Count),
                 () =>
                 {
                     test(
-                        "Checking whether `Count` returns the number of entries…",
+                        `Checking whether \`${nameof<Collection<any, any>>((c) => c.Count)}\` returns the number of entries…`,
                         () =>
                         {
                             strictEqual(randomMap.length, collection.Count);
@@ -47,7 +47,7 @@ export function CollectionTests(): void
                 });
 
             suite(
-                "Keys",
+                nameof<Collection<any, any>>((collection) => collection.Keys),
                 () =>
                 {
                     test(
@@ -64,7 +64,7 @@ export function CollectionTests(): void
                 });
 
             suite(
-                "Values",
+                nameof<Collection<any, any>>((collection) => collection.Values),
                 () =>
                 {
                     test(

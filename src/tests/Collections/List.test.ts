@@ -8,7 +8,7 @@ import { List } from "../../Collections/List";
 export function ListTests(): void
 {
     suite(
-        "List",
+        nameof(List),
         () =>
         {
             let random: Random;
@@ -36,11 +36,11 @@ export function ListTests(): void
                 });
 
             suite(
-                "Count",
+                nameof<List<any>>((list) => list.Count),
                 () =>
                 {
                     test(
-                        "Checking whether `Count` returns the number of entries…",
+                        `Checking whether \`${nameof<List<any>>((l) => l.Count)}\` returns the number of entries…`,
                         () =>
                         {
                             strictEqual(randomData.length, list.Count);
@@ -48,7 +48,7 @@ export function ListTests(): void
                 });
 
             suite(
-                "Entries",
+                nameof<List<any>>((list) => list.Entries),
                 () =>
                 {
                     test(
@@ -79,7 +79,7 @@ export function ListTests(): void
                 });
 
             suite(
-                "Contains",
+                nameof<List<any>>((list) => list.Contains),
                 () =>
                 {
                     test(
@@ -94,7 +94,7 @@ export function ListTests(): void
                 });
 
             suite(
-                "Add",
+                nameof<List<any>>((list) => list.Add),
                 () =>
                 {
                     test(
@@ -110,7 +110,7 @@ export function ListTests(): void
                 });
 
             suite(
-                "AddRange",
+                nameof<List<any>>((list) => list.AddRange),
                 () =>
                 {
                     test(
@@ -124,7 +124,7 @@ export function ListTests(): void
                 });
 
             suite(
-                "Remove",
+                nameof<List<any>>((list) => list.Remove),
                 () =>
                 {
                     test(
@@ -146,7 +146,7 @@ export function ListTests(): void
                 });
 
             suite(
-                "RemoveAt",
+                nameof<List<any>>((list) => list.RemoveAt),
                 () =>
                 {
                     test(
@@ -169,7 +169,7 @@ export function ListTests(): void
                 });
 
             suite(
-                "Clear",
+                nameof<List<any>>((list) => list.Clear),
                 () =>
                 {
                     test(
@@ -183,7 +183,7 @@ export function ListTests(): void
                 });
 
             suite(
-                "ToJSON",
+                nameof<List<any>>((list) => list.ToJSON),
                 () =>
                 {
                     test(
