@@ -4,6 +4,7 @@ import { List } from "../Collections/List";
 import { PropertyDictionary } from "../Collections/PropertyDictionary";
 import { IDependencyCollection } from "./IDependencyCollection";
 import { IDependencyCollectionOptions } from "./IDependencyCollectionOptions";
+import { KeyOfType } from "./KeyOfType";
 
 /**
  * Represents a set of dependencies.
@@ -86,20 +87,12 @@ export class DependencyCollection implements IDependencyCollection
      */
     public Register(collection: IDependencyCollection, overwrite?: boolean): void
     {
-        let keys: Array<
-            keyof Pick<
-                DependencyCollection,
-                "Dependencies" |
-                "DevelopmentDependencies" |
-                "PeerDependencies" |
-                "OptionalDependencies">>;
-
-        keys = [
+        let keys = [
             "Dependencies",
             "DevelopmentDependencies",
             "PeerDependencies",
             "OptionalDependencies"
-        ];
+        ] as Array<KeyOfType<DependencyCollection, Dictionary<string, string>>>;
 
         for (let key of keys)
         {

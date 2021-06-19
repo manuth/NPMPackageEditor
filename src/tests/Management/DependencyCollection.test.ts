@@ -5,6 +5,7 @@ import { Random } from "random-js";
 import { Dictionary } from "../../Collections/Dictionary";
 import { DependencyCollection } from "../../Management/DependencyCollection";
 import { IDependencyCollectionOptions } from "../../Management/IDependencyCollectionOptions";
+import { KeyOfType } from "../../Management/KeyOfType";
 
 /**
  * Registers tests for the {@link DependencyCollection `DependencyCollection`} class.
@@ -109,14 +110,14 @@ export function DependencyCollectionTests(): void
                      *
                      * @returns
                      */
-                    function GetDependencySetNames(): Array<keyof Omit<DependencyCollection, "Register" | "Clear" | "BundledDependencies">>
+                    function GetDependencySetNames(): Array<KeyOfType<DependencyCollection, Dictionary<string, string>>>
                     {
                         return [
                             "Dependencies",
                             "DevelopmentDependencies",
                             "OptionalDependencies",
                             "PeerDependencies"
-                        ];
+                        ] as Array<KeyOfType<DependencyCollection, Dictionary<string, string>>>;
                     }
 
                     /**
