@@ -4,7 +4,7 @@
 export abstract class JSONObjectBase<T>
 {
     /**
-     * Initializes a new instance of the `JSONObjectBase` class.
+     * Initializes a new instance of the {@link JSONObjectBase `JSONObjectBase`} class.
      */
     public constructor()
     { }
