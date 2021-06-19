@@ -52,29 +52,34 @@ export function PersonTests(): void
                 nameof(Person.constructor),
                 () =>
                 {
-                    test(
-                        "Checking whether the object is created correctly…",
+                    suite(
+                        `Initializing a \`${nameof(Person)}\` using an \`${nameof(Object)}\`…`,
                         () =>
                         {
-                            AssertPerson(personOptions);
-                        });
-                });
-
-            suite(
-                nameof(Person.constructor),
-                () =>
-                {
-                    setup(
-                        () =>
-                        {
-                            new Person(stringify(personOptions));
+                            test(
+                                "Checking whether the object is created correctly…",
+                                () =>
+                                {
+                                    AssertPerson(personOptions);
+                                });
                         });
 
-                    test(
-                        "Checking whether the text is parsed correctly…",
+                    suite(
+                        `Initializing a \`${nameof(Person)}\` using an \`${nameof(String)}\`…`,
                         () =>
                         {
-                            AssertPerson(personOptions);
+                            setup(
+                                () =>
+                                {
+                                    new Person(stringify(personOptions));
+                                });
+
+                            test(
+                                "Checking whether the text is parsed correctly…",
+                                () =>
+                                {
+                                    AssertPerson(personOptions);
+                                });
                         });
                 });
 

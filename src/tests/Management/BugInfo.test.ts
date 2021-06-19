@@ -37,55 +37,60 @@ export function BugInfoTests(): void
                 nameof(BugInfo.constructor),
                 () =>
                 {
-                    setup(
+                    suite(
+                        `Testing the parameterless \`${nameof(BugInfo.constructor)}\`…`,
                         () =>
                         {
-                            bugInfo = new BugInfo();
+                            setup(
+                                () =>
+                                {
+                                    bugInfo = new BugInfo();
+                                });
+
+                            test(
+                                "Checking whether the object is created correctly…",
+                                () =>
+                                {
+                                    strictEqual(bugInfo.URL, null);
+                                    strictEqual(bugInfo.EMail, null);
+                                });
                         });
 
-                    test(
-                        "Checking whether the object is created correctly…",
+                    suite(
+                        `Testing the \`${nameof(BugInfo.constructor)}\` with one parameter…`,
                         () =>
                         {
-                            strictEqual(bugInfo.URL, null);
-                            strictEqual(bugInfo.EMail, null);
-                        });
-                });
+                            setup(
+                                () =>
+                                {
+                                    bugInfo = new BugInfo(bugInfoOptions.url);
+                                });
 
-            suite(
-                nameof(BugInfo.constructor),
-                () =>
-                {
-                    setup(
-                        () =>
-                        {
-                            bugInfo = new BugInfo(bugInfoOptions.url);
-                        });
-
-                    test(
-                        "Checking whether the object is created as expected…",
-                        () =>
-                        {
-                            strictEqual(bugInfo.URL, bugInfoOptions.url);
-                        });
-                });
-
-            suite(
-                nameof(BugInfo.constructor),
-                () =>
-                {
-                    setup(
-                        () =>
-                        {
-                            bugInfo = new BugInfo(bugInfoOptions.url, bugInfoOptions.email);
+                            test(
+                                "Checking whether the object is created as expected…",
+                                () =>
+                                {
+                                    strictEqual(bugInfo.URL, bugInfoOptions.url);
+                                });
                         });
 
-                    test(
-                        "Checking whether the object is created as expected…",
+                    suite(
+                        `Testing the \`${nameof(BugInfo.constructor)}\` with two parameters…`,
                         () =>
                         {
-                            strictEqual(bugInfo.URL, bugInfoOptions.url);
-                            strictEqual(bugInfo.EMail, bugInfoOptions.email);
+                            setup(
+                                () =>
+                                {
+                                    bugInfo = new BugInfo(bugInfoOptions.url, bugInfoOptions.email);
+                                });
+
+                            test(
+                                "Checking whether the object is created as expected…",
+                                () =>
+                                {
+                                    strictEqual(bugInfo.URL, bugInfoOptions.url);
+                                    strictEqual(bugInfo.EMail, bugInfoOptions.email);
+                                });
                         });
                 });
 
