@@ -11,12 +11,12 @@ import { IDependencyCollectionOptions } from "./IDependencyCollectionOptions";
 export class OrderedDependencyCollection extends DependencyCollection
 {
     /**
-     * Initializes a new instance of the `OrderedDependencyCollection` class.
+     * Initializes a new instance of the {@link OrderedDependencyCollection `OrderedDependencyCollection`} class.
      */
     public constructor();
 
     /**
-     * Initializes a new instance of the `OrderedDependencyCollection` class.
+     * Initializes a new instance of the {@link OrderedDependencyCollection `OrderedDependencyCollection`} class.
      *
      * @param collection
      * The base collection.
@@ -24,7 +24,7 @@ export class OrderedDependencyCollection extends DependencyCollection
     public constructor(collection: IDependencyCollectionOptions);
 
     /**
-     * Initializes a new instance of the `OrderedDependencyCollection` class.
+     * Initializes a new instance of the {@link OrderedDependencyCollection `OrderedDependencyCollection`} class.
      *
      * @param collection
      * The base collection.

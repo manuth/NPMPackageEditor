@@ -4,12 +4,12 @@ import { BugInfo } from "../../Management/BugInfo";
 import { IBugInfo } from "../../Management/IBugInfo";
 
 /**
- * Registers tests for the `BugInfo` class.
+ * Registers tests for the {@link BugInfo `BugInfo`} class.
  */
 export function BugInfoTests(): void
 {
     suite(
-        "BugInfo",
+        nameof(BugInfo),
         () =>
         {
             let random: Random;
@@ -34,63 +34,68 @@ export function BugInfoTests(): void
                 });
 
             suite(
-                "constructor",
+                nameof(BugInfo.constructor),
                 () =>
                 {
-                    setup(
+                    suite(
+                        `Testing the parameterless \`${nameof(BugInfo.constructor)}\`…`,
                         () =>
                         {
-                            bugInfo = new BugInfo();
+                            setup(
+                                () =>
+                                {
+                                    bugInfo = new BugInfo();
+                                });
+
+                            test(
+                                "Checking whether the object is created correctly…",
+                                () =>
+                                {
+                                    strictEqual(bugInfo.URL, null);
+                                    strictEqual(bugInfo.EMail, null);
+                                });
                         });
 
-                    test(
-                        "Checking whether the object is created correctly…",
+                    suite(
+                        `Testing the \`${nameof(BugInfo.constructor)}\` with one parameter…`,
                         () =>
                         {
-                            strictEqual(bugInfo.URL, null);
-                            strictEqual(bugInfo.EMail, null);
+                            setup(
+                                () =>
+                                {
+                                    bugInfo = new BugInfo(bugInfoOptions.url);
+                                });
+
+                            test(
+                                "Checking whether the object is created as expected…",
+                                () =>
+                                {
+                                    strictEqual(bugInfo.URL, bugInfoOptions.url);
+                                });
+                        });
+
+                    suite(
+                        `Testing the \`${nameof(BugInfo.constructor)}\` with two parameters…`,
+                        () =>
+                        {
+                            setup(
+                                () =>
+                                {
+                                    bugInfo = new BugInfo(bugInfoOptions.url, bugInfoOptions.email);
+                                });
+
+                            test(
+                                "Checking whether the object is created as expected…",
+                                () =>
+                                {
+                                    strictEqual(bugInfo.URL, bugInfoOptions.url);
+                                    strictEqual(bugInfo.EMail, bugInfoOptions.email);
+                                });
                         });
                 });
 
             suite(
-                "constructor",
-                () =>
-                {
-                    setup(
-                        () =>
-                        {
-                            bugInfo = new BugInfo(bugInfoOptions.url);
-                        });
-
-                    test(
-                        "Checking whether the object is created as expected…",
-                        () =>
-                        {
-                            strictEqual(bugInfo.URL, bugInfoOptions.url);
-                        });
-                });
-
-            suite(
-                "constructor",
-                () =>
-                {
-                    setup(
-                        () =>
-                        {
-                            bugInfo = new BugInfo(bugInfoOptions.url, bugInfoOptions.email);
-                        });
-
-                    test(
-                        "Checking whether the object is created as expected…",
-                        () =>
-                        {
-                            strictEqual(bugInfo.URL, bugInfoOptions.url);
-                            strictEqual(bugInfo.EMail, bugInfoOptions.email);
-                        });
-                });
-
-            suite(
-                "ToJSON",
+                nameof<BugInfo>((bugInfo) => bugInfo.ToJSON),
                 () =>
                 {
                     test(
@@ -116,7 +121,7 @@ export function BugInfoTests(): void
                         });
 
                     test(
-                        "Checking whether an empty bug-info object equals `null`…",
+                        `Checking whether an empty bug-info object equals \`${null}\`…`,
                         () =>
                         {
                             bugInfo.URL = null;

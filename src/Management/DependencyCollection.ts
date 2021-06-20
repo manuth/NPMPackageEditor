@@ -4,6 +4,7 @@ import { List } from "../Collections/List";
 import { PropertyDictionary } from "../Collections/PropertyDictionary";
 import { IDependencyCollection } from "./IDependencyCollection";
 import { IDependencyCollectionOptions } from "./IDependencyCollectionOptions";
+import { KeyOfType } from "./KeyOfType";
 
 /**
  * Represents a set of dependencies.
@@ -18,7 +19,7 @@ export class DependencyCollection implements IDependencyCollection
     /**
      * @inheritdoc
      */
-    public readonly DevelpomentDependencies: Dictionary<string, string>;
+    public readonly DevelopmentDependencies: Dictionary<string, string>;
 
     /**
      * @inheritdoc
@@ -36,12 +37,12 @@ export class DependencyCollection implements IDependencyCollection
     public readonly BundledDependencies: List<string>;
 
     /**
-     * Initializes a new instance of the `DependencyCollection` class.
+     * Initializes a new instance of the {@link DependencyCollection `DependencyCollection`} class.
      */
     public constructor();
 
     /**
-     * Initializes a new instance of the `DependencyCollection` class.
+     * Initializes a new instance of the {@link DependencyCollection `DependencyCollection`} class.
      *
      * @param collection
      * The base collection.
@@ -49,7 +50,7 @@ export class DependencyCollection implements IDependencyCollection
     public constructor(collection: IDependencyCollectionOptions);
 
     /**
-     * Initializes a new instance of the `DependencyCollection` class.
+     * Initializes a new instance of the {@link DependencyCollection `DependencyCollection`} class.
      *
      * @param collection
      * The base collection.
@@ -57,7 +58,7 @@ export class DependencyCollection implements IDependencyCollection
     public constructor(collection?: IDependencyCollectionOptions)
     {
         this.Dependencies = this.LoadDependencyDictionary(collection?.dependencies);
-        this.DevelpomentDependencies = this.LoadDependencyDictionary(collection?.devDependencies);
+        this.DevelopmentDependencies = this.LoadDependencyDictionary(collection?.devDependencies);
         this.PeerDependencies = this.LoadDependencyDictionary(collection?.peerDependencies);
         this.OptionalDependencies = this.LoadDependencyDictionary(collection?.optionalDependencies);
         this.BundledDependencies = this.LoadDependencyList(collection?.bundledDependencies ?? []);
@@ -70,7 +71,7 @@ export class DependencyCollection implements IDependencyCollection
     {
         let result = new Dictionary<string, string>();
         result.AddRange(this.Dependencies);
-        result.AddRange(this.DevelpomentDependencies);
+        result.AddRange(this.DevelopmentDependencies);
         result.AddRange(this.OptionalDependencies);
         return result;
     }
@@ -86,20 +87,12 @@ export class DependencyCollection implements IDependencyCollection
      */
     public Register(collection: IDependencyCollection, overwrite?: boolean): void
     {
-        let keys: Array<
-            keyof Pick<
-                DependencyCollection,
-                "Dependencies" |
-                "DevelpomentDependencies" |
-                "PeerDependencies" |
-                "OptionalDependencies">>;
-
-        keys = [
-            "Dependencies",
-            "DevelpomentDependencies",
-            "PeerDependencies",
-            "OptionalDependencies"
-        ];
+        let keys = [
+            nameof(this.Dependencies),
+            nameof(this.DevelopmentDependencies),
+            nameof(this.PeerDependencies),
+            nameof(this.OptionalDependencies)
+        ] as Array<KeyOfType<DependencyCollection, Dictionary<string, string>>>;
 
         for (let key of keys)
         {
@@ -135,7 +128,7 @@ export class DependencyCollection implements IDependencyCollection
     {
         let sets: Array<ICollection<any, any>> = [
             this.Dependencies,
-            this.DevelpomentDependencies,
+            this.DevelopmentDependencies,
             this.PeerDependencies,
             this.OptionalDependencies,
             this.BundledDependencies

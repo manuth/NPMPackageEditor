@@ -6,7 +6,7 @@ import { Person } from "../Management/Person";
 import { Package } from "../Package";
 
 /**
- * Provides an implementation of the `Package` class for testing.
+ * Provides an implementation of the {@link Package `Package`} class for testing.
  */
 export class TestPackage extends Package
 {

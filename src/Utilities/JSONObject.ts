@@ -11,12 +11,12 @@ export class JSONObject<T extends Record<never, never> = Record<string, unknown>
     private object: Partial<T> = {};
 
     /**
-     * Initializes a new instance of the `JSONObject` class.
+     * Initializes a new instance of the {@link JSONObject `JSONObject<T>`} class.
      */
     public constructor();
 
     /**
-     * Initializes a new instance of the `JSONObject` class.
+     * Initializes a new instance of the {@link JSONObject `JSONObject<T>`} class.
      *
      * @param base
      * The base values of the object.
@@ -24,7 +24,7 @@ export class JSONObject<T extends Record<never, never> = Record<string, unknown>
     public constructor(base: Partial<T>);
 
     /**
-     * Initializes a new instance of the `JSONObject` class.
+     * Initializes a new instance of the {@link JSONObject `JSONObject<T>`} class.
      *
      * @param base
      * The base values of the object.
@@ -50,7 +50,7 @@ export class JSONObject<T extends Record<never, never> = Record<string, unknown>
     }
 
     /**
-     * Adds a property to the object if the `value` is not null.
+     * Adds a property to the object if the specified {@link value `value`} is not `null`.
      *
      * @param key
      * The key of the property to add.
@@ -67,7 +67,7 @@ export class JSONObject<T extends Record<never, never> = Record<string, unknown>
     }
 
     /**
-     * Adds a property to the object if the `value` is not empty.
+     * Adds a property to the object if the {@link value `value`} is not empty.
      *
      * @param key
      * The key of the property to add.
@@ -100,13 +100,13 @@ export class JSONObject<T extends Record<never, never> = Record<string, unknown>
     }
 
     /**
-     * Checks whether the object has a property with the specified `key`.
+     * Checks whether the object has a property with the specified {@link key `key`}.
      *
      * @param key
      * The key of the property to check.
      *
      * @returns
-     * A value indicating whether the object has a property with the specified `key`.
+     * A value indicating whether the object has a property with the specified {@link key `key`}.
      */
     public Has(key: keyof T): boolean
     {
@@ -114,7 +114,7 @@ export class JSONObject<T extends Record<never, never> = Record<string, unknown>
     }
 
     /**
-     * Removes the property with the specified `key` from the object.
+     * Removes the property with the specified {@link key `key`} from the object.
      *
      * @param key
      * The key of the property to remove.

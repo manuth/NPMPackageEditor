@@ -20,16 +20,16 @@ import { PackagePerson } from "../Management/PackagePerson";
 import { Person } from "../Management/Person";
 import { Package } from "../Package";
 import { JSONObject } from "../Utilities/JSONObject";
-import { AssertComparator } from "./AssertComparator";
+import { PropertyChecker } from "./PropertyChecker";
 import { TestPackage } from "./TestPackage";
 
 /**
- * Registers tests for the `Package` class.
+ * Registers tests for the {@link Package `Package`} class.
  */
 export function PackageTests(): void
 {
     suite(
-        "Package",
+        nameof(Package),
         () =>
         {
             let random: Random;
@@ -65,7 +65,7 @@ export function PackageTests(): void
             }
 
             /**
-             * Asserts the info about a person.
+             * Asserts the info about a {@link Person `Person`}.
              *
              * @param actual
              * The actual person.
@@ -98,7 +98,7 @@ export function PackageTests(): void
             }
 
             /**
-             * Asserts the contents of a bug-info object.
+             * Asserts the contents of a {@link BugInfo `BugInfo`} object.
              *
              * @param actual
              * The actual bug-info.
@@ -269,7 +269,7 @@ export function PackageTests(): void
                 });
 
             /**
-             * Asserts the contents of the `npmPackage`.
+             * Asserts the contents of the {@link npmPackage `npmPackage`}.
              *
              * @param metadata
              * The expected meta-data.
@@ -302,14 +302,14 @@ export function PackageTests(): void
                 deepStrictEqual(npmPackage.PublishConfig, metadata.publishConfig);
                 AssertDictionary(npmPackage.Scripts, metadata.scripts);
                 AssertDictionary(npmPackage.Dependencies, metadata.dependencies);
-                AssertDictionary(npmPackage.DevelpomentDependencies, metadata.devDependencies);
+                AssertDictionary(npmPackage.DevelopmentDependencies, metadata.devDependencies);
                 AssertDictionary(npmPackage.PeerDependencies, metadata.peerDependencies);
                 AssertDictionary(npmPackage.OptionalDependencies, metadata.optionalDependencies);
                 deepStrictEqual(npmPackage.BundledDependencies.ToJSON(), metadata.bundledDependencies);
             }
 
             suite(
-                "constructor",
+                nameof(Package.constructor),
                 () =>
                 {
                     suite(
@@ -340,7 +340,7 @@ export function PackageTests(): void
                         () =>
                         {
                             /**
-                             * Asserts the default value of a package-porperty.
+                             * Asserts the default value of a package-property.
                              *
                              * @param key
                              * The key of the property to check.
@@ -348,18 +348,18 @@ export function PackageTests(): void
                              * @param expected
                              * The expected default value.
                              *
-                             * @param comparator
-                             * A component for comparing the objects.
+                             * @param propertyChecker
+                             * A component for checking the validity of a property.
                              *
                              * @param overwriteUndefined
                              * A value indicating whether `undefined`s are being overwritten.
                              */
-                            function AssertDefault<TMetaKey extends keyof IPackageMetadata, TKey extends keyof Package>(key: TKey, expected: any, comparator?: AssertComparator<Package[TKey], any>, overwriteUndefined = true): void
+                            function AssertDefault<TMetaKey extends keyof IPackageMetadata, TKey extends keyof Package>(key: TKey, expected: any, propertyChecker?: PropertyChecker<Package[TKey], any>, overwriteUndefined = true): void
                             {
                                 let optionsKey = new Map(Array.from(npmPackage.PropertyMap).map((entry) => [entry[1], entry[0]])).get(key);
                                 let packageOptions = new JSONObject(metadata);
 
-                                comparator = comparator ?? (
+                                propertyChecker = propertyChecker ?? (
                                     (x, y) =>
                                     {
                                         deepStrictEqual(x, y);
@@ -373,7 +373,7 @@ export function PackageTests(): void
                                  */
                                 function AssertValue(expected: IPackageMetadata[TMetaKey]): void
                                 {
-                                    comparator(new TestPackage(packageOptions.ToJSON())[key], expected);
+                                    propertyChecker(new TestPackage(packageOptions.ToJSON())[key], expected);
                                 }
 
                                 packageOptions.Remove(optionsKey);
@@ -389,38 +389,53 @@ export function PackageTests(): void
 
                             test(
                                 "Checking whether default values are set as expected…",
-                                () =>
+                                function()
                                 {
-                                    AssertDefault("Name", null);
-                                    AssertDefault("Version", null);
-                                    AssertDefault("Private", null);
-                                    AssertDefault("Description", null);
-                                    AssertDefault("Author", {} as PackagePerson, AssertPerson);
-                                    AssertDefault("Maintainers", []);
-                                    AssertDefault("Contributors", []);
-                                    AssertDefault("License", null);
-                                    AssertDefault("Keywords", []);
-                                    AssertDefault("Engines", {}, AssertDictionary);
-                                    AssertDefault("OS", null);
-                                    AssertDefault("CPU", null);
-                                    AssertDefault("Main", null);
-                                    AssertDefault("Types", null);
-                                    AssertDefault("Browser", {});
-                                    AssertDefault("Binaries", {});
-                                    AssertDefault("Manuals", []);
-                                    AssertDefault("Files", null);
-                                    AssertDefault("Directories", {});
-                                    AssertDefault("Homepage", null);
-                                    AssertDefault("Repository", null);
-                                    AssertDefault("Bugs", {}, AssertBugInfo);
-                                    AssertDefault("Config", {});
-                                    AssertDefault("PublishConfig", {});
-                                    AssertDefault("Scripts", {}, AssertDictionary);
-                                    AssertDefault("Dependencies", {}, AssertDictionary);
-                                    AssertDefault("DevelpomentDependencies", {}, AssertDictionary);
-                                    AssertDefault("PeerDependencies", {}, AssertDictionary);
-                                    AssertDefault("OptionalDependencies", {}, AssertDictionary);
-                                    AssertDefault("BundledDependencies", [], AssertList);
+                                    /**
+                                     * Represents an assertion of the value of a property.
+                                     */
+                                    type PropertyAssertion<T extends keyof Package> = [T, any, PropertyChecker<Package[T], any>?];
+
+                                    let assertions = [
+                                        [nameof<Package>((pkg) => pkg.Name), null],
+                                        [nameof<Package>((pkg) => pkg.Version), null],
+                                        [nameof<Package>((pkg) => pkg.Private), null],
+                                        [nameof<Package>((pkg) => pkg.Description), null],
+                                        [nameof<Package>((pkg) => pkg.Author), {} as PackagePerson, AssertPerson],
+                                        [nameof<Package>((pkg) => pkg.Maintainers), []],
+                                        [nameof<Package>((pkg) => pkg.Contributors), []],
+                                        [nameof<Package>((pkg) => pkg.License), null],
+                                        [nameof<Package>((pkg) => pkg.Keywords), []],
+                                        [nameof<Package>((pkg) => pkg.Engines), {}, AssertDictionary],
+                                        [nameof<Package>((pkg) => pkg.OS), null],
+                                        [nameof<Package>((pkg) => pkg.CPU), null],
+                                        [nameof<Package>((pkg) => pkg.Main), null],
+                                        [nameof<Package>((pkg) => pkg.Types), null],
+                                        [nameof<Package>((pkg) => pkg.Browser), {}],
+                                        [nameof<Package>((pkg) => pkg.Binaries), {}],
+                                        [nameof<Package>((pkg) => pkg.Manuals), []],
+                                        [nameof<Package>((pkg) => pkg.Files), null],
+                                        [nameof<Package>((pkg) => pkg.Directories), {}],
+                                        [nameof<Package>((pkg) => pkg.Homepage), null],
+                                        [nameof<Package>((pkg) => pkg.Repository), null],
+                                        [nameof<Package>((pkg) => pkg.Bugs), {}, AssertBugInfo],
+                                        [nameof<Package>((pkg) => pkg.Config), {}],
+                                        [nameof<Package>((pkg) => pkg.PublishConfig), {}],
+                                        [nameof<Package>((pkg) => pkg.Scripts), {}, AssertDictionary],
+                                        [nameof<Package>((pkg) => pkg.Dependencies), {}, AssertDictionary],
+                                        [nameof<Package>((pkg) => pkg.DevelopmentDependencies), {}, AssertDictionary],
+                                        [nameof<Package>((pkg) => pkg.PeerDependencies), {}, AssertDictionary],
+                                        [nameof<Package>((pkg) => pkg.OptionalDependencies), {}, AssertDictionary],
+                                        [nameof<Package>((pkg) => pkg.BundledDependencies), [], AssertList]
+                                    ] as Array<PropertyAssertion<keyof Package>>;
+
+                                    this.slow(2 * 1000);
+                                    this.timeout(4 * 1000);
+
+                                    for (let assertion of assertions)
+                                    {
+                                        AssertDefault(...assertion);
+                                    }
                                 });
                         });
 
@@ -457,7 +472,7 @@ export function PackageTests(): void
                                 });
 
                             test(
-                                "Checking whether the `FileName` is set to the path of the source-file…",
+                                `Checking whether the \`${nameof<Package>((pkg) => pkg.FileName)}\` is set to the path of the source-file…`,
                                 () =>
                                 {
                                     strictEqual(npmPackage.FileName, tempFile.FullName);
@@ -521,7 +536,7 @@ export function PackageTests(): void
                 });
 
             suite(
-                "Normalize",
+                nameof<TestPackage>((pkg) => pkg.Normalize),
                 () =>
                 {
                     let gitRoot: string;
@@ -584,7 +599,7 @@ export function PackageTests(): void
                 });
 
             suite(
-                "ToJSON",
+                nameof<TestPackage>((pkg) => pkg.ToJSON),
                 () =>
                 {
                     let generatedMeta: IPackageMetadata;
@@ -626,7 +641,7 @@ export function PackageTests(): void
                         });
 
                     test(
-                        "Checking whether additional properties presist…",
+                        "Checking whether additional properties persist…",
                         () =>
                         {
                             let testKey = random.string(20);
@@ -642,7 +657,7 @@ export function PackageTests(): void
                 });
 
             suite(
-                "LoadObject",
+                nameof<TestPackage>((pkg) => pkg.LoadObject),
                 () =>
                 {
                     test(
@@ -668,7 +683,7 @@ export function PackageTests(): void
                 });
 
             suite(
-                "LoadDictionary",
+                nameof<TestPackage>((pkg) => pkg.LoadDictionary),
                 () =>
                 {
                     let randomKey: string;
@@ -692,7 +707,7 @@ export function PackageTests(): void
                 });
 
             suite(
-                "LoadPerson",
+                nameof<TestPackage>((pkg) => pkg.LoadPerson),
                 () =>
                 {
                     let personOptions: IPerson;
@@ -719,11 +734,11 @@ export function PackageTests(): void
                 });
 
             suite(
-                "LoadPersonList",
+                nameof<TestPackage>((pkg) => pkg.LoadPersonList),
                 () =>
                 {
                     /**
-                     * Asserts the equality of loaded person-lists and the passed `personList`.
+                     * Asserts the equality of loaded person-lists and the passed {@link personList `personList`}.
                      *
                      * @param personList
                      * The list to test.

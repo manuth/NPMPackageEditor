@@ -39,35 +39,35 @@ export interface IDictionary<TKey, TValue> extends ICollection<TKey, TValue>
     Remove(key: TKey): void;
 
     /**
-     * Gets the value of the entry with the specified `key`.
+     * Gets the value of the entry with the specified {@link key `key`}.
      *
      * @param key
-     * The `key` of the entry whose value to get.
+     * The {@link key `key`} of the entry whose value to get.
      *
      * @returns
-     * The value of the entry with the specified `key`.
+     * The value of the entry with the specified {@link key `key`}.
      */
     Get(key: TKey): TValue;
 
     /**
-     * Sets the value of the entry with the specified `key`.
+     * Sets the value of the entry with the specified {@link key `key`}.
      *
      * @param key
-     * The `key` of the entry whose value to set.
+     * The {@link key `key`} of the entry whose value to set.
      *
      * @param value
-     * The value to set for the specified `key`.
+     * The value to set for the entry with the specified {@link key `key`}.
      */
     Set(key: TKey, value: TValue): void;
 
     /**
-     * Checks whether the dictionary has an entry with the specified `key`.
+     * Checks whether the dictionary has an entry with the specified {@link key `key`}.
      *
      * @param key
-     * The `key` of the entry to check.
+     * The {@link key `key`} of the entry to check.
      *
      * @returns
-     * A value indicating whether the dictionary contains an entryx with the specified `key`.
+     * A value indicating whether the dictionary contains an entry with the specified {@link key `key`}.
      */
     Has(key: TKey): boolean;
 }

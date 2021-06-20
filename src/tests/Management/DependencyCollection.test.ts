@@ -3,16 +3,18 @@ import findUp = require("find-up");
 import { readFile } from "fs-extra";
 import { Random } from "random-js";
 import { Dictionary } from "../../Collections/Dictionary";
+import { IPackageMetadata } from "../../IPackageMetadata";
 import { DependencyCollection } from "../../Management/DependencyCollection";
 import { IDependencyCollectionOptions } from "../../Management/IDependencyCollectionOptions";
+import { KeyOfType } from "../../Management/KeyOfType";
 
 /**
- * Registers tests for the `DependencyCollection` class.
+ * Registers tests for the {@link DependencyCollection `DependencyCollection`} class.
  */
 export function DependencyCollectionTests(): void
 {
     suite(
-        "DependencyCollection",
+        nameof(DependencyCollection),
         () =>
         {
             let random: Random;
@@ -61,9 +63,11 @@ export function DependencyCollectionTests(): void
                 }
 
                 let dependencies = Object.keys(
-                    JSON.parse(
-                        (await readFile(
-                            (await findUp("package.json", { cwd: __dirname })))).toString()).dependencies);
+                    (
+                        JSON.parse(
+                            (await readFile(
+                                (await findUp("package.json", { cwd: __dirname })))).toString()) as IPackageMetadata
+                    ).dependencies);
 
                 /**
                  * Creates the generator.
@@ -101,7 +105,7 @@ export function DependencyCollectionTests(): void
             }
 
             suite(
-                "Register",
+                nameof<DependencyCollection>((collection) => collection.Register),
                 () =>
                 {
                     /**
@@ -109,21 +113,21 @@ export function DependencyCollectionTests(): void
                      *
                      * @returns
                      */
-                    function GetDependencySetNames(): Array<keyof Omit<DependencyCollection, "Register" | "Clear" | "BundledDependencies">>
+                    function GetDependencySetNames(): Array<KeyOfType<DependencyCollection, Dictionary<string, string>>>
                     {
                         return [
-                            "Dependencies",
-                            "DevelpomentDependencies",
-                            "OptionalDependencies",
-                            "PeerDependencies"
-                        ];
+                            nameof<DependencyCollection>((collection) => collection.Dependencies),
+                            nameof<DependencyCollection>((collection) => collection.DevelopmentDependencies),
+                            nameof<DependencyCollection>((collection) => collection.OptionalDependencies),
+                            nameof<DependencyCollection>((collection) => collection.PeerDependencies)
+                        ] as Array<KeyOfType<DependencyCollection, Dictionary<string, string>>>;
                     }
 
                     /**
-                     * Gets the dependency-sets of the `collection`.
+                     * Gets the dependency-sets of the {@link collection `collection`}.
                      *
                      * @returns
-                     * The dependency-sets of the `collection`.
+                     * The dependency-sets of the {@link collection `collection`}.
                      */
                     function GetDependencySets(): Array<Dictionary<string, string>>
                     {
@@ -178,7 +182,7 @@ export function DependencyCollectionTests(): void
                         });
 
                     test(
-                        "Checking whether duplicate `BundledDependencies` are ignored…",
+                        `Checking whether duplicate \`${nameof<DependencyCollection>((dc) => dc.BundledDependencies)}\` are ignored…`,
                         () =>
                         {
                             let otherCollection = new DependencyCollection();

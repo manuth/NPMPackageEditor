@@ -1,11 +1,11 @@
 import { JSONObject } from "../../Utilities/JSONObject";
 
 /**
- * Provides the functionality to inject values into `JSONObject`s.
+ * Provides the functionality to inject values into {@link JSONObject `JSONObject<T>`}s.
  */
 export type PropertyInjector<T extends Record<never, never>> =
     /**
-     * Injects a property with the specified `value`.
+     * Injects a property with the specified {@link value `value`}.
      *
      * @param jsonObject
      * The json-object to inject the property into.

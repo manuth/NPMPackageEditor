@@ -14,21 +14,21 @@ export interface IPackageMetadata extends IDependencyCollectionOptions
     /**
      * The name of the package.
      *
-     * @see https://docs.npmjs.com/files/package.json#name
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#name
      */
     name?: string;
 
     /**
      * The version of the package.
      *
-     * @see https://docs.npmjs.com/files/package.json#version
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#version
      */
     version?: string;
 
     /**
      * A value indicating whether the package is private.
      *
-     * @see https://docs.npmjs.com/files/package.json#private
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#private
      */
     private?: boolean;
 
@@ -37,35 +37,35 @@ export interface IPackageMetadata extends IDependencyCollectionOptions
      *
      * This helps people discover your package, as it's listed in `npm search`.
      *
-     * @see https://docs.npmjs.com/files/package.json#description-1
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#description
      */
     description?: string;
 
     /**
      * The author of the package.
      *
-     * @see https://docs.npmjs.com/files/package.json#people-fields-author-contributors
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#people-fields-author-contributors
      */
     author?: PackagePerson;
 
     /**
      * The maintainers of the package.
      *
-     * @see https://docs.npmjs.com/files/package.json#people-fields-author-contributors
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#people-fields-author-contributors
      */
     maintainers?: PackagePerson[];
 
     /**
      * The contributors of the project.
      *
-     * @see https://docs.npmjs.com/files/package.json#people-fields-author-contributors
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#people-fields-author-contributors
      */
     contributors?: PackagePerson[];
 
     /**
      * The license of the package.
      *
-     * @see https://docs.npmjs.com/files/package.json#license
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#license
      */
     license?: string;
 
@@ -74,35 +74,35 @@ export interface IPackageMetadata extends IDependencyCollectionOptions
      *
      * This helps people discover your package, as it's listed in `npm search`.
      *
-     * @see https://docs.npmjs.com/files/package.json#keywords
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#keywords
      */
     keywords?: string[];
 
     /**
      * A set of engines which are required for running the package.
      *
-     * @see https://docs.npmjs.com/files/package.json#engines
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#engines
      */
     engines?: Record<string, string>;
 
     /**
      * The operating-systems supported by this package.
      *
-     * @see https://docs.npmjs.com/files/package.json#os
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#os
      */
     os?: string[];
 
     /**
      * The CPU architectures supported by this package.
      *
-     * @see https://docs.npmjs.com/files/package.json#cpu
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#cpu
      */
     cpu?: string[];
 
     /**
      * The primary entry point of the program.
      *
-     * @see https://docs.npmjs.com/files/package.json#main
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#main
      */
     main?: string;
 
@@ -114,63 +114,63 @@ export interface IPackageMetadata extends IDependencyCollectionOptions
     /**
      * A hint to javascript bundlers for packaging modules for client side use.
      *
-     * @see https://docs.npmjs.com/files/package.json#browser
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#browser
      */
     browser?: string | IShimCollection;
 
     /**
      * A set of executables to add to `PATH`.
      *
-     * @see https://docs.npmjs.com/files/package.json#bin
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#bin
      */
     bin?: string | IBinCollection;
 
     /**
      * Filenames to put in place for the `man` program to find.
      *
-     * @see https://docs.npmjs.com/files/package.json#man
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#man
      */
     man?: string | string[];
 
     /**
      * A set of files to include into the package.
      *
-     * @see https://docs.npmjs.com/files/package.json#files
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#files
      */
     files?: string[];
 
     /**
      * The directory-structure of the package.
      *
-     * @see https://docs.npmjs.com/files/package.json#directories
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#directories
      */
     directories?: IDirectoryStructure;
 
     /**
      * The url to the project homepage.
      *
-     * @see https://docs.npmjs.com/files/package.json#homepage
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#homepage
      */
     homepage?: string;
 
     /**
      * The repository of the package.
      *
-     * @see https://docs.npmjs.com/files/package.json#repository
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#repository
      */
     repository?: string | IRepository;
 
     /**
      * The links for reporting bugs.
      *
-     * @see https://docs.npmjs.com/files/package.json#bugs
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#bugs
      */
     bugs?: string | IBugInfo;
 
     /**
      * A set of persistent configurations.
      *
-     * @see https://docs.npmjs.com/files/package.json#config
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#config
      */
     config?: Record<string, any>;
 
@@ -182,7 +182,7 @@ export interface IPackageMetadata extends IDependencyCollectionOptions
     /**
      * A set of script-commands for the package.
      *
-     * @see https://docs.npmjs.com/files/package.json#scripts
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#scripts
      */
     scripts?: Record<string, string>;
 }

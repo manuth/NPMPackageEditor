@@ -94,7 +94,7 @@ await package.Normalize();
 The `Package`-class allows you to easily edit the metadata by providing useful abstractions for bug-info, persons (such as `author`, `contributors` etc.) and dependencies.
 
 ##### Editing Persons
-This way you always can be sure there's an `Author` property to edito even if no `author` is specified in the source package.
+That way you can always be sure there's an `Author` property to edit even if no `author` is specified in the source package.
 
 ```ts
 import { Package } from "@manuth/package-json-editor";
@@ -127,7 +127,7 @@ let package = new Package(
 
 package.Dependencies.Set("eslint", "^7.0.0");
 package.Dependencies.Remove("tslint");
-package.Dependencies.Add("@typescript-eslint/esling-plugin", "*");
+package.Dependencies.Add("@typescript-eslint/eslint-plugin", "*");
 package.Dependencies.Add("@typescript-eslint/parser", "*");
 ```
 

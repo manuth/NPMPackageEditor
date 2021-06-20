@@ -5,12 +5,12 @@ import { JSONObject } from "../../Utilities/JSONObject";
 import { PropertyInjector } from "./PropertyInjector";
 
 /**
- * Registers tests for the `JSONObject` class.
+ * Registers tests for the {@link JSONObject `JSONObject<T>`} class.
  */
 export function JSONObjectTests(): void
 {
     suite(
-        "JSONObject",
+        nameof(JSONObject),
         () =>
         {
             let random: Random;
@@ -43,7 +43,7 @@ export function JSONObjectTests(): void
                 {
                     random = new Random();
                     randomKeyGenerator = (
-                        function* ble()
+                        function* generate()
                         {
                             while (true)
                             {
@@ -67,7 +67,7 @@ export function JSONObjectTests(): void
                 });
 
             /**
-             * Asserts whether nullish values are present in the `jsonObject` object.
+             * Asserts whether nullish values are present in the {@link jsonObject `jsonObject`} object.
              *
              * @param propertyInjector
              * A method for injecting properties.
@@ -110,7 +110,7 @@ export function JSONObjectTests(): void
             }
 
             suite(
-                "constructor",
+                nameof(JSONObject.constructor),
                 () =>
                 {
                     setup(
@@ -131,7 +131,7 @@ export function JSONObjectTests(): void
                 });
 
             suite(
-                "Add",
+                nameof<JSONObject>((object) => object.Add),
                 () =>
                 {
                     test(
@@ -143,7 +143,7 @@ export function JSONObjectTests(): void
                         });
 
                     test(
-                        "Checking whether `null` and `undevined`-values presist…",
+                        `Checking whether \`${null}\` and \`${undefined}\`-values persist…`,
                         () =>
                         {
                             AssertNullishPresence((object, key, value) => object.Add(key, value), true);
@@ -151,11 +151,11 @@ export function JSONObjectTests(): void
                 });
 
             suite(
-                "AddIfNotNull",
+                nameof<JSONObject>((object) => object.AddIfNotNull),
                 () =>
                 {
                     test(
-                        "Checking whether properties are added only if the value neither equals `null` nor `undefined`…",
+                        `Checking whether properties are added only if the value neither equals \`${null}\` nor \`${undefined}\`…`,
                         () =>
                         {
                             AssertNullishPresence((object, key, value) => object.AddIfNotNull(key, value), false);
@@ -163,7 +163,7 @@ export function JSONObjectTests(): void
                 });
 
             suite(
-                "AddIfNotEmpty",
+                nameof<JSONObject>((object) => object.AddIfNotEmpty),
                 () =>
                 {
                     let propertyInjector: PropertyInjector<ITest>;
@@ -175,10 +175,10 @@ export function JSONObjectTests(): void
                         });
 
                     /**
-                     * Asserts the presence of an `object` after adding it as a property.
+                     * Asserts the presence of the specified {@link object `object`} after adding it as a property.
                      *
                      * @param object
-                     * The object to inject into the `jsonObject`.
+                     * The object to inject into the {@link jsonObject `jsonObject`}.
                      *
                      * @param present
                      * A value indicating whether the property is expected to be present.
@@ -189,10 +189,10 @@ export function JSONObjectTests(): void
                     }
 
                     /**
-                     * Asserts the presence of an `array` after adding it as a property.
+                     * Asserts the presence of an {@link array `array`} after adding it as a property.
                      *
                      * @param array
-                     * The array to inject into the `jsonObject`.
+                     * The array to inject into the {@link jsonObject `jsonObject`}.
                      *
                      * @param present
                      * A value indicating whether the property is expected to be present.
@@ -219,7 +219,7 @@ export function JSONObjectTests(): void
                         });
 
                     test(
-                        "Checking whether other sorts of properties are added only if they neither equal `null` nor `undefined`…",
+                        `Checking whether other sorts of properties are added only if they neither equal \`${null}\` nor \`${undefined}\`…`,
                         () =>
                         {
                             AssertNullishPresence(propertyInjector, false);
@@ -227,7 +227,7 @@ export function JSONObjectTests(): void
                 });
 
             suite(
-                "Has",
+                nameof<JSONObject>((object) => object.Has),
                 () =>
                 {
                     test(
@@ -241,7 +241,7 @@ export function JSONObjectTests(): void
                 });
 
             suite(
-                "Remove",
+                nameof<JSONObject>((object) => object.Remove),
                 () =>
                 {
                     test(

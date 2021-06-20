@@ -6,42 +6,42 @@ export interface IDirectoryStructure
     /**
      * The location of the library-files.
      *
-     * @see https://docs.npmjs.com/files/package.json#directorieslib
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#directories
      */
     lib?: string;
 
     /**
-     * The location of the executable files to add to `bin`.
+     * The location of the executable files to add to `PATH`.
      *
-     * @see https://docs.npmjs.com/files/package.json#directoriesbin
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#directoriesbin
      */
     bin?: string;
 
     /**
      * The location of the man-pages.
      *
-     * @see https://docs.npmjs.com/files/package.json#directoriesman
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#directoriesman
      */
     man?: string;
 
     /**
      * The location of the docs.
      *
-     * @see https://docs.npmjs.com/files/package.json#directoriesdoc
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#directories
      */
     doc?: string;
 
     /**
      * The location of the example-scripts.
      *
-     * @see https://docs.npmjs.com/files/package.json#directoriesexample
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#directories
      */
     example?: string;
 
     /**
      * The location of the test-files.
      *
-     * @see https://docs.npmjs.com/files/package.json#directoriestest
+     * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#directories
      */
     test?: string;
 }

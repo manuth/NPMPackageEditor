@@ -4,12 +4,12 @@ import { AlphabeticalDictionary } from "../../Collections/AlphabeticalDictionary
 import { Dictionary } from "../../Collections/Dictionary";
 
 /**
- * Registers tests for the `AlphabeticalDictionary` class.
+ * Registers tests for the {@link AlphabeticalDictionary `AlphabeticalDictionary<TKey, TValue>`} class.
  */
 export function AlphabeticalDictionaryTests(): void
 {
     suite(
-        "AlphabeticalDictionary",
+        nameof(AlphabeticalDictionary),
         () =>
         {
             let random: Random;
@@ -42,11 +42,11 @@ export function AlphabeticalDictionaryTests(): void
                 });
 
             suite(
-                "Entries",
+                nameof<AlphabeticalDictionary<any, any>>((dictionary) => dictionary.Entries),
                 () =>
                 {
                     /**
-                     * Asserts the contents of the `dictionary`.
+                     * Asserts that the unordered entries in the specified {@link map `map`} have been sorted and added to the {@link dictionary `dictionary`}.
                      *
                      * @param dictionary
                      * The actual dictionary.
@@ -75,15 +75,20 @@ export function AlphabeticalDictionaryTests(): void
 
                     test(
                         "Checking whether the entries are sorted alphabetically…",
-                        () =>
+                        function()
                         {
+                            this.slow(2 * 1000);
+                            this.timeout(4 * 1000);
                             AssertEntriesWithoutOrder(dictionary, randomMap);
                         });
 
                     test(
-                        "Checking whether entries can be sorted using the `toString`-method, too…",
-                        () =>
+                        `Checking whether entries can be sorted using the \`${nameof(Object.toString)}\`-method, too…`,
+                        function()
                         {
+                            this.slow(2 * 1000);
+                            this.timeout(4 * 1000);
+
                             let objectMap = randomMap.map<[Record<string, unknown>, number]>(
                                 (entry) =>
                                 {

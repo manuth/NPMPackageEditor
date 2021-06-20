@@ -3,12 +3,12 @@ import { Random } from "random-js";
 import { PropertyDictionary } from "../../Collections/PropertyDictionary";
 
 /**
- * Registers tests for the `PropertyDictionary` class.
+ * Registers tests for the {@link PropertyDictionary `PropertyDictionary<T>`} class.
  */
 export function PropertyDictionaryTests(): void
 {
     suite(
-        "PropertyDictionary",
+        nameof(PropertyDictionary),
         () =>
         {
             let random: Random;
@@ -37,39 +37,44 @@ export function PropertyDictionaryTests(): void
                 });
 
             suite(
-                "constructor",
+                nameof(PropertyDictionary.constructor),
                 () =>
                 {
-                    setup(
+                    suite(
+                        `Initializing a \`${nameof(PropertyDictionary.constructor)}\` without any parameters…`,
                         () =>
                         {
-                            dictionary = new PropertyDictionary();
+                            setup(
+                                () =>
+                                {
+                                    dictionary = new PropertyDictionary();
+                                });
+
+                            test(
+                                `Checking whether a \`${nameof(PropertyDictionary)}\` can be created without passing arguments…`,
+                                () =>
+                                {
+                                    doesNotThrow(() => new PropertyDictionary());
+                                });
                         });
 
-                    test(
-                        "Checking whether a `PropertyDictionary` can be created without passing arguments…",
+                    suite(
+                        `Initializing a \`${nameof(PropertyDictionary.constructor)}\` with an \`${nameof(Object)}\`…`,
                         () =>
                         {
-                            doesNotThrow(() => new PropertyDictionary());
-                        });
-                });
+                            test(
+                                `Checking whether a \`${nameof(PropertyDictionary)}\` can be created based on an object…`,
+                                () =>
+                                {
+                                    strictEqual(dictionary.Count, Object.keys(randomData).length);
 
-            suite(
-                "constructor",
-                () =>
-                {
-                    test(
-                        "Checking whether a `PropertyDictionary` can be created based on an object…",
-                        () =>
-                        {
-                            strictEqual(dictionary.Count, Object.keys(randomData).length);
-
-                            ok(
-                                dictionary.Entries.every(
-                                    (entry) =>
-                                    {
-                                        return randomData[entry[0]] === entry[1];
-                                    }));
+                                    ok(
+                                        dictionary.Entries.every(
+                                            (entry) =>
+                                            {
+                                                return randomData[entry[0]] === entry[1];
+                                            }));
+                                });
                         });
                 });
         });

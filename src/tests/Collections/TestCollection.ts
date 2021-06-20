@@ -11,10 +11,10 @@ export class TestCollection extends Collection<string, number>
     private entries: Array<[string, number]>;
 
     /**
-     * Initializes a new instance of the `TestCollection` class.
+     * Initializes a new instance of the {@link TestCollection `TestCollection`} class.
      *
      * @param entries
-     * The entries of the collection.
+     * The entries to add to the collection.
      */
     public constructor(entries: ReadonlyArray<readonly [string, number]>)
     {

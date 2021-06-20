@@ -4,12 +4,12 @@ import { AlphabeticalList } from "../../Collections/AlphabeticalList";
 import { List } from "../../Collections/List";
 
 /**
- * Registers tests for the `AlphabeticalList` class.
+ * Registers tests for the {@link AlphabeticalList `AlphabeticalList<T>`} class.
  */
 export function AlphabeticalListTests(): void
 {
     suite(
-        "AlphabeticalList",
+        nameof(AlphabeticalList),
         () =>
         {
             let random: Random;
@@ -37,7 +37,7 @@ export function AlphabeticalListTests(): void
                 });
 
             /**
-             * Asserts the items of a `list`.
+             * Asserts that the specified unordered {@link items `items`} have been sorted and added to the {@link list `list`}.
              *
              * @param list
              * The actual list.
@@ -65,7 +65,7 @@ export function AlphabeticalListTests(): void
             }
 
             suite(
-                "constructor",
+                nameof(AlphabeticalList.constructor),
                 () =>
                 {
                     test(
@@ -77,20 +77,25 @@ export function AlphabeticalListTests(): void
 
                     test(
                         "Checking whether a list with predefined entries can be created…",
-                        () =>
+                        function()
                         {
+                            this.slow(2 * 1000);
+                            this.timeout(4 * 1000);
                             AssertItemsWithoutOrder(list, incorrectOrder);
                         });
                 });
 
             suite(
-                "Count",
+                nameof<AlphabeticalList<any>>((list) => list.Count),
                 () =>
                 {
                     test(
                         "Checking whether the count is computed correctly…",
-                        () =>
+                        function()
                         {
+                            this.slow(2 * 1000);
+                            this.timeout(4 * 1000);
+
                             for (let i = incorrectOrder.length; i > 0; i--)
                             {
                                 strictEqual(list.Count, i);
@@ -102,13 +107,16 @@ export function AlphabeticalListTests(): void
                 });
 
             suite(
-                "Entries",
+                nameof<AlphabeticalList<any>>((list) => list.Entries),
                 () =>
                 {
                     test(
                         "Checking whether the entries are generated correctly…",
-                        () =>
+                        function()
                         {
+                            this.slow(2 * 1000);
+                            this.timeout(4 * 1000);
+
                             let correctOrder = incorrectOrder.sort();
 
                             for (let i = 0; i < correctOrder.length; i++)
@@ -121,7 +129,7 @@ export function AlphabeticalListTests(): void
                 });
 
             suite(
-                "Add",
+                nameof<AlphabeticalList<any>>((list) => list.Add),
                 () =>
                 {
                     test(
@@ -137,7 +145,7 @@ export function AlphabeticalListTests(): void
                 });
 
             suite(
-                "AddRange",
+                nameof<AlphabeticalList<any>>((list) => list.AddRange),
                 () =>
                 {
                     test(
@@ -163,7 +171,7 @@ export function AlphabeticalListTests(): void
                 });
 
             suite(
-                "Remove",
+                nameof<AlphabeticalList<any>>((list) => list.Remove),
                 () =>
                 {
                     test(
@@ -178,7 +186,7 @@ export function AlphabeticalListTests(): void
                 });
 
             suite(
-                "RemoveAt",
+                nameof<AlphabeticalList<any>>((list) => list.RemoveAt),
                 () =>
                 {
                     test(
@@ -212,7 +220,7 @@ export function AlphabeticalListTests(): void
                 });
 
             suite(
-                "Clear",
+                nameof<AlphabeticalList<any>>((list) => list.Clear),
                 () =>
                 {
                     test(

@@ -5,12 +5,12 @@ import { IPerson } from "../../Management/IPerson";
 import { Person } from "../../Management/Person";
 
 /**
- * Registers tests for the `Person` class.
+ * Registers tests for the {@link Person `Person`} class.
  */
 export function PersonTests(): void
 {
     suite(
-        "Person",
+        nameof(Person),
         () =>
         {
             let random: Random;
@@ -18,7 +18,7 @@ export function PersonTests(): void
             let personOptions: IPerson;
 
             /**
-             * Âsserts the options of the `person` variable.
+             * Asserts the options of the {@link person `person`} variable.
              *
              * @param personOptions
              * The person-options to assert.
@@ -49,41 +49,46 @@ export function PersonTests(): void
                 });
 
             suite(
-                "constructor",
+                nameof(Person.constructor),
                 () =>
                 {
-                    test(
-                        "Checking whether the object is created correctly…",
+                    suite(
+                        `Initializing a \`${nameof(Person)}\` using an \`${nameof(Object)}\`…`,
                         () =>
                         {
-                            AssertPerson(personOptions);
+                            test(
+                                "Checking whether the object is created correctly…",
+                                () =>
+                                {
+                                    AssertPerson(personOptions);
+                                });
+                        });
+
+                    suite(
+                        `Initializing a \`${nameof(Person)}\` using an \`${nameof(String)}\`…`,
+                        () =>
+                        {
+                            setup(
+                                () =>
+                                {
+                                    new Person(stringify(personOptions));
+                                });
+
+                            test(
+                                "Checking whether the text is parsed correctly…",
+                                () =>
+                                {
+                                    AssertPerson(personOptions);
+                                });
                         });
                 });
 
             suite(
-                "constructor",
-                () =>
-                {
-                    setup(
-                        () =>
-                        {
-                            new Person(stringify(personOptions));
-                        });
-
-                    test(
-                        "Checking whether the text is parsed correctly…",
-                        () =>
-                        {
-                            AssertPerson(personOptions);
-                        });
-                });
-
-            suite(
-                "ToJSON",
+                nameof<Person>((person) => person.ToJSON),
                 () =>
                 {
                     test(
-                        "Checking whether this method returns `null` for persons without any information…",
+                        `Checking whether this method returns \`${null}\` for persons without any information…`,
                         () =>
                         {
                             person = new Person("");

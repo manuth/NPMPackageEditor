@@ -3,6 +3,12 @@ import { ICollection } from "./ICollection";
 
 /**
  * Provides the functionality to store collections of items.
+ *
+ * @template TKey
+ * The type of the keys of the collection.
+ *
+ * @template TValue
+ * The type of the values of the collection.
  */
 export abstract class Collection<TKey, TValue> extends JSONObjectBase<any> implements ICollection<TKey, TValue>
 {

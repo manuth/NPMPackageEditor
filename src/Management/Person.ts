@@ -24,7 +24,7 @@ export class Person extends JSONObjectBase<string>
     public URL: string;
 
     /**
-     * Initializes a new instance of the `Person` class.
+     * Initializes a new instance of the {@link Person `Person`} class.
      *
      * @param person
      * An object containing info about the person.
@@ -32,7 +32,7 @@ export class Person extends JSONObjectBase<string>
     public constructor(person: IPerson);
 
     /**
-     * Initializes a new instance of the `Person` class.
+     * Initializes a new instance of the {@link Person `Person`} class.
      *
      * @param person
      * A string containing info about the person.
@@ -40,7 +40,7 @@ export class Person extends JSONObjectBase<string>
     public constructor(person: string);
 
     /**
-     * Initializes a new instance of the `Person` class.
+     * Initializes a new instance of the {@link Person `Person`} class.
      *
      * @param person
      * A variable containing info about the person.
@@ -48,7 +48,7 @@ export class Person extends JSONObjectBase<string>
     public constructor(person: string | IPerson);
 
     /**
-     * Initializes a new instance of the `Person` class.
+     * Initializes a new instance of the {@link Person `Person`} class.
      *
      * @param person
      * A variable containing info about the person.
@@ -80,12 +80,13 @@ export class Person extends JSONObjectBase<string>
      */
     public ToJSON(): string
     {
-        let result = stringify(
-            {
-                name: this.Name,
-                email: this.EMail,
-                url: this.URL
-            });
+        let person: IPerson = {
+            name: this.Name,
+            email: this.EMail,
+            url: this.URL
+        };
+
+        let result = stringify(person);
 
         if (result.length === 0)
         {

@@ -1,17 +1,17 @@
 import { Dictionary } from "./Dictionary";
 
 /**
- * Represents a set of key-value pairs.
+ * Represents a set of property-keys and their values.
  */
 export class PropertyDictionary<T> extends Dictionary<keyof T, T[keyof T]>
 {
     /**
-     * Initializes a new instance of the `PropertyDictionary` class.
+     * Initializes a new instance of the {@link PropertyDictionary `PropertyDictionary<T>`} class.
      */
     public constructor();
 
     /**
-     * Initializes a new instance of the `PropertyDictionary` class.
+     * Initializes a new instance of the {@link PropertyDictionary `PropertyDictionary<T>`} class.
      *
      * @param collection
      * The items to load.
@@ -19,7 +19,7 @@ export class PropertyDictionary<T> extends Dictionary<keyof T, T[keyof T]>
     public constructor(collection: T);
 
     /**
-     * Initializes a new instance of the `PropertyDictionary` class.
+     * Initializes a new instance of the {@link PropertyDictionary `PropertyDictionary<T>`} class.
      *
      * @param collection
      * The items to load.
