@@ -4,6 +4,7 @@ import gitRemoteOriginUrl = require("git-remote-origin-url");
 import gitRootDir = require("git-root-dir");
 import normalize = require("normalize-package-data");
 import readmeFilename = require("readme-filename");
+import { fileName, PackageJSONFileName } from "types-pkg-json";
 import { dirname, join, relative, resolve } from "upath";
 import { Dictionary } from "./Collections/Dictionary";
 import { List } from "./Collections/List";
@@ -31,6 +32,11 @@ import { JSONObjectBase } from "./Utilities/JSONObjectBase";
  */
 export class Package extends JSONObjectBase<IPackageJSON> implements IDependencyCollection
 {
+    /**
+     * Gets the default file-name of `package.json`-files.
+     */
+    public static readonly FileName: PackageJSONFileName = fileName;
+
     /**
      * Gets or sets name of the package-file.
      */

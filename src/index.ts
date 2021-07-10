@@ -1,3 +1,4 @@
+export { PackageJSONFileName } from "types-pkg-json";
 export { AlphabeticalDictionary } from "./Collections/AlphabeticalDictionary";
 export { AlphabeticalList } from "./Collections/AlphabeticalList";
 export { Collection } from "./Collections/Collection";
