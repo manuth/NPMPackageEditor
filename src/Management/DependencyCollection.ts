@@ -12,29 +12,29 @@ import { KeyOfType } from "./KeyOfType";
 export class DependencyCollection implements IDependencyCollection
 {
     /**
-     * @inheritdoc
+     * The normal dependencies.
      */
-    public readonly Dependencies: Dictionary<string, string>;
+    private readonly dependencies: Dictionary<string, string>;
 
     /**
-     * @inheritdoc
+     * The dependencies for development purposes.
      */
-    public readonly DevelopmentDependencies: Dictionary<string, string>;
+    private readonly devDependencies: Dictionary<string, string>;
 
     /**
-     * @inheritdoc
+     * The peer-dependencies.
      */
-    public readonly PeerDependencies: Dictionary<string, string>;
+    private readonly peerDependencies: Dictionary<string, string>;
 
     /**
-     * @inheritdoc
+     * The optional dependencies.
      */
-    public readonly OptionalDependencies: Dictionary<string, string>;
+    private readonly optionalDependencies: Dictionary<string, string>;
 
     /**
-     * @inheritdoc
+     * The bundled dependencies.
      */
-    public readonly BundledDependencies: List<string>;
+    private readonly bundledDependencies: List<string>;
 
     /**
      * Initializes a new instance of the {@link DependencyCollection `DependencyCollection`} class.
@@ -57,11 +57,11 @@ export class DependencyCollection implements IDependencyCollection
      */
     public constructor(collection?: IDependencyCollectionOptions)
     {
-        this.Dependencies = this.LoadDependencyDictionary(collection?.dependencies);
-        this.DevelopmentDependencies = this.LoadDependencyDictionary(collection?.devDependencies);
-        this.PeerDependencies = this.LoadDependencyDictionary(collection?.peerDependencies);
-        this.OptionalDependencies = this.LoadDependencyDictionary(collection?.optionalDependencies);
-        this.BundledDependencies = this.LoadDependencyList(collection?.bundledDependencies ?? []);
+        this.dependencies = this.LoadDependencyDictionary(collection?.dependencies);
+        this.devDependencies = this.LoadDependencyDictionary(collection?.devDependencies);
+        this.peerDependencies = this.LoadDependencyDictionary(collection?.peerDependencies);
+        this.optionalDependencies = this.LoadDependencyDictionary(collection?.optionalDependencies);
+        this.bundledDependencies = this.LoadDependencyList(collection?.bundledDependencies ?? []);
     }
 
     /**
@@ -74,6 +74,46 @@ export class DependencyCollection implements IDependencyCollection
         result.AddRange(this.DevelopmentDependencies);
         result.AddRange(this.OptionalDependencies);
         return result;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public get Dependencies(): Dictionary<string, string>
+    {
+        return this.dependencies;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public get DevelopmentDependencies(): Dictionary<string, string>
+    {
+        return this.devDependencies;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public get PeerDependencies(): Dictionary<string, string>
+    {
+        return this.peerDependencies;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public get OptionalDependencies(): Dictionary<string, string>
+    {
+        return this.optionalDependencies;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public get BundledDependencies(): List<string>
+    {
+        return this.bundledDependencies;
     }
 
     /**

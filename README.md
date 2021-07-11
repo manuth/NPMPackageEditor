@@ -16,8 +16,8 @@ npm install --save @manuth/package-json-editor
 Using a code-editor with typescript support provides autocompletion for `package.json`-metadata.
 
 ```ts
-import fs = require("fs");
-import { IPackageMetadata } from "@manuth/package-json-editor";
+import { writeFileSync } from "fs";
+import { IPackageMetadata, Package } from "@manuth/package-json-editor";
 
 let packageMeta: IPackageMetadata;
 packageMeta = {
@@ -25,7 +25,7 @@ packageMeta = {
     version: "1.0.0"
 };
 
-fs.writeFileSync("package.json", JSON.stringify(packageMeta));
+writeFileSync(Package.FileName, JSON.stringify(packageMeta));
 ```
 
 
@@ -33,10 +33,10 @@ fs.writeFileSync("package.json", JSON.stringify(packageMeta));
 You can create a `Package` object by passing a path to a `package.json` file or by passing the `package.json`-metadata as an object or nothing to create an empty package:
 
 ```ts
-import path = require("path");
+import { join } from "path";
 import { Package } from "@manuth/package-json-editor";
 
-let packagePath = path.join(__dirname, "package.json");
+let packagePath = join(__dirname, Package.FileName);
 
 // Option 1: Passing nothing
 let package = new Package();
@@ -74,10 +74,10 @@ If the `FileName` property of the package is set, following properties will be n
   * If the package is located inside a `git` repository, the `repository` property is set accordingly, if undefined
 
 ```ts
-import path = require("path");
+import { join } from "path";
 import { Package } from "@manuth/package-json-editor";
 
-let packagePath = path.join("path", "to", "package", "package.json");
+let packagePath = join("path", "to", "package", Package.FileName);
 
 let package = new Package(packagePath);
 await package.Normalize();
@@ -134,7 +134,7 @@ package.Dependencies.Add("@typescript-eslint/parser", "*");
 The `DependencyCollection` class allows you to easily create dependency-sets for certain purposes and adding them to a `Package` object or even another `DependencyCollection`.
 
 ```ts
-import fs = require("fs");
+import { writeFileSync } from "fs";
 import { Package, DependencyCollection } from "@manuth/package-json-editor";
 
 let package = new Package(
@@ -165,7 +165,7 @@ let tslintDependencies = new DependencyCollection(
 export function installLinter(eslint: boolean)
 {
     package.Register(eslint ? eslintDependencies : tslintDependencies);
-    fs.writeFileSync("package.json", JSON.stringify(package.ToJSON()));
+    writeFileSync("package.json", JSON.stringify(package.ToJSON()));
 }
 ```
 

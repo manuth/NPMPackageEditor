@@ -1,5 +1,11 @@
 /**
  * Provides the functionality to check the validity of a property.
+ *
+ * @template T1
+ * The type of the value of the property to check.
+ *
+ * @template T2
+ * The type of the value to check the property against.
  */
 export type PropertyChecker<T1, T2> =
     /**

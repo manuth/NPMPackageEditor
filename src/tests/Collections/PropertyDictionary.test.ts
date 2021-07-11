@@ -63,7 +63,7 @@ export function PropertyDictionaryTests(): void
                         () =>
                         {
                             test(
-                                `Checking whether a \`${nameof(PropertyDictionary)}\` can be created based on an object…`,
+                                `Checking whether a \`${nameof(PropertyDictionary)}\` can be created based on an \`${nameof(Object)}\`…`,
                                 () =>
                                 {
                                     strictEqual(dictionary.Count, Object.keys(randomData).length);

@@ -2,6 +2,9 @@ import { Dictionary } from "./Dictionary";
 
 /**
  * Represents a set of property-keys and their values.
+ *
+ * @template T
+ * The type of the objects containing the properties.
  */
 export class PropertyDictionary<T> extends Dictionary<keyof T, T[keyof T]>
 {

@@ -13,6 +13,14 @@ import { ICollection } from "./ICollection";
 export abstract class Collection<TKey, TValue> extends JSONObjectBase<any> implements ICollection<TKey, TValue>
 {
     /**
+     * Initializes a new instance of the {@link Collection `Collection<TKey, TValue>`} class.
+     */
+    public constructor()
+    {
+        super();
+    }
+
+    /**
      * @inheritdoc
      */
     public get Count(): number

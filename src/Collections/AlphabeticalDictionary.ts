@@ -12,6 +12,35 @@ import { Dictionary } from "./Dictionary";
 export class AlphabeticalDictionary<TKey, TValue> extends Dictionary<TKey, TValue>
 {
     /**
+     * Initializes a new instance of the {@link AlphabeticalDictionary `AlphabeticalDictionary<TKey, TValue>`} class.
+     */
+    public constructor();
+
+    /**
+     * Initializes a new instance of the {@link AlphabeticalDictionary `AlphabeticalDictionary<TKey, TValue>`} class.
+     *
+     * @param entries
+     * The entries to add.
+     */
+    public constructor(entries: Iterable<readonly [TKey, TValue]> | Dictionary<TKey, TValue>);
+
+    /**
+     * Initializes a new instance of the {@link AlphabeticalDictionary `AlphabeticalDictionary<TKey, TValue>`} class.
+     *
+     * @param args
+     * The passed arguments.
+     */
+    public constructor(...args: [(Iterable<readonly [TKey, TValue]> | Dictionary<TKey, TValue>)?])
+    {
+        super();
+
+        if (args.length > 0)
+        {
+            this.AddRange(...args);
+        }
+    }
+
+    /**
      * @inheritdoc
      */
     public override get Entries(): Array<[TKey, TValue]>

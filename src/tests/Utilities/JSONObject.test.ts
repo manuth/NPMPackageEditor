@@ -86,6 +86,9 @@ export function JSONObjectTests(): void
             /**
              * Asserts the presence of a property.
              *
+             * @template TKey
+             * The type of the key of the property to check.
+             *
              * @param propertyInjector
              * A method for injecting properties.
              *
@@ -203,7 +206,7 @@ export function JSONObjectTests(): void
                     }
 
                     test(
-                        "Checking whether objects are only added if they have at least one property…",
+                        `Checking whether \`${nameof(Object)}\`s are only added if they have at least one property…`,
                         () =>
                         {
                             AssertObjectPresence({}, false);
@@ -211,7 +214,7 @@ export function JSONObjectTests(): void
                         });
 
                     test(
-                        "Checking whether arrays are only added if they have at least one item…",
+                        `Checking whether \`${nameof(Array)}\`s are only added if they have at least one item…`,
                         () =>
                         {
                             AssertArrayPresence([], false);

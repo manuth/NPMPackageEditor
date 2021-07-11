@@ -16,6 +16,7 @@ import { IPackageMetadata } from "../IPackageMetadata";
 import { BugInfo } from "../Management/BugInfo";
 import { IBugInfo } from "../Management/IBugInfo";
 import { IPerson } from "../Management/IPerson";
+import { IRepository } from "../Management/IRepository";
 import { PackagePerson } from "../Management/PackagePerson";
 import { Person } from "../Management/Person";
 import { Package } from "../Package";
@@ -39,29 +40,38 @@ export function PackageTests(): void
             /**
              * Asserts the contents of a dictionary.
              *
-             * @param actual
+             * @template TKey
+             * The type of the keys of the specified {@link actualDictionary `actualDictionary`}.
+             *
+             * @template TValue
+             * The type of the values of the specified {@link actualDictionary `actualDictionary`}.
+             *
+             * @param actualDictionary
              * The actual dictionary.
              *
              * @param expected
              * The expected contents of the dictionary.
              */
-            function AssertDictionary<TKey extends string | number | symbol, TValue>(actual: Dictionary<TKey, TValue>, expected: Record<TKey, TValue>): void
+            function AssertDictionary<TKey extends string | number | symbol, TValue>(actualDictionary: Dictionary<TKey, TValue>, expected: Record<TKey, TValue>): void
             {
-                deepStrictEqual(actual.ToJSON(), expected);
+                deepStrictEqual(actualDictionary.ToJSON(), expected);
             }
 
             /**
              * Asserts the contents of a list.
              *
-             * @param actual
+             * @template T
+             * The type of the items of the specified {@link actualList `actualList`}.
+             *
+             * @param actualList
              * The actual list.
              *
              * @param expected
              * The expected contents of the list.
              */
-            function AssertList<T>(actual: List<T>, expected: T[]): void
+            function AssertList<T>(actualList: List<T>, expected: T[]): void
             {
-                deepStrictEqual(actual.ToJSON(), expected);
+                deepStrictEqual(actualList.ToJSON(), expected);
             }
 
             /**
@@ -75,7 +85,7 @@ export function PackageTests(): void
              */
             function AssertPerson(actual: Person, expected: IPerson | string): void
             {
-                strictEqual(actual.ToJSON(), new Person(expected).ToJSON());
+                deepStrictEqual(actual.ToJSON(), new Person(expected).ToJSON());
             }
 
             /**
@@ -465,7 +475,7 @@ export function PackageTests(): void
                                 });
 
                             test(
-                                "Checking whether values are loaded from the `package.json` file correctly…",
+                                `Checking whether values are loaded from the \`${Package.FileName}\` file correctly…`,
                                 () =>
                                 {
                                     AssertPackageMeta(metadata);
@@ -526,7 +536,7 @@ export function PackageTests(): void
                                 });
 
                             test(
-                                "Checking whether the metadata is loaded from the object…",
+                                `Checking whether the metadata is loaded from the \`${nameof(Object)}\`…`,
                                 () =>
                                 {
                                     npmPackage = new TestPackage(inexistentFile.FullName, { name: testValue });
@@ -561,7 +571,7 @@ export function PackageTests(): void
                         async () =>
                         {
                             npmPackage = new TestPackage();
-                            npmPackage.FileName = join(gitRoot, "package.json");
+                            npmPackage.FileName = join(gitRoot, Package.FileName);
                             await npmPackage.Normalize();
                         });
 
@@ -576,14 +586,14 @@ export function PackageTests(): void
                         });
 
                     test(
-                        "Checking whether the description is generated correctly…",
+                        `Checking whether the \`${nameof<Package>((p) => p.Description)}\` is generated correctly…`,
                         async () =>
                         {
                             ok((await readFile(await readmeFilename(gitRoot))).toString().includes(npmPackage.Description));
                         });
 
                     test(
-                        "Checking whether sub-directories are applied correctly…",
+                        `Checking whether the \`${nameof<Package>((p) => p.Repository)}.${nameof<IRepository>((r) => r.directory)}-option is applied correctly…`,
                         async () =>
                         {
                             let parsedPath = parse(npmPackage.FileName);
@@ -611,14 +621,14 @@ export function PackageTests(): void
                         });
 
                     test(
-                        "Checking whether only important properties are present even if they're empty…",
+                        "Checking whether important properties are present even if they're empty…",
                         () =>
                         {
-                            let importantKeys: Array<keyof IPackageMetadata> = [
-                                "scripts",
-                                "dependencies",
-                                "devDependencies"
-                            ];
+                            let importantKeys = [
+                                nameof<IPackageMetadata>((metadata) => metadata.scripts),
+                                nameof<IPackageMetadata>((metadata) => metadata.dependencies),
+                                nameof<IPackageMetadata>((metadata) => metadata.devDependencies)
+                            ] as Array<keyof IPackageMetadata>;
 
                             generatedMeta = new TestPackage().ToJSON();
 
@@ -631,10 +641,10 @@ export function PackageTests(): void
                         });
 
                     test(
-                        "Checking whether the behavior of the object-creation can be changed by manipulating `GeneratorLogics`…",
+                        `Checking whether the behavior of the \`${nameof(Object)}\`-creation can be changed by manipulating the \`${nameof<Package>((p) => p.GenerationLogics)}\`…`,
                         () =>
                         {
-                            let property: keyof IPackageMetadata = "name";
+                            let property = nameof<IPackageMetadata>((metadata) => metadata.name) as keyof IPackageMetadata;
                             npmPackage = new TestPackage();
                             npmPackage.GenerationLogics.set(property, GenerationLogic.Always);
                             ok(property in npmPackage.ToJSON());
@@ -672,7 +682,7 @@ export function PackageTests(): void
                         });
 
                     test(
-                        "Checking whether `null`-ish values are replaced by `null`…",
+                        `Checking whether \`${null}\`-ish values are replaced with \`${null}\`…`,
                         () =>
                         {
                             for (let value of [null, undefined] as any[])
@@ -697,7 +707,7 @@ export function PackageTests(): void
                         });
 
                     test(
-                        "Checking whether objects are converted to dictionaries correctly…",
+                        `Checking whether \`${nameof(Object)}\`s are converted to \`${nameof(Dictionary)}\`s correctly…`,
                         () =>
                         {
                             let dictionary = npmPackage.LoadDictionary({ [randomKey]: randomValue });
@@ -719,14 +729,14 @@ export function PackageTests(): void
                         });
 
                     test(
-                        "Checking whether person-objects are loaded correctly…",
+                        `Checking whether \`${nameof<IPerson>()}\`-objects are loaded correctly…`,
                         () =>
                         {
                             AssertPerson(npmPackage.LoadPerson(personOptions), personOptions);
                         });
 
                     test(
-                        "Checking whether strings are loaded correctly…",
+                        `Checking whether \`${nameof(String)}\`s are loaded correctly…`,
                         () =>
                         {
                             AssertPerson(npmPackage.LoadPerson(stringify(personOptions)), personOptions);
@@ -749,21 +759,21 @@ export function PackageTests(): void
                     }
 
                     test(
-                        "Checking whether arrays of person-objects are loaded correctly…",
+                        `Checking whether \`${nameof(Array)}\`s of \`${nameof<IPerson>()}\`-objects are loaded correctly…`,
                         () =>
                         {
                             AssertLoadedList([GetRandomPerson(), GetRandomPerson()]);
                         });
 
                     test(
-                        "Checking whether arrays of strings are loaded correctly…",
+                        `Checking whether \`${nameof(Array)}\`s of \`${nameof(String)}\` are loaded correctly…`,
                         () =>
                         {
                             AssertLoadedList([stringify(GetRandomPerson()), stringify(GetRandomPerson())]);
                         });
 
                     test(
-                        "Checking whether mixed arrays are loaded correctly…",
+                        `Checking whether mixed \`${nameof(Array)}\`s are loaded correctly…`,
                         () =>
                         {
                             AssertLoadedList([GetRandomPerson(), stringify(GetRandomPerson())]);

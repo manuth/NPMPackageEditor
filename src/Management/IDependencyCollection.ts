@@ -7,22 +7,22 @@ import { List } from "../Collections/List";
 export interface IDependencyCollection
 {
     /**
-     * Gets a set of dependencies.
+     * Gets the normal dependencies.
      */
     readonly Dependencies: Dictionary<string, string>;
 
     /**
-     * Gets a set of dependencies for development purposes.
+     * Gets the dependencies for development purposes.
      */
     readonly DevelopmentDependencies: Dictionary<string, string>;
 
     /**
-     * Gets a set of peer-dependencies.
+     * Gets the peer-dependencies.
      */
     readonly PeerDependencies: Dictionary<string, string>;
 
     /**
-     * Gets a set of optional dependencies.
+     * Gets the optional dependencies.
      */
     readonly OptionalDependencies: Dictionary<string, string>;
 
