@@ -84,7 +84,7 @@ export function PackageTests(): void
              */
             function AssertPerson(actual: Person, expected: IPerson | string): void
             {
-                strictEqual(actual.ToJSON(), new Person(expected).ToJSON());
+                deepStrictEqual(actual.ToJSON(), new Person(expected).ToJSON());
             }
 
             /**
