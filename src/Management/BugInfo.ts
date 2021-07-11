@@ -94,8 +94,8 @@ export class BugInfo extends JSONObjectBase<IBugInfo>
         else
         {
             let bugInfo = new JSONObject<IBugInfo>();
-            bugInfo.AddIfNotNull("url", this.URL);
-            bugInfo.AddIfNotNull("email", this.EMail);
+            bugInfo.AddIfNotNull(nameof<IBugInfo>((info => info.url)) as keyof IBugInfo, this.URL);
+            bugInfo.AddIfNotNull(nameof<IBugInfo>((info => info.email)) as keyof IBugInfo, this.EMail);
             return bugInfo.ToJSON();
         }
     }

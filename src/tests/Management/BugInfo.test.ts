@@ -121,7 +121,7 @@ export function BugInfoTests(): void
                         });
 
                     test(
-                        `Checking whether an empty bug-info object equals \`${null}\`…`,
+                        `Checking whether an empty bug-info instance equals \`${null}\`…`,
                         () =>
                         {
                             bugInfo.URL = null;

@@ -187,7 +187,7 @@ export function ListTests(): void
                 () =>
                 {
                     test(
-                        "Checking whether lists are converted to json correctly…",
+                        "Checking whether lists are converted to JSON correctly…",
                         () =>
                         {
                             deepStrictEqual(list.ToJSON(), randomData);

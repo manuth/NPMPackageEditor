@@ -620,7 +620,7 @@ export function PackageTests(): void
                         });
 
                     test(
-                        "Checking whether only important properties are present even if they're empty…",
+                        "Checking whether important properties are present even if they're empty…",
                         () =>
                         {
                             let importantKeys: Array<keyof IPackageMetadata> = [
