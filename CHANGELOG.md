@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## NPMPackageEditor [Unreleased]
+### Added
+ - A static member `Package.FileName` which returns the default name of package-files, which is `package.json`
+
+### Fixed
+  - Grammatical errors
+
+### Updated
+  - All dependencies
 
 [Show differences](https://github.com/manuth/NPMPackageEditor/compare/v2.0.0...dev)
 
