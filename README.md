@@ -17,7 +17,7 @@ Using a code-editor with typescript support provides autocompletion for `package
 
 ```ts
 import { writeFileSync } from "fs";
-import { IPackageMetadata } from "@manuth/package-json-editor";
+import { IPackageMetadata, Package } from "@manuth/package-json-editor";
 
 let packageMeta: IPackageMetadata;
 packageMeta = {
@@ -25,7 +25,7 @@ packageMeta = {
     version: "1.0.0"
 };
 
-writeFileSync("package.json", JSON.stringify(packageMeta));
+writeFileSync(Package.FileName, JSON.stringify(packageMeta));
 ```
 
 
@@ -36,7 +36,7 @@ You can create a `Package` object by passing a path to a `package.json` file or 
 import { join } from "path";
 import { Package } from "@manuth/package-json-editor";
 
-let packagePath = join(__dirname, "package.json");
+let packagePath = join(__dirname, Package.FileName);
 
 // Option 1: Passing nothing
 let package = new Package();
@@ -77,7 +77,7 @@ If the `FileName` property of the package is set, following properties will be n
 import { join } from "path";
 import { Package } from "@manuth/package-json-editor";
 
-let packagePath = join("path", "to", "package", "package.json");
+let packagePath = join("path", "to", "package", Package.FileName);
 
 let package = new Package(packagePath);
 await package.Normalize();

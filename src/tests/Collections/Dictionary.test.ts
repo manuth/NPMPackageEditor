@@ -161,7 +161,7 @@ export function DictionaryTests(): void
                         });
 
                     test(
-                        "Checking whether dictionaries can be added…",
+                        `Checking whether \`${nameof(Dictionary)}\`s can be added…`,
                         () =>
                         {
                             dictionary.AddRange(new Dictionary(randomMap));
@@ -231,7 +231,7 @@ export function DictionaryTests(): void
                 () =>
                 {
                     test(
-                        "Checking whether dictionaries can be cleared…",
+                        `Checking whether \`${nameof(Dictionary)}\`s can be cleared…`,
                         () =>
                         {
                             dictionary.Clear();
@@ -245,7 +245,7 @@ export function DictionaryTests(): void
                 () =>
                 {
                     test(
-                        "Checking whether dictionaries are converted to JSON correctly…",
+                        `Checking whether \`${nameof(Dictionary)}\`s are converted to JSON correctly…`,
                         () =>
                         {
                             let jsonObject = dictionary.ToJSON();

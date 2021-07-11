@@ -206,7 +206,7 @@ export function JSONObjectTests(): void
                     }
 
                     test(
-                        "Checking whether objects are only added if they have at least one property…",
+                        `Checking whether \`${nameof(Object)}\`s are only added if they have at least one property…`,
                         () =>
                         {
                             AssertObjectPresence({}, false);
@@ -214,7 +214,7 @@ export function JSONObjectTests(): void
                         });
 
                     test(
-                        "Checking whether arrays are only added if they have at least one item…",
+                        `Checking whether \`${nameof(Array)}\`s are only added if they have at least one item…`,
                         () =>
                         {
                             AssertArrayPresence([], false);

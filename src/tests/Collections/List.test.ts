@@ -173,7 +173,7 @@ export function ListTests(): void
                 () =>
                 {
                     test(
-                        "Checking whether the list can be cleared…",
+                        `Checking whether the \`${nameof(List)}\` can be cleared…`,
                         () =>
                         {
                             strictEqual(list.Count, randomData.length);
@@ -187,7 +187,7 @@ export function ListTests(): void
                 () =>
                 {
                     test(
-                        "Checking whether lists are converted to JSON correctly…",
+                        `Checking whether \`${nameof(List)}\`s are converted to JSON correctly…`,
                         () =>
                         {
                             deepStrictEqual(list.ToJSON(), randomData);

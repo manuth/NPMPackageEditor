@@ -67,7 +67,7 @@ export function BugInfoTests(): void
                                 });
 
                             test(
-                                "Checking whether the object is created as expected…",
+                                `Checking whether the \`${nameof(Object)}\` is created as expected…`,
                                 () =>
                                 {
                                     strictEqual(bugInfo.URL, bugInfoOptions.url);
@@ -85,7 +85,7 @@ export function BugInfoTests(): void
                                 });
 
                             test(
-                                "Checking whether the object is created as expected…",
+                                `Checking whether the \`${nameof(Object)}\` is created as expected…`,
                                 () =>
                                 {
                                     strictEqual(bugInfo.URL, bugInfoOptions.url);
@@ -112,16 +112,16 @@ export function BugInfoTests(): void
                         {
                             let key: keyof IBugInfo;
                             bugInfo.URL = null;
-                            key = "url";
+                            key = nameof<IBugInfo>((info) => info.url) as keyof IBugInfo;
                             ok(!(key in bugInfo.ToJSON()));
                             bugInfo.URL = bugInfoOptions.url;
                             bugInfo.EMail = null;
-                            key = "email";
+                            key = nameof<IBugInfo>((info) => info.email) as keyof IBugInfo;
                             ok(!(key in bugInfo.ToJSON()));
                         });
 
                     test(
-                        `Checking whether an empty bug-info instance equals \`${null}\`…`,
+                        `Checking whether an empty \`${nameof(BugInfo)}\`-instance equals \`${null}\`…`,
                         () =>
                         {
                             bugInfo.URL = null;

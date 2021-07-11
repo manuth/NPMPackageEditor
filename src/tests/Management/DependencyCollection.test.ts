@@ -7,6 +7,7 @@ import { IPackageMetadata } from "../../IPackageMetadata";
 import { DependencyCollection } from "../../Management/DependencyCollection";
 import { IDependencyCollectionOptions } from "../../Management/IDependencyCollectionOptions";
 import { KeyOfType } from "../../Management/KeyOfType";
+import { Package } from "../../Package";
 
 /**
  * Registers tests for the {@link DependencyCollection `DependencyCollection`} class.
@@ -66,7 +67,7 @@ export function DependencyCollectionTests(): void
                     (
                         JSON.parse(
                             (await readFile(
-                                (await findUp("package.json", { cwd: __dirname })))).toString()) as IPackageMetadata
+                                (await findUp(Package.FileName, { cwd: __dirname })))).toString()) as IPackageMetadata
                     ).dependencies);
 
                 /**
