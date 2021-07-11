@@ -43,6 +43,9 @@ export class TestPackage extends Package
     /**
      * @inheritdoc
      *
+     * @template T
+     * The type of the collection to load.
+     *
      * @param collection
      * The collection to load.
      *

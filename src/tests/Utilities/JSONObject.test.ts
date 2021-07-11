@@ -86,6 +86,9 @@ export function JSONObjectTests(): void
             /**
              * Asserts the presence of a property.
              *
+             * @template TKey
+             * The type of the key of the property to check.
+             *
              * @param propertyInjector
              * A method for injecting properties.
              *

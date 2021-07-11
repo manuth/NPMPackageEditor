@@ -15,7 +15,7 @@ export class AlphabeticalList<T> extends List<T>
     private innerCollection: AlphabeticalDictionary<T, null>;
 
     /**
-     * Initializes a new instance of the `AlphabeticalArray` class.
+     * Initializes a new instance of the {@link AlphabeticalArray `AlphabeticalArray<T>`} class.
      */
     public constructor();
 

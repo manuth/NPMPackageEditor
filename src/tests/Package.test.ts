@@ -39,29 +39,38 @@ export function PackageTests(): void
             /**
              * Asserts the contents of a dictionary.
              *
-             * @param actual
+             * @template TKey
+             * The type of the keys of the specified {@link actualDictionary `actualDictionary`}.
+             *
+             * @template TValue
+             * The type of the values of the specified {@link actualDictionary `actualDictionary`}.
+             *
+             * @param actualDictionary
              * The actual dictionary.
              *
              * @param expected
              * The expected contents of the dictionary.
              */
-            function AssertDictionary<TKey extends string | number | symbol, TValue>(actual: Dictionary<TKey, TValue>, expected: Record<TKey, TValue>): void
+            function AssertDictionary<TKey extends string | number | symbol, TValue>(actualDictionary: Dictionary<TKey, TValue>, expected: Record<TKey, TValue>): void
             {
-                deepStrictEqual(actual.ToJSON(), expected);
+                deepStrictEqual(actualDictionary.ToJSON(), expected);
             }
 
             /**
              * Asserts the contents of a list.
              *
-             * @param actual
+             * @template T
+             * The type of the items of the specified {@link actualList `actualList`}.
+             *
+             * @param actualList
              * The actual list.
              *
              * @param expected
              * The expected contents of the list.
              */
-            function AssertList<T>(actual: List<T>, expected: T[]): void
+            function AssertList<T>(actualList: List<T>, expected: T[]): void
             {
-                deepStrictEqual(actual.ToJSON(), expected);
+                deepStrictEqual(actualList.ToJSON(), expected);
             }
 
             /**

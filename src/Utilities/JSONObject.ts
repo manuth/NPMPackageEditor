@@ -2,6 +2,9 @@ import { JSONObjectBase } from "./JSONObjectBase";
 
 /**
  * Represents a json-object.
+ *
+ * @template T
+ * The type of the object to represent.
  */
 export class JSONObject<T extends Record<never, never> = Record<string, unknown>> extends JSONObjectBase<Partial<T>>
 {
@@ -38,6 +41,9 @@ export class JSONObject<T extends Record<never, never> = Record<string, unknown>
     /**
      * Adds a property to the object.
      *
+     * @template TKey
+     * The type of the key of the property to add.
+     *
      * @param key
      * The key of the property to add.
      *
@@ -51,6 +57,9 @@ export class JSONObject<T extends Record<never, never> = Record<string, unknown>
 
     /**
      * Adds a property to the object if the specified {@link value `value`} is not `null`.
+     *
+     * @template TKey
+     * The type of the key of the property to add.
      *
      * @param key
      * The key of the property to add.
@@ -68,6 +77,9 @@ export class JSONObject<T extends Record<never, never> = Record<string, unknown>
 
     /**
      * Adds a property to the object if the {@link value `value`} is not empty.
+     *
+     * @template TKey
+     * The type of the key of the property to add.
      *
      * @param key
      * The key of the property to add.
