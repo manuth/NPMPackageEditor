@@ -70,9 +70,18 @@ export class DependencyCollection implements IDependencyCollection
     public get AllDependencies(): Dictionary<string, string>
     {
         let result = new Dictionary<string, string>();
-        result.AddRange(this.Dependencies);
-        result.AddRange(this.DevelopmentDependencies);
-        result.AddRange(this.OptionalDependencies);
+
+        for (let dependencies of [this.Dependencies, this.DevelopmentDependencies, this.OptionalDependencies])
+        {
+            for (let dependency of dependencies.Keys)
+            {
+                if (!result.Has(dependency))
+                {
+                    result.Add(dependency, dependencies.Get(dependency));
+                }
+            }
+        }
+
         return result;
     }
 
