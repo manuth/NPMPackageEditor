@@ -22,6 +22,7 @@ export { IDirectoryStructure } from "./Management/IDirectoryStructure";
 export { IPerson } from "./Management/IPerson";
 export { IRepository } from "./Management/IRepository";
 export { IShimCollection } from "./Management/IShimCollection";
+export { KeyOfType } from "./Management/KeyOfType";
 export { OrderedDependencyCollection } from "./Management/OrderedDependencyCollection";
 export { PackagePerson } from "./Management/PackagePerson";
 export { Person } from "./Management/Person";
