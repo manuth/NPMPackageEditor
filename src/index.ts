@@ -24,6 +24,8 @@ export { IRepository } from "./Management/IRepository";
 export { IShimCollection } from "./Management/IShimCollection";
 export { KeyOfType } from "./Management/KeyOfType";
 export { OrderedDependencyCollection } from "./Management/OrderedDependencyCollection";
+export { PackageDependencyCollection } from "./Management/PackageDependencyCollection";
+export { PackageDependencyCollectionOptions } from "./Management/PackageDependencyCollectionOptions";
 export { PackagePerson } from "./Management/PackagePerson";
 export { Person } from "./Management/Person";
 export { Package } from "./Package";
