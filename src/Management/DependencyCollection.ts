@@ -71,7 +71,7 @@ export class DependencyCollection implements IDependencyCollection
     {
         let result = new Dictionary<string, string>();
 
-        for (let dependencies of [this.Dependencies, this.DevelopmentDependencies, this.OptionalDependencies])
+        for (let dependencies of [this.Dependencies, this.DevelopmentDependencies, this.OptionalDependencies, this.PeerDependencies])
         {
             for (let dependency of dependencies.Keys)
             {
