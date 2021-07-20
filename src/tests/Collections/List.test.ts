@@ -1,38 +1,35 @@
 import { deepStrictEqual, doesNotThrow, notStrictEqual, ok, strictEqual, throws } from "assert";
-import { Random } from "random-js";
 import { List } from "../../Collections/List";
+import { TestContext } from "../TestContext";
 
 /**
  * Registers tests for the {@link List `List<T>`} class.
+ *
+ * @param context
+ * The test-context.
  */
-export function ListTests(): void
+export function ListTests(context: TestContext): void
 {
     suite(
         nameof(List),
         () =>
         {
-            let random: Random;
             let randomData: string[];
             let randomItem: string;
             let list: List<string>;
 
-            suiteSetup(
-                () =>
-                {
-                    random = new Random();
-                    randomData = [];
-
-                    for (let i = random.integer(1, 10); i > 0; i--)
-                    {
-                        randomData.push(`${i}:${random.string(10)}`);
-                    }
-                });
-
             setup(
                 () =>
                 {
+                    randomData = [];
+
+                    for (let i = context.Random.integer(1, 10); i > 0; i--)
+                    {
+                        randomData.push(`${i}:${context.Random.string(10)}`);
+                    }
+
                     list = new List(randomData);
-                    randomItem = random.pick(randomData);
+                    randomItem = context.Random.pick(randomData);
                 });
 
             suite(

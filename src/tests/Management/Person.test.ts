@@ -1,19 +1,21 @@
 import { strictEqual } from "assert";
-import { Random } from "random-js";
 import stringify = require("stringify-author");
 import { IPerson } from "../../Management/IPerson";
 import { Person } from "../../Management/Person";
+import { TestContext } from "../TestContext";
 
 /**
  * Registers tests for the {@link Person `Person`} class.
+ *
+ * @param context
+ * The test-context.
  */
-export function PersonTests(): void
+export function PersonTests(context: TestContext): void
 {
     suite(
         nameof(Person),
         () =>
         {
-            let random: Random;
             let person: Person;
             let personOptions: IPerson;
 
@@ -33,12 +35,10 @@ export function PersonTests(): void
             suiteSetup(
                 () =>
                 {
-                    random = new Random();
-
                     personOptions = {
-                        name: random.string(10),
-                        email: random.string(10),
-                        url: random.string(10)
+                        name: context.Random.string(10),
+                        email: context.Random.string(10),
+                        url: context.Random.string(10)
                     };
                 });
 

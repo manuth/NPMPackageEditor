@@ -1,18 +1,18 @@
-import { ok, strictEqual, throws } from "assert";
-import findUp = require("find-up");
-import { readFile } from "fs-extra";
+import { doesNotThrow, ok, strictEqual, throws } from "assert";
 import { Random } from "random-js";
 import { Dictionary } from "../../Collections/Dictionary";
-import { IPackageMetadata } from "../../IPackageMetadata";
 import { DependencyCollection } from "../../Management/DependencyCollection";
 import { IDependencyCollectionOptions } from "../../Management/IDependencyCollectionOptions";
 import { KeyOfType } from "../../Management/KeyOfType";
-import { Package } from "../../Package";
+import { TestContext } from "../TestContext";
 
 /**
  * Registers tests for the {@link DependencyCollection `DependencyCollection`} class.
+ *
+ * @param context
+ * The test-context.
  */
-export function DependencyCollectionTests(): void
+export function DependencyCollectionTests(context: TestContext): void
 {
     suite(
         nameof(DependencyCollection),
@@ -21,20 +21,18 @@ export function DependencyCollectionTests(): void
             let random: Random;
             let collectionOptions: IDependencyCollectionOptions;
             let collection: DependencyCollection;
-            let dependencyGenerator: Generator<Record<string, string>, Record<string, string>>;
 
             suiteSetup(
                 async () =>
                 {
                     random = new Random();
-                    dependencyGenerator = await GetDependencyGenerator();
 
                     collectionOptions = {
-                        dependencies: GetRandomDependency(),
-                        devDependencies: GetRandomDependency(),
-                        peerDependencies: GetRandomDependency(),
-                        optionalDependencies: GetRandomDependency(),
-                        bundledDependencies: Object.keys(GetRandomDependency())
+                        dependencies: context.RandomDependencySet,
+                        devDependencies: context.RandomDependencySet,
+                        peerDependencies: context.RandomDependencySet,
+                        optionalDependencies: context.RandomDependencySet,
+                        bundledDependencies: context.RandomDependencyList
                     };
                 });
 
@@ -43,67 +41,6 @@ export function DependencyCollectionTests(): void
                 {
                     collection = new DependencyCollection(collectionOptions);
                 });
-
-            /**
-             * Provides the functionality to generate dependencies.
-             *
-             * @returns
-             * A component for generating dependencies.
-             */
-            async function GetDependencyGenerator(): Promise<Generator<Record<string, string>, Record<string, string>>>
-            {
-                /**
-                 * Generates a random digit.
-                 *
-                 * @returns
-                 * A random digit.
-                 */
-                function digit(): number
-                {
-                    return random.integer(0, 9);
-                }
-
-                let dependencies = Object.keys(
-                    (
-                        JSON.parse(
-                            (await readFile(
-                                (await findUp(Package.FileName, { cwd: __dirname })))).toString()) as IPackageMetadata
-                    ).dependencies);
-
-                /**
-                 * Creates the generator.
-                 *
-                 * @returns
-                 * The new generator.
-                 */
-                let generator = function*(): Generator<Record<string, string>, Record<string, string>>
-                {
-                    while (true)
-                    {
-                        let result: Record<string, string> = {};
-
-                        for (let name of random.sample(dependencies, random.integer(1, dependencies.length - 1)))
-                        {
-                            result[name] = `${digit()}.${digit()}.${digit()}`;
-                        }
-
-                        yield result;
-                    }
-                };
-
-                return generator();
-            }
-
-            /**
-             * Generates a random dependency.
-             *
-             * @returns
-             * A set of random dependencies.
-             */
-            function GetRandomDependency(): Record<string, string>
-            {
-                return dependencyGenerator.next().value;
-            }
 
             suite(
                 nameof<DependencyCollection>((collection) => collection.Register),
@@ -191,6 +128,32 @@ export function DependencyCollectionTests(): void
                             otherCollection.BundledDependencies.Add(random.pick(collection.BundledDependencies.Values));
                             collection.Register(otherCollection);
                             strictEqual(collection.BundledDependencies.Count, startLength);
+                        });
+                });
+
+            suite(
+                nameof<DependencyCollection>((collection) => collection.AllDependencies),
+                () =>
+                {
+                    let randomDependency: [string, string];
+
+                    setup(
+                        () =>
+                        {
+                            randomDependency = context.RandomDependency;
+                        });
+
+                    test(
+                        "Checking whether all dependencies can be queried even if they are present in multiple sets…",
+                        () =>
+                        {
+                            collection.Clear();
+                            collection.DevelopmentDependencies.Add(randomDependency[0], randomDependency[1]);
+                            collection.OptionalDependencies.Add(randomDependency[0], randomDependency[1]);
+                            ok(collection.DevelopmentDependencies.Has(randomDependency[0]));
+                            ok(collection.OptionalDependencies.Has(randomDependency[0]));
+                            doesNotThrow(() => collection.AllDependencies);
+                            ok(collection.AllDependencies.Has(randomDependency[0]));
                         });
                 });
         });

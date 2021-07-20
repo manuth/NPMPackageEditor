@@ -1,30 +1,31 @@
 import { ok, strictEqual } from "assert";
-import { Random } from "random-js";
 import { Collection } from "../../Collections/Collection";
+import { TestContext } from "../TestContext";
 import { TestCollection } from "./TestCollection";
 
 /**
  * Registers tests for the {@link Collection `Collection<TKey, TValue>`} class.
+ *
+ * @param context
+ * The test-context.
  */
-export function CollectionTests(): void
+export function CollectionTests(context: TestContext): void
 {
     suite(
         nameof(Collection),
         () =>
         {
-            let random: Random;
             let randomMap: Array<[string, number]>;
             let collection: Collection<string, number>;
 
             suiteSetup(
                 () =>
                 {
-                    random = new Random();
                     randomMap = [];
 
-                    for (let i = random.integer(1, 10); i > 0; i--)
+                    for (let i = context.Random.integer(1, 10); i > 0; i--)
                     {
-                        randomMap.push([random.string(10), random.int32()]);
+                        randomMap.push([context.Random.string(10), context.Random.int32()]);
                     }
                 });
 
