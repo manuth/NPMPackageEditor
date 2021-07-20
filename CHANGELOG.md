@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## NPMPackageEditor [Unreleased]
+
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v2.2.0...dev)
+
+## NPMPackageEditor v2.2.0
 ### Fixed
   - Errors in `DependencyCollection.AllDependencies` when a dependency is occurs in multiple lists
   - `AllDependencies` to also include `DependencyCollection.PeerDependencies`
@@ -18,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Updated
   - All dependencies
 
-[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v2.1.0...dev)
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v2.1.0...v2.2.0)
 
 ## NPMPackageEditor v2.1.0
 ### Added
