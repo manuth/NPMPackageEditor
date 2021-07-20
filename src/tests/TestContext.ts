@@ -52,7 +52,7 @@ export class TestContext
                         ...npmPackage.optionalDependencies,
                         ...npmPackage.peerDependencies
                     }),
-                ...npmPackage.bundledDependencies
+                ...(npmPackage.bundledDependencies ?? [])
             ];
         }
 
