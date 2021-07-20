@@ -1,4 +1,5 @@
 import { doesNotThrow, strictEqual, throws } from "assert";
+import { randexp } from "randexp";
 import { Dictionary } from "../../Collections/Dictionary";
 import { PropertyDictionary } from "../../Collections/PropertyDictionary";
 import { DependencyCollection } from "../../Management/DependencyCollection";
@@ -33,6 +34,14 @@ export function PackageDependencyCollectionTests(context: TestContext): void
         public constructor(sourcePackage: Package, dependencies: PackageDependencyCollectionOptions)
         {
             super(sourcePackage, dependencies);
+        }
+
+        /**
+         * @inheritdoc
+         */
+        public override get Package(): Package
+        {
+            return super.Package;
         }
 
         /**
@@ -167,6 +176,23 @@ export function PackageDependencyCollectionTests(context: TestContext): void
                                     }
                                 }
                             }
+                        });
+
+                    test(
+                        `Checking whether changes made to the \`${nameof<TestPackageDependencyCollection>((c) => c.Package)}\` take affect immediately…`,
+                        () =>
+                        {
+                            let randomDependencyName = context.Random.string(10);
+                            npmPackage.Dependencies.Add(randomDependencyName, randexp(/\d+\.\d+\.\d+/));
+
+                            doesNotThrow(
+                                () =>
+                                {
+                                    collection.LoadPackageDependencies(
+                                        [
+                                            randomDependencyName
+                                        ]);
+                                });
                         });
                 });
         });
