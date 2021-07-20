@@ -124,10 +124,27 @@ export class PackageDependencyCollection extends DependencyCollection
      * @returns
      * The loaded dependencies.
      */
-    protected LoadDependencies(listName: keyof PackageDependencyCollectionOptions, packageListName: KeyOfType<DependencyCollection, Dictionary<string, string>> = nameof<DependencyCollection>((c) => c.AllDependencies) as KeyOfType<DependencyCollection, Dictionary<string, string>>): Dictionary<string, string>
+    protected LoadDependencies(listName: keyof PackageDependencyCollectionOptions, packageListName?: KeyOfType<DependencyCollection, Dictionary<string, string>>): Dictionary<string, string>
+    {
+        return this.LoadPackageDependencies(this.dependencyNames[listName] ?? [], packageListName);
+    }
+
+    /**
+     * Loads the specified {@link dependencies `dependencies`} from the specified {@link packageListName `packageListName`} of the {@link PackageDependencyCollection.Package `Package`}.
+     *
+     * @param dependencies
+     * The dependencies to load.
+     *
+     * @param packageListName
+     * The name of the dependency-list in the package to load the specified {@link dependencies `dependencies`} from.
+     *
+     * @returns
+     * The loaded dependencies.
+     */
+    protected LoadPackageDependencies(dependencies: string[], packageListName = nameof<DependencyCollection>((c) => c.AllDependencies) as KeyOfType<DependencyCollection, Dictionary<string, string>>): Dictionary<string, string>
     {
         return new Dictionary(
-            (this.DependencyNames[listName] ?? []).map(
+            dependencies.map(
                 (dependency) =>
                 {
                     return [
