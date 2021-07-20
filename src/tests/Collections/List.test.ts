@@ -22,13 +22,13 @@ export function ListTests(context: TestContext): void
                 () =>
                 {
                     randomData = [];
-                    list = new List(randomData);
 
                     for (let i = context.Random.integer(1, 10); i > 0; i--)
                     {
                         randomData.push(`${i}:${context.Random.string(10)}`);
                     }
 
+                    list = new List(randomData);
                     randomItem = context.Random.pick(randomData);
                 });
 
