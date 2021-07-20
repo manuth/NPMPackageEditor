@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## NPMPackageEditor [Unreleased]
+### Fixed
+  - Errors in `DependencyCollection.AllDependencies` when a dependency is occurs in multiple lists
+  - `AllDependencies` to also include `DependencyCollection.PeerDependencies`
+
+### Added
+  - A component `KeyOfType` for representing keys of properties with a predefined type
+  - A class `PackageDependencyCollection` for representing a dependency-collection which is loaded from a `Package`
+  - Support for parallel execution of drone-pipeline steps
+  - New unit-tests
+
+### Updated
+  - All dependencies
 
 [Show differences](https://github.com/manuth/NPMPackageEditor/compare/v2.1.0...dev)
 
