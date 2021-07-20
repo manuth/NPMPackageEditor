@@ -1,4 +1,4 @@
-import { ok, strictEqual, throws } from "assert";
+import { doesNotThrow, ok, strictEqual, throws } from "assert";
 import { Random } from "random-js";
 import { Dictionary } from "../../Collections/Dictionary";
 import { DependencyCollection } from "../../Management/DependencyCollection";
@@ -128,6 +128,32 @@ export function DependencyCollectionTests(context: TestContext): void
                             otherCollection.BundledDependencies.Add(random.pick(collection.BundledDependencies.Values));
                             collection.Register(otherCollection);
                             strictEqual(collection.BundledDependencies.Count, startLength);
+                        });
+                });
+
+            suite(
+                nameof<DependencyCollection>((collection) => collection.AllDependencies),
+                () =>
+                {
+                    let randomDependency: [string, string];
+
+                    setup(
+                        () =>
+                        {
+                            randomDependency = context.RandomDependency;
+                        });
+
+                    test(
+                        "Checking whether all dependencies can be queried even if they are present in multiple sets…",
+                        () =>
+                        {
+                            collection.Clear();
+                            collection.DevelopmentDependencies.Add(randomDependency[0], randomDependency[1]);
+                            collection.OptionalDependencies.Add(randomDependency[0], randomDependency[1]);
+                            ok(collection.DevelopmentDependencies.Has(randomDependency[0]));
+                            ok(collection.OptionalDependencies.Has(randomDependency[0]));
+                            doesNotThrow(() => collection.AllDependencies);
+                            ok(collection.AllDependencies.Has(randomDependency[0]));
                         });
                 });
         });

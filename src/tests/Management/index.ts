@@ -1,6 +1,7 @@
 import { TestContext } from "../TestContext";
 import { BugInfoTests } from "./BugInfo.test";
 import { DependencyCollectionTests } from "./DependencyCollection.test";
+import { PackageDependencyCollectionTests } from "./PackageDependencyCollection.test";
 import { PersonTests } from "./Person.test";
 
 /**
@@ -18,5 +19,6 @@ export function ManagementTests(context: TestContext): void
             BugInfoTests(context);
             PersonTests(context);
             DependencyCollectionTests(context);
+            PackageDependencyCollectionTests(context);
         });
 }
