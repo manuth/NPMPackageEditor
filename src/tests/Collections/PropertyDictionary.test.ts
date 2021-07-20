@@ -1,31 +1,32 @@
 import { doesNotThrow, ok, strictEqual } from "assert";
-import { Random } from "random-js";
 import { PropertyDictionary } from "../../Collections/PropertyDictionary";
+import { TestContext } from "../TestContext";
 
 /**
  * Registers tests for the {@link PropertyDictionary `PropertyDictionary<T>`} class.
+ *
+ * @param context
+ * The test-context.
  */
-export function PropertyDictionaryTests(): void
+export function PropertyDictionaryTests(context: TestContext): void
 {
     suite(
         nameof(PropertyDictionary),
         () =>
         {
-            let random: Random;
             let randomData: Record<string, number>;
             let dictionary: PropertyDictionary<Record<string, number>>;
 
             suiteSetup(
                 () =>
                 {
-                    random = new Random();
                     randomData = {};
 
-                    for (let i = random.integer(1, 10); i > 0; i--)
+                    for (let i = context.Random.integer(1, 10); i > 0; i--)
                     {
                         randomData = {
                             ...randomData,
-                            [random.string(i)]: random.int32()
+                            [context.Random.string(i)]: context.Random.int32()
                         };
                     }
                 });

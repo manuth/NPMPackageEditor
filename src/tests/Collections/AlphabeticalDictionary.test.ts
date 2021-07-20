@@ -1,18 +1,20 @@
 import { strictEqual } from "assert";
-import { Random } from "random-js";
 import { AlphabeticalDictionary } from "../../Collections/AlphabeticalDictionary";
 import { Dictionary } from "../../Collections/Dictionary";
+import { TestContext } from "../TestContext";
 
 /**
  * Registers tests for the {@link AlphabeticalDictionary `AlphabeticalDictionary<TKey, TValue>`} class.
+ *
+ * @param context
+ * The test-context.
  */
-export function AlphabeticalDictionaryTests(): void
+export function AlphabeticalDictionaryTests(context: TestContext): void
 {
     suite(
         nameof(AlphabeticalDictionary),
         () =>
         {
-            let random: Random;
             let dictionary: Dictionary<string, number>;
             let incorrectOrder: string[];
             let randomMap: Array<[string, number]>;
@@ -20,18 +22,17 @@ export function AlphabeticalDictionaryTests(): void
             suiteSetup(
                 () =>
                 {
-                    random = new Random();
                     incorrectOrder = [];
                     randomMap = [];
 
-                    for (let i = random.integer(1, 50); i > 0; i--)
+                    for (let i = context.Random.integer(1, 50); i > 0; i--)
                     {
-                        incorrectOrder.push(random.string(10 + i, "abc"));
+                        incorrectOrder.push(context.Random.string(10 + i, "abc"));
                     }
 
                     for (let entry of incorrectOrder)
                     {
-                        randomMap.push([entry, random.int32()]);
+                        randomMap.push([entry, context.Random.int32()]);
                     }
                 });
 

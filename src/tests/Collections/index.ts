@@ -1,3 +1,4 @@
+import { TestContext } from "../TestContext";
 import { AlphabeticalDictionaryTests } from "./AlphabeticalDictionary.test";
 import { AlphabeticalListTests } from "./AlphabeticalList.test";
 import { CollectionTests as RegisterCollectionTests } from "./Collection.test";
@@ -7,18 +8,21 @@ import { PropertyDictionaryTests } from "./PropertyDictionary.test";
 
 /**
  * Registers tests for collections.
+ *
+ * @param context
+ * The test-context.
  */
-export function CollectionTests(): void
+export function CollectionTests(context: TestContext): void
 {
     suite(
         "Collections",
         () =>
         {
-            RegisterCollectionTests();
-            ListTests();
-            DictionaryTests();
-            PropertyDictionaryTests();
-            AlphabeticalDictionaryTests();
-            AlphabeticalListTests();
+            RegisterCollectionTests(context);
+            ListTests(context);
+            DictionaryTests(context);
+            PropertyDictionaryTests(context);
+            AlphabeticalDictionaryTests(context);
+            AlphabeticalListTests(context);
         });
 }

@@ -1,30 +1,31 @@
 import { doesNotThrow, notStrictEqual, ok, strictEqual, throws } from "assert";
-import { Random } from "random-js";
 import { Dictionary } from "../../Collections/Dictionary";
+import { TestContext } from "../TestContext";
 
 /**
  * Registers tests for the {@link Dictionary `Dictionary<TKey, TValue>`} class.
+ *
+ * @param context
+ * The test-context.
  */
-export function DictionaryTests(): void
+export function DictionaryTests(context: TestContext): void
 {
     suite(
         nameof(Dictionary),
         () =>
         {
             let dictionary: Dictionary<string, string>;
-            let random: Random;
             let randomMap: Array<[string, string]>;
             let randomKey: string;
 
             suiteSetup(
                 () =>
                 {
-                    random = new Random();
                     randomMap = [];
 
-                    for (let i = random.integer(1, 10); i > 0; i--)
+                    for (let i = context.Random.integer(1, 10); i > 0; i--)
                     {
-                        randomMap.push([i.toString(), random.string(5)]);
+                        randomMap.push([i.toString(), context.Random.string(5)]);
                     }
                 });
 
@@ -32,7 +33,7 @@ export function DictionaryTests(): void
                 () =>
                 {
                     dictionary = new Dictionary(randomMap);
-                    randomKey = random.pick(randomMap)[0];
+                    randomKey = context.Random.pick(randomMap)[0];
                 });
 
             /**
@@ -117,7 +118,7 @@ export function DictionaryTests(): void
                         () =>
                         {
                             key = "this-is-a-key";
-                            value = random.string(5);
+                            value = context.Random.string(5);
                         });
 
                     setup(

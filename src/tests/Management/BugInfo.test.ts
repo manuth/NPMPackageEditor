@@ -1,29 +1,29 @@
 import { ok, strictEqual } from "assert";
-import { Random } from "random-js";
 import { BugInfo } from "../../Management/BugInfo";
 import { IBugInfo } from "../../Management/IBugInfo";
+import { TestContext } from "../TestContext";
 
 /**
  * Registers tests for the {@link BugInfo `BugInfo`} class.
+ *
+ * @param context
+ * The test-context.
  */
-export function BugInfoTests(): void
+export function BugInfoTests(context: TestContext): void
 {
     suite(
         nameof(BugInfo),
         () =>
         {
-            let random: Random;
             let bugInfo: BugInfo;
             let bugInfoOptions: IBugInfo;
 
             suiteSetup(
                 () =>
                 {
-                    random = new Random();
-
                     bugInfoOptions = {
-                        url: random.string(10),
-                        email: random.string(10)
+                        url: context.Random.string(10),
+                        email: context.Random.string(10)
                     };
                 });
 

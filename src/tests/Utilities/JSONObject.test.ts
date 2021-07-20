@@ -1,19 +1,21 @@
 import { doesNotThrow, ok, strictEqual, throws } from "assert";
-import { Random } from "random-js";
 import { IPerson } from "../../Management/IPerson";
 import { JSONObject } from "../../Utilities/JSONObject";
+import { TestContext } from "../TestContext";
 import { PropertyInjector } from "./PropertyInjector";
 
 /**
  * Registers tests for the {@link JSONObject `JSONObject<T>`} class.
+ *
+ * @param context
+ * The test-context.
  */
-export function JSONObjectTests(): void
+export function JSONObjectTests(context: TestContext): void
 {
     suite(
         nameof(JSONObject),
         () =>
         {
-            let random: Random;
             let jsonObject: JSONObject<ITest>;
             let options: IPerson;
             let randomKeyGenerator: Generator<keyof IPerson, keyof IPerson>;
@@ -41,13 +43,12 @@ export function JSONObjectTests(): void
             suiteSetup(
                 () =>
                 {
-                    random = new Random();
                     randomKeyGenerator = (
                         function* generate()
                         {
                             while (true)
                             {
-                                yield random.pick(Object.keys(options)) as keyof IPerson;
+                                yield context.Random.pick(Object.keys(options)) as keyof IPerson;
                             }
                         })();
 
@@ -63,7 +64,7 @@ export function JSONObjectTests(): void
                 {
                     jsonObject = new JSONObject();
                     randomKey = randomKeyGenerator.next().value;
-                    randomValue = random.string(10);
+                    randomValue = context.Random.string(10);
                 });
 
             /**

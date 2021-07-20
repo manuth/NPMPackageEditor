@@ -1,18 +1,20 @@
 import { doesNotThrow, notStrictEqual, ok, strictEqual, throws } from "assert";
-import { Random } from "random-js";
 import { AlphabeticalList } from "../../Collections/AlphabeticalList";
 import { List } from "../../Collections/List";
+import { TestContext } from "../TestContext";
 
 /**
  * Registers tests for the {@link AlphabeticalList `AlphabeticalList<T>`} class.
+ *
+ * @param context
+ * The test-context.
  */
-export function AlphabeticalListTests(): void
+export function AlphabeticalListTests(context: TestContext): void
 {
     suite(
         nameof(AlphabeticalList),
         () =>
         {
-            let random: Random;
             let incorrectOrder: string[];
             let list: List<string>;
             let randomValue: string;
@@ -20,12 +22,11 @@ export function AlphabeticalListTests(): void
             suiteSetup(
                 () =>
                 {
-                    random = new Random();
                     incorrectOrder = [];
 
-                    for (let i = random.integer(1, 50); i > 0; i--)
+                    for (let i = context.Random.integer(1, 50); i > 0; i--)
                     {
-                        incorrectOrder.push(random.string(10, "abc"));
+                        incorrectOrder.push(context.Random.string(10, "abc"));
                     }
                 });
 
@@ -33,7 +34,7 @@ export function AlphabeticalListTests(): void
                 () =>
                 {
                     list = new AlphabeticalList(incorrectOrder);
-                    randomValue = random.string(15);
+                    randomValue = context.Random.string(15);
                 });
 
             /**
@@ -155,9 +156,9 @@ export function AlphabeticalListTests(): void
                             let otherRange: string[] = [];
                             let startCount = list.Count;
 
-                            for (let i = random.integer(1, 10); i > 0; i--)
+                            for (let i = context.Random.integer(1, 10); i > 0; i--)
                             {
-                                otherRange.push(random.string(15));
+                                otherRange.push(context.Random.string(15));
                             }
 
                             list.AddRange(otherRange);

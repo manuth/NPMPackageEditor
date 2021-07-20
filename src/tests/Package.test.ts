@@ -5,7 +5,6 @@ import { TempFile } from "@manuth/temp-files";
 import { readdir, readFile, remove, statSync, writeJSON } from "fs-extra";
 import gitRemoteOriginUrl = require("git-remote-origin-url");
 import gitRootDir = require("git-root-dir");
-import { Random } from "random-js";
 import readmeFilename = require("readme-filename");
 import stringify = require("stringify-author");
 import { join, parse } from "upath";
@@ -22,18 +21,21 @@ import { Person } from "../Management/Person";
 import { Package } from "../Package";
 import { JSONObject } from "../Utilities/JSONObject";
 import { PropertyChecker } from "./PropertyChecker";
+import { TestContext } from "./TestContext";
 import { TestPackage } from "./TestPackage";
 
 /**
  * Registers tests for the {@link Package `Package`} class.
+ *
+ * @param context
+ * The test-context.
  */
-export function PackageTests(): void
+export function PackageTests(context: TestContext): void
 {
     suite(
         nameof(Package),
         () =>
         {
-            let random: Random;
             let metadata: IPackageMetadata;
             let npmPackage: TestPackage;
 
@@ -129,9 +131,9 @@ export function PackageTests(): void
                 while (true)
                 {
                     yield {
-                        name: random.string(10),
-                        email: random.string(10),
-                        url: random.string(10)
+                        name: context.Random.string(10),
+                        email: context.Random.string(10),
+                        url: context.Random.string(10)
                     } as IPerson;
                 }
             }
@@ -150,8 +152,6 @@ export function PackageTests(): void
             suiteSetup(
                 () =>
                 {
-                    random = new Random();
-
                     /**
                      * Generates a random text.
                      *
@@ -163,7 +163,7 @@ export function PackageTests(): void
                      */
                     function text(length = 15): string
                     {
-                        return random.string(length);
+                        return context.Random.string(length);
                     }
 
                     /**
@@ -174,7 +174,7 @@ export function PackageTests(): void
                      */
                     function digit(): number
                     {
-                        return random.integer(0, 9);
+                        return context.Random.integer(0, 9);
                     }
 
                     /**
@@ -195,7 +195,7 @@ export function PackageTests(): void
                     metadata = {
                         name: text(),
                         version: `${digit()}.${digit()}.${digit()}`,
-                        private: random.bool(),
+                        private: context.Random.bool(),
                         description: text(100),
                         author: person(),
                         maintainers: [
@@ -206,7 +206,7 @@ export function PackageTests(): void
                             person(),
                             person()
                         ],
-                        license: random.pick(
+                        license: context.Random.pick(
                             [
                                 "MIT",
                                 "Apache-2.0",
@@ -502,7 +502,7 @@ export function PackageTests(): void
                                 {
                                     tempFile = new TempFile();
                                     inexistentFile = new TempFile();
-                                    testValue = random.string(20);
+                                    testValue = context.Random.string(20);
                                     await writeJSON(tempFile.FullName, metadata);
                                     await remove(inexistentFile.FullName);
                                 });
@@ -598,7 +598,7 @@ export function PackageTests(): void
                         {
                             let parsedPath = parse(npmPackage.FileName);
                             let subDirectories = (await readdir(gitRoot)).filter((entry) => statSync(entry).isDirectory());
-                            let directory = random.pick(subDirectories);
+                            let directory = context.Random.pick(subDirectories);
                             let fileName = join(parsedPath.dir, directory, parsedPath.base);
                             npmPackage = new TestPackage();
                             npmPackage.FileName = fileName;
@@ -654,8 +654,8 @@ export function PackageTests(): void
                         "Checking whether additional properties persist…",
                         () =>
                         {
-                            let testKey = random.string(20);
-                            let testValue = random.string(10);
+                            let testKey = context.Random.string(20);
+                            let testValue = context.Random.string(10);
                             npmPackage = new TestPackage(
                                 {
                                     [testKey]: testValue
@@ -702,8 +702,8 @@ export function PackageTests(): void
                     setup(
                         () =>
                         {
-                            randomKey = random.string(10);
-                            randomValue = random.string(10);
+                            randomKey = context.Random.string(10);
+                            randomValue = context.Random.string(10);
                         });
 
                     test(
