@@ -114,8 +114,11 @@ export function PackageDependencyCollectionTests(context: TestContext): void
                 {
                     test(
                         `Checking whether dependencies are loaded from \`${nameof<PackageDependencyCollection>((c) => c.AllDependencies)}\` by default…`,
-                        () =>
+                        function()
                         {
+                            this.timeout(10 * 1000);
+                            this.timeout(5 * 1000);
+
                             for (let dependency of npmPackage.AllDependencies.Keys)
                             {
                                 strictEqual(
