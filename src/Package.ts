@@ -9,6 +9,7 @@ import { dirname, join, relative, resolve } from "upath";
 import { Dictionary } from "./Collections/Dictionary";
 import { List } from "./Collections/List";
 import { PropertyDictionary } from "./Collections/PropertyDictionary";
+import { DumpLogic } from "./DumpLogic";
 import { GenerationLogic } from "./GenerationLogic";
 import { IPackageJSON } from "./IPackageJSON";
 import { IPackageMetadata } from "./IPackageMetadata";
@@ -384,6 +385,33 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     }
 
     /**
+     * Gets the dump-logic for the properties.
+     */
+    protected get DumpLogics(): Map<keyof Package, DumpLogic>
+    {
+        return new Map<keyof Package, DumpLogic>(
+            [
+                ...[
+                    nameof<Package>((pkg) => pkg.Author),
+                    nameof<Package>((pkg) => pkg.Engines),
+                    nameof<Package>((pkg) => pkg.Bugs),
+                    nameof<Package>((pkg) => pkg.Scripts),
+                    nameof<Package>((pkg) => pkg.Dependencies),
+                    nameof<Package>((pkg) => pkg.DevelopmentDependencies),
+                    nameof<Package>((pkg) => pkg.PeerDependencies),
+                    nameof<Package>((pkg) => pkg.OptionalDependencies),
+                    nameof<Package>((pkg) => pkg.BundledDependencies)
+                ].map(
+                    (key) => [key, DumpLogic.JSONObject] as [keyof Package, DumpLogic]),
+                ...[
+                    nameof<Package>((pkg) => pkg.Maintainers),
+                    nameof<Package>((pkg) => pkg.Contributors)
+                ].map(
+                    (key) => [key, DumpLogic.JSONObjectArray] as [keyof Package, DumpLogic])
+            ]);
+    }
+
+    /**
      * Gets the load-logic for the properties.
      */
     protected get LoadLogics(): Map<keyof IPackageMetadata, LoadLogic>
@@ -509,19 +537,32 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
         for (let entry of this.PropertyMap.entries())
         {
             let value = this[entry[1]];
-            let logic = GenerationLogic.Default;
+            let generationLogic = GenerationLogic.Default;
+            let dumpLogic = DumpLogic.Default;
 
-            if (value instanceof JSONObjectBase)
+            if (this.DumpLogics.has(entry[1]))
             {
-                value = value.ToJSON();
+                dumpLogic = this.DumpLogics.get(entry[1]);
+            }
+
+            switch (dumpLogic)
+            {
+                case DumpLogic.JSONObject:
+                    value = (value as JSONObject).ToJSON();
+                    break;
+                case DumpLogic.JSONObjectArray:
+                    value = (value as JSONObject[]).map((obj) => obj.ToJSON());
+                    break;
+                default:
+                    break;
             }
 
             if (this.GenerationLogics.has(entry[0]))
             {
-                logic = this.GenerationLogics.get(entry[0]);
+                generationLogic = this.GenerationLogics.get(entry[0]);
             }
 
-            switch (logic)
+            switch (generationLogic)
             {
                 case GenerationLogic.NonEmpty:
                     result.AddIfNotEmpty(entry[0], value);

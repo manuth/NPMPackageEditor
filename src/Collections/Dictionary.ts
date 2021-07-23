@@ -1,3 +1,4 @@
+import isIterableLike = require("@stdlib/assert-is-iterable-like");
 import { JSONObject } from "../Utilities/JSONObject";
 import { JSONObjectBase } from "../Utilities/JSONObjectBase";
 import { Collection } from "./Collection";
@@ -93,12 +94,18 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
      */
     public AddRange(entries: Iterable<readonly [TKey, TValue]> | Dictionary<TKey, TValue>): void
     {
-        if (entries instanceof Dictionary)
+        let entrySet: Iterable<readonly [TKey, TValue]>;
+
+        if (this.IsIterable(entries))
         {
-            entries = entries.Entries;
+            entrySet = entries;
+        }
+        else
+        {
+            entrySet = entries.Entries;
         }
 
-        for (let entry of entries)
+        for (let entry of entrySet)
         {
             this.Add(entry[0], entry[1]);
         }
@@ -197,5 +204,19 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
                 return result;
             },
             new JSONObject()).ToJSON();
+    }
+
+    /**
+     * Checks whether the specified {@link list `list`} is an {@link Iterable `Iterable<T>`} object.
+     *
+     * @param list
+     * The list to to check.
+     *
+     * @returns
+     * A value indicating whether the specified {@link list `list`} is an {@link Iterable `Iterable<T>`} object.
+     */
+    protected IsIterable(list: Iterable<readonly [TKey, TValue]> | Dictionary<TKey, TValue>): list is Iterable<readonly [TKey, TValue]>
+    {
+        return isIterableLike(list);
     }
 }

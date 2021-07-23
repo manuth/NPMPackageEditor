@@ -1,6 +1,6 @@
 {
   "name": "@manuth/package-json-editor",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Provides types and tools for editing `package.json` files",
   "author": "Manuel Thalmann <m@nuth.ch>",
   "license": "MIT",
@@ -43,6 +43,7 @@
     "patchTypeScript": "ts-patch install && ts-patch --persist"
   },
   "dependencies": {
+    "@stdlib/assert-is-iterable-like": "^0.0.5",
     "fs-extra": "^10.0.0",
     "git-remote-origin-url": "^3.1.0",
     "git-root-dir": "^1.0.2",
@@ -61,8 +62,8 @@
     "@manuth/typescript-eslint-plugin": "^1.4.1",
     "@types/fs-extra": "^9.0.12",
     "@types/git-root-dir": "^1.0.0",
-    "@types/mocha": "^8.2.3",
-    "@types/node": "^16.3.3",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.4.1",
     "@types/normalize-package-data": "^2.4.1",
     "@types/parse-author": "^2.0.1",
     "@types/readme-filename": "^1.0.0",
@@ -74,7 +75,7 @@
     "eslint": "^7.31.0",
     "eslint-plugin-deprecation": "^1.2.1",
     "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-jsdoc": "^35.5.0",
+    "eslint-plugin-jsdoc": "^35.5.1",
     "eslint-plugin-node": "^11.1.0",
     "find-up": "^5.0.0",
     "mocha": "^9.0.2",
