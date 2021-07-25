@@ -156,8 +156,11 @@ export function PackageDependencyCollectionTests(context: TestContext): void
 
                     test(
                         `Checking whether dependencies can be injected using the \`${nameof<TestPackageDependencyCollection>((c) => c.DependencyNames)}\`-property…`,
-                        () =>
+                        function()
                         {
+                            this.slow(5 * 1000);
+                            this.timeout(10 * 1000);
+
                             ok(
                                 Object.keys(collectionOptions).every(
                                     (key: keyof PackageDependencyCollectionOptions) =>
@@ -182,8 +185,8 @@ export function PackageDependencyCollectionTests(context: TestContext): void
                         `Checking whether dependencies are loaded from \`${nameof<PackageDependencyCollection>((c) => c.AllDependencies)}\` by default…`,
                         function()
                         {
+                            this.slow(5 * 1000);
                             this.timeout(10 * 1000);
-                            this.timeout(5 * 1000);
 
                             for (let dependency of npmPackage.AllDependencies.Keys)
                             {
