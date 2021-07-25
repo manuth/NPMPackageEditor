@@ -50,8 +50,11 @@ export function ListTests(context: TestContext): void
                 {
                     test(
                         "Checking whether the keys represent a numeric range…",
-                        () =>
+                        function()
                         {
+                            this.slow(2 * 1000);
+                            this.timeout(4 * 1000);
+
                             let expected: number[] = [];
 
                             for (let i = 0; i < randomData.length; i++)

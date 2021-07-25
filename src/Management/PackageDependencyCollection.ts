@@ -126,7 +126,7 @@ export class PackageDependencyCollection extends DependencyCollection
      */
     protected LoadDependencies(listName: keyof PackageDependencyCollectionOptions, packageListName?: KeyOfType<DependencyCollection, Dictionary<string, string>>): Dictionary<string, string>
     {
-        return this.LoadPackageDependencies(this.dependencyNames[listName] ?? [], packageListName);
+        return this.LoadPackageDependencies(this.DependencyNames[listName] ?? [], packageListName);
     }
 
     /**

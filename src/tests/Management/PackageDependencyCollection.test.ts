@@ -1,4 +1,4 @@
-import { doesNotThrow, strictEqual, throws } from "assert";
+import { doesNotThrow, ok, strictEqual, throws } from "assert";
 import { randexp } from "randexp";
 import { Dictionary } from "../../Collections/Dictionary";
 import { PropertyDictionary } from "../../Collections/PropertyDictionary";
@@ -42,6 +42,14 @@ export function PackageDependencyCollectionTests(context: TestContext): void
         public override get Package(): Package
         {
             return super.Package;
+        }
+
+        /**
+         * @inheritdoc
+         */
+        public override get DependencyNames(): PackageDependencyCollectionOptions
+        {
+            return super.DependencyNames;
         }
 
         /**
@@ -109,6 +117,67 @@ export function PackageDependencyCollectionTests(context: TestContext): void
                 });
 
             suite(
+                nameof<TestPackageDependencyCollection>((c) => c.DependencyNames),
+                () =>
+                {
+                    let injectedDependency: string;
+                    let injectedVersion: string;
+
+                    /**
+                     * Provides the functionality to test the injection of dependencies.
+                     */
+                    class InjectedPackageDependencyCollection extends TestPackageDependencyCollection
+                    {
+                        /**
+                         * @inheritdoc
+                         */
+                        public override get DependencyNames(): PackageDependencyCollectionOptions
+                        {
+                            let result = super.DependencyNames;
+
+                            return {
+                                ...result,
+                                dependencies: [
+                                    ...(result.dependencies ?? []),
+                                    injectedDependency
+                                ]
+                            };
+                        }
+                    }
+
+                    setup(
+                        () =>
+                        {
+                            injectedDependency = randexp(/[a-zA-Z]{10}/);
+                            injectedVersion = randexp(/\d+\.\d+\.\d+/);
+                            npmPackage.Dependencies.Add(injectedDependency, injectedVersion);
+                            collection = new InjectedPackageDependencyCollection(npmPackage, collectionOptions);
+                        });
+
+                    test(
+                        `Checking whether dependencies can be injected using the \`${nameof<TestPackageDependencyCollection>((c) => c.DependencyNames)}\`-property…`,
+                        function()
+                        {
+                            this.slow(5 * 1000);
+                            this.timeout(10 * 1000);
+
+                            ok(
+                                Object.keys(collectionOptions).every(
+                                    (key: keyof PackageDependencyCollectionOptions) =>
+                                    {
+                                        return collectionOptions[key].every(
+                                            (dependency) =>
+                                            {
+                                                return collection.AllDependencies.Has(dependency);
+                                            });
+                                    }));
+
+                            ok(collection.AllDependencies.Has(injectedDependency));
+                            strictEqual(collection.AllDependencies.Get(injectedDependency), injectedVersion);
+                        });
+                });
+
+            suite(
                 nameof<TestPackageDependencyCollection>((c) => c.LoadPackageDependencies),
                 () =>
                 {
@@ -116,8 +185,8 @@ export function PackageDependencyCollectionTests(context: TestContext): void
                         `Checking whether dependencies are loaded from \`${nameof<PackageDependencyCollection>((c) => c.AllDependencies)}\` by default…`,
                         function()
                         {
+                            this.slow(5 * 1000);
                             this.timeout(10 * 1000);
-                            this.timeout(5 * 1000);
 
                             for (let dependency of npmPackage.AllDependencies.Keys)
                             {
