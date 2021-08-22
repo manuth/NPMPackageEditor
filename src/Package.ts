@@ -683,6 +683,9 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     /**
      * Loads a dictionary from an object.
      *
+     * @template T
+     * The type of the collection to load.
+     *
      * @param collection
      * The collection to load.
      *

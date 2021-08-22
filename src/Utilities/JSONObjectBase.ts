@@ -1,5 +1,8 @@
 /**
  * Represents a JSON-object.
+ *
+ * @template T
+ * The type of the corresponding json-object.
  */
 export abstract class JSONObjectBase<T>
 {
