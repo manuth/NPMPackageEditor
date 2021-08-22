@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## NPMPackageEditor [Unreleased]
+### Fixed
+  - Broken publish-scripts
+
+### Updated
+  - All dependencies
+  - The `Package`-class to not output `dependencies` or `devDependencies` if none are present
+  - Settings to disable timeouts for mocha unit-tests
 
 [Show differences](https://github.com/manuth/NPMPackageEditor/compare/v2.2.2...dev)
 
