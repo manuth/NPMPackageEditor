@@ -625,9 +625,7 @@ export function PackageTests(context: TestContext): void
                         () =>
                         {
                             let importantKeys = [
-                                nameof<IPackageMetadata>((metadata) => metadata.scripts),
-                                nameof<IPackageMetadata>((metadata) => metadata.dependencies),
-                                nameof<IPackageMetadata>((metadata) => metadata.devDependencies)
+                                nameof<IPackageMetadata>((metadata) => metadata.scripts)
                             ] as Array<keyof IPackageMetadata>;
 
                             generatedMeta = new TestPackage().ToJSON();
