@@ -73,8 +73,8 @@ steps:
     depends_on:
       - create package
     commands:
-      - npm install escape-string-regexp --no-save
-      - node -e "console.log(require('escape-string-regexp')('${DRONE_TAG}'))" > .tagName.txt
+      - npm install @stdlib/utils-escape-regexp-string --no-save
+      - node -e "console.log(require('@stdlib/utils-escape-regexp-string')('${DRONE_TAG}'))" > .tagName.txt
     when:
       event:
         - tag
