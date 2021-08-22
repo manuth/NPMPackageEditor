@@ -9,6 +9,10 @@
             "request": "launch",
             "name": "Launch Tests",
             "program": "${workspaceFolder}/node_modules/mocha/bin/mocha",
+            "args": [
+                "--timeout",
+                "0"
+            ],
             "internalConsoleOptions": "openOnSessionStart",
             "preLaunchTask": "Build",
             "sourceMaps": true,
