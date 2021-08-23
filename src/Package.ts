@@ -194,8 +194,8 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
             [nameof<IPackageMetadata>((meta) => meta.config), GenerationLogic.NonEmpty],
             [nameof<IPackageMetadata>((meta) => meta.publishConfig), GenerationLogic.NonEmpty],
             [nameof<IPackageMetadata>((meta) => meta.scripts), GenerationLogic.Always],
-            [nameof<IPackageMetadata>((meta) => meta.dependencies), GenerationLogic.Always],
-            [nameof<IPackageMetadata>((meta) => meta.devDependencies), GenerationLogic.Always],
+            [nameof<IPackageMetadata>((meta) => meta.dependencies), GenerationLogic.NonEmpty],
+            [nameof<IPackageMetadata>((meta) => meta.devDependencies), GenerationLogic.NonEmpty],
             [nameof<IPackageMetadata>((meta) => meta.peerDependencies), GenerationLogic.NonEmpty],
             [nameof<IPackageMetadata>((meta) => meta.optionalDependencies), GenerationLogic.NonEmpty],
             [nameof<IPackageMetadata>((meta) => meta.bundledDependencies), GenerationLogic.NonEmpty]
@@ -682,6 +682,9 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
 
     /**
      * Loads a dictionary from an object.
+     *
+     * @template T
+     * The type of the collection to load.
      *
      * @param collection
      * The collection to load.

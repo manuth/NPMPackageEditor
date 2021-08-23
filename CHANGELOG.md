@@ -6,7 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## NPMPackageEditor [Unreleased]
 
-[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v2.2.2...dev)
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v2.2.3...dev)
+
+## NPMPackageEditor v2.2.3
+### Fixed
+  - Broken publish-scripts
+
+### Updated
+  - All dependencies
+  - The `Package`-class to not output `dependencies` or `devDependencies` if none are present
+  - Settings to disable timeouts for mocha unit-tests
+
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v2.2.2...v2.2.3)
 
 ## NPMPackageEditor v2.2.2
 ### Fixed
