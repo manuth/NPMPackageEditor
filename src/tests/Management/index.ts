@@ -1,3 +1,4 @@
+import { basename } from "path";
 import { TestContext } from "../TestContext";
 import { BugInfoTests } from "./BugInfo.test";
 import { DependencyCollectionTests } from "./DependencyCollection.test";
@@ -13,7 +14,7 @@ import { PersonTests } from "./Person.test";
 export function ManagementTests(context: TestContext): void
 {
     suite(
-        "Management",
+        basename(__dirname),
         async () =>
         {
             BugInfoTests(context);

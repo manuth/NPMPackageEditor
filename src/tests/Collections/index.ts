@@ -1,3 +1,4 @@
+import { basename } from "path";
 import { TestContext } from "../TestContext";
 import { AlphabeticalDictionaryTests } from "./AlphabeticalDictionary.test";
 import { AlphabeticalListTests } from "./AlphabeticalList.test";
@@ -15,7 +16,7 @@ import { PropertyDictionaryTests } from "./PropertyDictionary.test";
 export function CollectionTests(context: TestContext): void
 {
     suite(
-        "Collections",
+        basename(__dirname),
         () =>
         {
             RegisterCollectionTests(context);

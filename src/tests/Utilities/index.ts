@@ -1,3 +1,4 @@
+import { basename } from "path";
 import { TestContext } from "../TestContext";
 import { JSONObjectTests } from "./JSONObject.test";
 
@@ -10,7 +11,7 @@ import { JSONObjectTests } from "./JSONObject.test";
 export function UtilityTests(context: TestContext): void
 {
     suite(
-        "Utilities",
+        basename(__dirname),
         () =>
         {
             JSONObjectTests(context);
