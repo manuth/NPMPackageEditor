@@ -632,9 +632,9 @@ export function PackageTests(context: TestContext): void
 
                             ok(
                                 Object.keys(generatedMeta).every(
-                                    (key: keyof IPackageMetadata) =>
+                                    (key) =>
                                     {
-                                        return importantKeys.includes(key);
+                                        return importantKeys.includes(key as keyof IPackageMetadata);
                                     }));
                         });
 

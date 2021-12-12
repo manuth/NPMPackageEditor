@@ -163,9 +163,9 @@ export function PackageDependencyCollectionTests(context: TestContext): void
 
                             ok(
                                 Object.keys(collectionOptions).every(
-                                    (key: keyof PackageDependencyCollectionOptions) =>
+                                    (key) =>
                                     {
-                                        return collectionOptions[key].every(
+                                        return collectionOptions[key as keyof PackageDependencyCollectionOptions].every(
                                             (dependency) =>
                                             {
                                                 return collection.AllDependencies.Has(dependency);

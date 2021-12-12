@@ -1,7 +1,7 @@
 {
     "recommendations": [
+        "dbaeumer.vscode-eslint",
         "hbenl.vscode-mocha-test-adapter",
-        "hbenl.vscode-test-explorer",
-        "manuth.eslint-language-service"
+        "hbenl.vscode-test-explorer"
     ]
 }
