@@ -59,7 +59,6 @@
     "@manuth/temp-files": "^2.0.7",
     "@manuth/tsconfig": "^3.0.0",
     "@manuth/tslint-presets": "^1.0.5",
-    "@manuth/typescript-eslint-plugin": "^1.4.2",
     "@types/fs-extra": "^9.0.13",
     "@types/git-root-dir": "^1.0.0",
     "@types/mocha": "^9.0.0",
