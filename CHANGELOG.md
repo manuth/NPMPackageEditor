@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## NPMPackageEditor [Unreleased]
+### Added
+  - Support for all different kinds of GitHub remote urls
 
 [Show differences](https://github.com/manuth/NPMPackageEditor/compare/v2.2.4...dev)
 
