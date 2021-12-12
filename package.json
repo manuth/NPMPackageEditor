@@ -58,7 +58,6 @@
     "@manuth/eslint-plugin-typescript": "^3.2.6",
     "@manuth/temp-files": "^2.0.7",
     "@manuth/tsconfig": "^3.0.0",
-    "@manuth/tslint-presets": "^1.0.5",
     "@types/fs-extra": "^9.0.13",
     "@types/git-root-dir": "^1.0.0",
     "@types/github-url-from-git": "^1.5.1",
@@ -78,7 +77,6 @@
     "rimraf": "^3.0.2",
     "source-map-support": "^0.5.21",
     "ts-nameof": "^5.0.0",
-    "ts-node": "^10.4.0",
     "ts-patch": "^2.0.1",
     "typescript": "^4.5.3"
   }
