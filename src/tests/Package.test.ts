@@ -3,7 +3,7 @@ import { arch, platform } from "os";
 import { URL } from "url";
 import { TempFile } from "@manuth/temp-files";
 import { readdir, readFile, remove, statSync, writeJSON } from "fs-extra";
-import gitRemoteOriginUrl = require("git-remote-origin-url");
+import gitRemoteOriginUrl, { Options } from "git-remote-origin-url";
 import gitRootDir = require("git-root-dir");
 import readmeFilename = require("readme-filename");
 import stringify = require("stringify-author");
@@ -558,9 +558,13 @@ export function PackageTests(context: TestContext): void
                     suiteSetup(
                         async () =>
                         {
+                            let options: Options = {
+                                cwd: gitRoot
+                            };
+
                             gitRoot = await gitRootDir(__dirname);
-                            gitRemoteUrl = new URL(await gitRemoteOriginUrl(gitRoot));
-                            webUrl = new URL(await gitRemoteOriginUrl(gitRoot));
+                            gitRemoteUrl = new URL(await gitRemoteOriginUrl(options));
+                            webUrl = new URL(await gitRemoteOriginUrl(options));
                             webUrl.protocol = "https";
                             webUrl.pathname = webUrl.pathname.replace(/\.git$/, "");
                             homepage = `${webUrl}#readme`;
@@ -632,9 +636,9 @@ export function PackageTests(context: TestContext): void
 
                             ok(
                                 Object.keys(generatedMeta).every(
-                                    (key: keyof IPackageMetadata) =>
+                                    (key) =>
                                     {
-                                        return importantKeys.includes(key);
+                                        return importantKeys.includes(key as keyof IPackageMetadata);
                                     }));
                         });
 
