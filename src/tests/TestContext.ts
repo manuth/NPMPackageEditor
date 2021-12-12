@@ -1,4 +1,4 @@
-import { findUpSync } from "find-up";
+import findUp = require("find-up");
 import { readFileSync } from "fs-extra";
 import { randexp } from "randexp";
 import { Random } from "random-js";
@@ -42,7 +42,7 @@ export class TestContext
     {
         if (this.dependencies === null)
         {
-            let npmPackage: IPackageMetadata = JSON.parse(readFileSync(findUpSync(Package.FileName, { cwd: __dirname })).toString());
+            let npmPackage: IPackageMetadata = JSON.parse(readFileSync(findUp.sync(Package.FileName, { cwd: __dirname })).toString());
 
             this.dependencies = [
                 ...Object.keys(
