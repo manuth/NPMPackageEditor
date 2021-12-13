@@ -1,6 +1,6 @@
 {
   "name": "@manuth/package-json-editor",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "description": "Provides types and tools for editing `package.json` files",
   "author": "Manuel Thalmann <m@nuth.ch>",
   "license": "MIT",
@@ -47,6 +47,7 @@
     "fs-extra": "^10.0.0",
     "git-remote-origin-url": "^3.1.0",
     "git-root-dir": "^1.0.2",
+    "github-url-from-git": "^1.5.0",
     "normalize-package-data": "^3.0.3",
     "parse-author": "^2.0.0",
     "readme-filename": "^1.0.0",
@@ -58,9 +59,9 @@
     "@manuth/eslint-plugin-typescript": "^3.2.6",
     "@manuth/temp-files": "^2.0.7",
     "@manuth/tsconfig": "^3.0.0",
-    "@manuth/tslint-presets": "^1.0.5",
     "@types/fs-extra": "^9.0.13",
     "@types/git-root-dir": "^1.0.0",
+    "@types/github-url-from-git": "^1.5.1",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.11.12",
     "@types/normalize-package-data": "^2.4.1",
@@ -76,7 +77,6 @@
     "rimraf": "^3.0.2",
     "source-map-support": "^0.5.21",
     "ts-nameof": "^5.0.0",
-    "ts-node": "^10.4.0",
     "ts-patch": "^2.0.1",
     "typescript": "^4.5.3"
   }
