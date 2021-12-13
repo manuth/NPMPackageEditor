@@ -560,6 +560,7 @@ export function PackageTests(context: TestContext): void
                         async () =>
                         {
                             let url = githubUrlFromGit(await gitRemoteOriginUrl(gitRoot));
+                            url = url ? `${url}.git` : null;
                             gitRoot = await gitRootDir(__dirname);
                             gitRemoteUrl = new URL(url);
                             webUrl = new URL(url);
