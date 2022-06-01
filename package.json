@@ -63,7 +63,7 @@
     "@types/git-root-dir": "^1.0.0",
     "@types/github-url-from-git": "^1.5.1",
     "@types/mocha": "^9.0.0",
-    "@types/node": "^16.11.12",
+    "@types/node": "^17.0.38",
     "@types/normalize-package-data": "^2.4.1",
     "@types/parse-author": "^2.0.1",
     "@types/readme-filename": "^1.0.0",
