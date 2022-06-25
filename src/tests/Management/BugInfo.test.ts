@@ -1,4 +1,4 @@
-import { ok, strictEqual } from "assert";
+import { ok, strictEqual } from "node:assert";
 import { BugInfo } from "../../Management/BugInfo.js";
 import { IBugInfo } from "../../Management/IBugInfo.js";
 import { TestContext } from "../TestContext.js";

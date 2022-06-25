@@ -1,4 +1,4 @@
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 import { findUp } from "find-up";
 import fs from "fs-extra";
 import RandExp from "randexp";

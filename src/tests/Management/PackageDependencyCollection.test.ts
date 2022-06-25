@@ -1,4 +1,4 @@
-import { doesNotThrow, ok, strictEqual, throws } from "assert";
+import { doesNotThrow, ok, strictEqual, throws } from "node:assert";
 import RandExp from "randexp";
 import { Dictionary } from "../../Collections/Dictionary.js";
 import { PropertyDictionary } from "../../Collections/PropertyDictionary.js";

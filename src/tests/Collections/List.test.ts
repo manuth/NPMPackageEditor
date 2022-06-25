@@ -1,4 +1,4 @@
-import { deepStrictEqual, doesNotThrow, notStrictEqual, ok, strictEqual, throws } from "assert";
+import { deepStrictEqual, doesNotThrow, notStrictEqual, ok, strictEqual, throws } from "node:assert";
 import { List } from "../../Collections/List.js";
 import { TestContext } from "../TestContext.js";
 

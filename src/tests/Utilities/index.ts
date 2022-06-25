@@ -1,4 +1,4 @@
-import { basename } from "path";
+import { basename } from "node:path";
 import { TestContext } from "../TestContext.js";
 import { JSONObjectTests } from "./JSONObject.test.js";
 

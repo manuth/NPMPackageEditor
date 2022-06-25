@@ -1,6 +1,6 @@
-import { deepStrictEqual, doesNotThrow, notStrictEqual, ok, strictEqual } from "assert";
-import { arch, platform } from "os";
-import { fileURLToPath, URL } from "url";
+import { deepStrictEqual, doesNotThrow, notStrictEqual, ok, strictEqual } from "node:assert";
+import { arch, platform } from "node:os";
+import { fileURLToPath, URL } from "node:url";
 import { TempFile } from "@manuth/temp-files";
 import fs from "fs-extra";
 import gitRemoteOriginUrl from "git-remote-origin-url";

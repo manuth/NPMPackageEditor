@@ -1,4 +1,4 @@
-import { doesNotThrow, ok, strictEqual, throws } from "assert";
+import { doesNotThrow, ok, strictEqual, throws } from "node:assert";
 import { IPerson } from "../../Management/IPerson.js";
 import { JSONObject } from "../../Utilities/JSONObject.js";
 import { TestContext } from "../TestContext.js";

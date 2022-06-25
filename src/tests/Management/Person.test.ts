@@ -1,4 +1,4 @@
-import { strictEqual } from "assert";
+import { strictEqual } from "node:assert";
 import stringify from "stringify-author";
 import { IPerson } from "../../Management/IPerson.js";
 import { Person } from "../../Management/Person.js";

@@ -1,4 +1,4 @@
-import { doesNotThrow, ok, strictEqual, throws } from "assert";
+import { doesNotThrow, ok, strictEqual, throws } from "node:assert";
 import { Random } from "random-js";
 import { Dictionary } from "../../Collections/Dictionary.js";
 import { DependencyCollection } from "../../Management/DependencyCollection.js";

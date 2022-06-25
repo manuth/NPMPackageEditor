@@ -1,4 +1,4 @@
-import { basename } from "path";
+import { basename } from "node:path";
 import { TestContext } from "../TestContext.js";
 import { AlphabeticalDictionaryTests } from "./AlphabeticalDictionary.test.js";
 import { AlphabeticalListTests } from "./AlphabeticalList.test.js";

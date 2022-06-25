@@ -1,4 +1,4 @@
-import { ok, strictEqual } from "assert";
+import { ok, strictEqual } from "node:assert";
 import { Collection } from "../../Collections/Collection.js";
 import { TestContext } from "../TestContext.js";
 import { TestCollection } from "./TestCollection.js";

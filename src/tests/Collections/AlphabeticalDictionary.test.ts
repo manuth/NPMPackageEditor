@@ -1,4 +1,4 @@
-import { strictEqual } from "assert";
+import { strictEqual } from "node:assert";
 import { AlphabeticalDictionary } from "../../Collections/AlphabeticalDictionary.js";
 import { Dictionary } from "../../Collections/Dictionary.js";
 import { TestContext } from "../TestContext.js";

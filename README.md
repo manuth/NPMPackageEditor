@@ -33,8 +33,8 @@ writeFileSync(Package.FileName, JSON.stringify(packageMeta));
 You can create a `Package` object by passing a path to a `package.json` file or by passing the `package.json`-metadata as an object or nothing to create an empty package:
 
 ```ts
-import { join } from "path";
-import { cwd } from "process";
+import { join } from "node:path";
+import { cwd } from "node:process";
 import { Package } from "@manuth/package-json-editor";
 
 let packagePath = join(cwd(), Package.FileName);
@@ -75,7 +75,7 @@ If the `FileName` property of the package is set, following properties will be n
   * If the package is located inside a `git` repository, the `repository` property is set accordingly, if undefined
 
 ```ts
-import { join } from "path";
+import { join } from "node:path";
 import { Package } from "@manuth/package-json-editor";
 
 let packagePath = join("path", "to", "package", Package.FileName);
