@@ -34,9 +34,10 @@ You can create a `Package` object by passing a path to a `package.json` file or 
 
 ```ts
 import { join } from "path";
+import { cwd } from "process";
 import { Package } from "@manuth/package-json-editor";
 
-let packagePath = join(__dirname, Package.FileName);
+let packagePath = join(cwd(), Package.FileName);
 
 // Option 1: Passing nothing
 let package = new Package();

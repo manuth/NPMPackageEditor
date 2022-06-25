@@ -1,4 +1,4 @@
-import { IPerson } from "./IPerson";
+import { IPerson } from "./IPerson.js";
 
 /**
  * Represents a person.

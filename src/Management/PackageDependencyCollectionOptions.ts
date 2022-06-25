@@ -1,5 +1,5 @@
-import { IDependencyCollectionOptions } from "./IDependencyCollectionOptions";
-import { KeyOfType } from "./KeyOfType";
+import { IDependencyCollectionOptions } from "./IDependencyCollectionOptions.js";
+import { KeyOfType } from "./KeyOfType.js";
 
 /**
  * Represents lists of dependency-names.

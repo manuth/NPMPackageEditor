@@ -1,8 +1,8 @@
-import { Dictionary } from "../Collections/Dictionary";
-import { Package } from "../Package";
-import { DependencyCollection } from "./DependencyCollection";
-import { KeyOfType } from "./KeyOfType";
-import { PackageDependencyCollectionOptions } from "./PackageDependencyCollectionOptions";
+import { Dictionary } from "../Collections/Dictionary.js";
+import { Package } from "../Package.js";
+import { DependencyCollection } from "./DependencyCollection.js";
+import { KeyOfType } from "./KeyOfType.js";
+import { PackageDependencyCollectionOptions } from "./PackageDependencyCollectionOptions.js";
 
 /**
  * Provides a set of dependencies which are loaded from a package.

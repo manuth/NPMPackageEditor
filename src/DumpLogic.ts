@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { JSONObject as JSONObjectClass } from "./Utilities/JSONObject";
+import { JSONObject as JSONObjectClass } from "./Utilities/JSONObject.js";
 
 /**
  * Represents a logic for dumping properties.

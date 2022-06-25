@@ -1,4 +1,4 @@
-import { ICollection } from "./ICollection";
+import { ICollection } from "./ICollection.js";
 
 /**
  * Represents a list.

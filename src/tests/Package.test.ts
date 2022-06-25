@@ -1,28 +1,32 @@
 import { deepStrictEqual, doesNotThrow, notStrictEqual, ok, strictEqual } from "assert";
 import { arch, platform } from "os";
-import { URL } from "url";
+import { fileURLToPath, URL } from "url";
 import { TempFile } from "@manuth/temp-files";
-import { readdir, readFile, remove, statSync, writeJSON } from "fs-extra";
-import gitRootDir = require("git-root-dir");
-import githubUrlFromGit = require("github-url-from-git");
-import readmeFilename = require("readme-filename");
-import stringify = require("stringify-author");
-import { join, parse } from "upath";
-import { Dictionary } from "../Collections/Dictionary";
-import { List } from "../Collections/List";
-import { GenerationLogic } from "../GenerationLogic";
-import { IPackageMetadata } from "../IPackageMetadata";
-import { BugInfo } from "../Management/BugInfo";
-import { IBugInfo } from "../Management/IBugInfo";
-import { IPerson } from "../Management/IPerson";
-import { IRepository } from "../Management/IRepository";
-import { PackagePerson } from "../Management/PackagePerson";
-import { Person } from "../Management/Person";
-import { Package } from "../Package";
-import { JSONObject } from "../Utilities/JSONObject";
-import { PropertyChecker } from "./PropertyChecker";
-import { TestContext } from "./TestContext";
-import { TestPackage } from "./TestPackage";
+import fs from "fs-extra";
+import gitRemoteOriginUrl from "git-remote-origin-url";
+import gitRootDir from "git-root-dir";
+import githubUrlFromGit from "github-url-from-git";
+import readmeFilename from "readme-filename";
+import stringify from "stringify-author";
+import upath from "upath";
+import { Dictionary } from "../Collections/Dictionary.js";
+import { List } from "../Collections/List.js";
+import { GenerationLogic } from "../GenerationLogic.js";
+import { IPackageMetadata } from "../IPackageMetadata.js";
+import { BugInfo } from "../Management/BugInfo.js";
+import { IBugInfo } from "../Management/IBugInfo.js";
+import { IPerson } from "../Management/IPerson.js";
+import { IRepository } from "../Management/IRepository.js";
+import { PackagePerson } from "../Management/PackagePerson.js";
+import { Person } from "../Management/Person.js";
+import { Package } from "../Package.js";
+import { JSONObject } from "../Utilities/JSONObject.js";
+import { PropertyChecker } from "./PropertyChecker.js";
+import { TestContext } from "./TestContext.js";
+import { TestPackage } from "./TestPackage.js";
+
+const { readdir, readFile, remove, statSync, writeJSON } = fs;
+const { join, parse } = upath;
 
 /**
  * Registers tests for the {@link Package `Package`} class.
@@ -559,13 +563,13 @@ export function PackageTests(context: TestContext): void
                         async () =>
                         {
                             let url = githubUrlFromGit(
-                                await (await import("git-remote-origin-url")).default(
+                                await gitRemoteOriginUrl(
                                     {
                                         cwd: gitRoot
                                     }));
 
                             url = url ? `${url}.git` : null;
-                            gitRoot = await gitRootDir(__dirname);
+                            gitRoot = await gitRootDir(fileURLToPath(new URL(".", import.meta.url)));
                             gitRemoteUrl = new URL(url);
                             webUrl = new URL(url);
                             webUrl.protocol = "https";

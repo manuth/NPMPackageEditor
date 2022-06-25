@@ -1,9 +1,9 @@
-import { Dictionary } from "../Collections/Dictionary";
-import { GenerationLogic } from "../GenerationLogic";
-import { IPackageMetadata } from "../IPackageMetadata";
-import { IPerson } from "../Management/IPerson";
-import { Person } from "../Management/Person";
-import { Package } from "../Package";
+import { Dictionary } from "../Collections/Dictionary.js";
+import { GenerationLogic } from "../GenerationLogic.js";
+import { IPackageMetadata } from "../IPackageMetadata.js";
+import { IPerson } from "../Management/IPerson.js";
+import { Person } from "../Management/Person.js";
+import { Package } from "../Package.js";
 
 /**
  * Provides an implementation of the {@link Package `Package`} class for testing.

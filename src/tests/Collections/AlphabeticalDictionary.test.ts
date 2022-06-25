@@ -1,7 +1,7 @@
 import { strictEqual } from "assert";
-import { AlphabeticalDictionary } from "../../Collections/AlphabeticalDictionary";
-import { Dictionary } from "../../Collections/Dictionary";
-import { TestContext } from "../TestContext";
+import { AlphabeticalDictionary } from "../../Collections/AlphabeticalDictionary.js";
+import { Dictionary } from "../../Collections/Dictionary.js";
+import { TestContext } from "../TestContext.js";
 
 /**
  * Registers tests for the {@link AlphabeticalDictionary `AlphabeticalDictionary<TKey, TValue>`} class.

@@ -1,7 +1,7 @@
 import { doesNotThrow, notStrictEqual, ok, strictEqual, throws } from "assert";
-import { AlphabeticalList } from "../../Collections/AlphabeticalList";
-import { List } from "../../Collections/List";
-import { TestContext } from "../TestContext";
+import { AlphabeticalList } from "../../Collections/AlphabeticalList.js";
+import { List } from "../../Collections/List.js";
+import { TestContext } from "../TestContext.js";
 
 /**
  * Registers tests for the {@link AlphabeticalList `AlphabeticalList<T>`} class.

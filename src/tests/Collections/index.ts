@@ -1,11 +1,11 @@
 import { basename } from "path";
-import { TestContext } from "../TestContext";
-import { AlphabeticalDictionaryTests } from "./AlphabeticalDictionary.test";
-import { AlphabeticalListTests } from "./AlphabeticalList.test";
-import { CollectionTests as RegisterCollectionTests } from "./Collection.test";
-import { DictionaryTests } from "./Dictionary.test";
-import { ListTests } from "./List.test";
-import { PropertyDictionaryTests } from "./PropertyDictionary.test";
+import { TestContext } from "../TestContext.js";
+import { AlphabeticalDictionaryTests } from "./AlphabeticalDictionary.test.js";
+import { AlphabeticalListTests } from "./AlphabeticalList.test.js";
+import { CollectionTests as RegisterCollectionTests } from "./Collection.test.js";
+import { DictionaryTests } from "./Dictionary.test.js";
+import { ListTests } from "./List.test.js";
+import { PropertyDictionaryTests } from "./PropertyDictionary.test.js";
 
 /**
  * Registers tests for collections.
@@ -16,7 +16,7 @@ import { PropertyDictionaryTests } from "./PropertyDictionary.test";
 export function CollectionTests(context: TestContext): void
 {
     suite(
-        basename(__dirname),
+        basename(new URL(".", import.meta.url).pathname),
         () =>
         {
             RegisterCollectionTests(context);

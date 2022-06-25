@@ -1,6 +1,6 @@
 import { doesNotThrow, notStrictEqual, ok, strictEqual, throws } from "assert";
-import { Dictionary } from "../../Collections/Dictionary";
-import { TestContext } from "../TestContext";
+import { Dictionary } from "../../Collections/Dictionary.js";
+import { TestContext } from "../TestContext.js";
 
 /**
  * Registers tests for the {@link Dictionary `Dictionary<TKey, TValue>`} class.

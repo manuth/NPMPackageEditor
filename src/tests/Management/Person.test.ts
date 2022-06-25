@@ -1,8 +1,8 @@
 import { strictEqual } from "assert";
-import stringify = require("stringify-author");
-import { IPerson } from "../../Management/IPerson";
-import { Person } from "../../Management/Person";
-import { TestContext } from "../TestContext";
+import stringify from "stringify-author";
+import { IPerson } from "../../Management/IPerson.js";
+import { Person } from "../../Management/Person.js";
+import { TestContext } from "../TestContext.js";
 
 /**
  * Registers tests for the {@link Person `Person`} class.

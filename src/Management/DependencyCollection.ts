@@ -1,10 +1,10 @@
-import { Dictionary } from "../Collections/Dictionary";
-import { ICollection } from "../Collections/ICollection";
-import { List } from "../Collections/List";
-import { PropertyDictionary } from "../Collections/PropertyDictionary";
-import { IDependencyCollection } from "./IDependencyCollection";
-import { IDependencyCollectionOptions } from "./IDependencyCollectionOptions";
-import { KeyOfType } from "./KeyOfType";
+import { Dictionary } from "../Collections/Dictionary.js";
+import { ICollection } from "../Collections/ICollection.js";
+import { List } from "../Collections/List.js";
+import { PropertyDictionary } from "../Collections/PropertyDictionary.js";
+import { IDependencyCollection } from "./IDependencyCollection.js";
+import { IDependencyCollectionOptions } from "./IDependencyCollectionOptions.js";
+import { KeyOfType } from "./KeyOfType.js";
 
 /**
  * Represents a set of dependencies.

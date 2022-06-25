@@ -1,9 +1,14 @@
-import { readFile } from "fs-extra";
-import { randexp } from "randexp";
+import { fileURLToPath } from "url";
+import { findUp } from "find-up";
+import fs from "fs-extra";
+import RandExp from "randexp";
 import { Random } from "random-js";
-import { PropertyDictionary } from "../Collections/PropertyDictionary";
-import { IPackageMetadata } from "../IPackageMetadata";
-import { Package } from "../Package";
+import { PropertyDictionary } from "../Collections/PropertyDictionary.js";
+import { IPackageMetadata } from "../IPackageMetadata.js";
+import { Package } from "../Package.js";
+
+const { readFile } = fs;
+const { randexp } = RandExp;
 
 /**
  * Provides a context for testing the package.
@@ -45,10 +50,10 @@ export class TestContext
         {
             let npmPackage: IPackageMetadata = JSON.parse(
                 (await readFile(
-                    await (await import("find-up")).findUp(
+                    await findUp(
                         Package.FileName,
                         {
-                            cwd: __dirname
+                            cwd: fileURLToPath(new URL(".", import.meta.url))
                         }))).toString());
 
             this.dependencies = [

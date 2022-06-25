@@ -1,9 +1,9 @@
 import { basename } from "path";
-import { TestContext } from "../TestContext";
-import { BugInfoTests } from "./BugInfo.test";
-import { DependencyCollectionTests } from "./DependencyCollection.test";
-import { PackageDependencyCollectionTests } from "./PackageDependencyCollection.test";
-import { PersonTests } from "./Person.test";
+import { TestContext } from "../TestContext.js";
+import { BugInfoTests } from "./BugInfo.test.js";
+import { DependencyCollectionTests } from "./DependencyCollection.test.js";
+import { PackageDependencyCollectionTests } from "./PackageDependencyCollection.test.js";
+import { PersonTests } from "./Person.test.js";
 
 /**
  * Registers tests for management-components.
@@ -14,7 +14,7 @@ import { PersonTests } from "./Person.test";
 export function ManagementTests(context: TestContext): void
 {
     suite(
-        basename(__dirname),
+        basename(new URL(".", import.meta.url).pathname),
         async () =>
         {
             BugInfoTests(context);
