@@ -28,11 +28,11 @@ export function DependencyCollectionTests(context: TestContext): void
                     random = new Random();
 
                     collectionOptions = {
-                        dependencies: context.RandomDependencySet,
-                        devDependencies: context.RandomDependencySet,
-                        peerDependencies: context.RandomDependencySet,
-                        optionalDependencies: context.RandomDependencySet,
-                        bundledDependencies: context.RandomDependencyList
+                        dependencies: await context.GetRandomDependencySet(),
+                        devDependencies: await context.GetRandomDependencySet(),
+                        peerDependencies: await context.GetRandomDependencySet(),
+                        optionalDependencies: await context.GetRandomDependencySet(),
+                        bundledDependencies: await context.GetRandomDependencyList()
                     };
                 });
 
@@ -138,9 +138,9 @@ export function DependencyCollectionTests(context: TestContext): void
                     let randomDependency: [string, string];
 
                     setup(
-                        () =>
+                        async () =>
                         {
-                            randomDependency = context.RandomDependency;
+                            randomDependency = await context.GetRandomDependency();
                         });
 
                     test(

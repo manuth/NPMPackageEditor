@@ -1,6 +1,5 @@
 import { readFileSync } from "fs";
 import { pathExists, readFile } from "fs-extra";
-import gitRemoteOriginUrl = require("git-remote-origin-url");
 import gitRootDir = require("git-root-dir");
 import githubUrlFromGit = require("github-url-from-git");
 import normalize = require("normalize-package-data");
@@ -478,7 +477,11 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
 
                     try
                     {
-                        remote = githubUrlFromGit(await gitRemoteOriginUrl(gitRoot));
+                        remote = githubUrlFromGit(
+                            await (await import("git-remote-origin-url")).default(
+                            {
+                                cwd: gitRoot
+                            }));
                     }
                     catch
                     {

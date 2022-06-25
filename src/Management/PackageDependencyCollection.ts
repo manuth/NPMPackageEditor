@@ -110,7 +110,7 @@ export class PackageDependencyCollection extends DependencyCollection
      * @returns
      * The loaded dependencies.
      */
-    protected LoadDependencies(listName: keyof PackageDependencyCollectionOptions, packageListName: KeyOfType<DependencyCollection, Dictionary<string, string>>): Dictionary<string, string>
+    protected LoadDependencies(listName: keyof PackageDependencyCollectionOptions, packageListName: KeyOfType<DependencyCollection, Dictionary<string, string>>): Dictionary<string, string>;
 
     /**
      * Loads the dependencies specified in the list with the specified {@link listName `listName`} from the specified {@link packageListName `packageListName`} in the {@link PackageDependencyCollection.Package `Package`}.

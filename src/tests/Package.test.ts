@@ -3,7 +3,6 @@ import { arch, platform } from "os";
 import { URL } from "url";
 import { TempFile } from "@manuth/temp-files";
 import { readdir, readFile, remove, statSync, writeJSON } from "fs-extra";
-import gitRemoteOriginUrl = require("git-remote-origin-url");
 import gitRootDir = require("git-root-dir");
 import githubUrlFromGit = require("github-url-from-git");
 import readmeFilename = require("readme-filename");
@@ -559,7 +558,12 @@ export function PackageTests(context: TestContext): void
                     suiteSetup(
                         async () =>
                         {
-                            let url = githubUrlFromGit(await gitRemoteOriginUrl(gitRoot));
+                            let url = githubUrlFromGit(
+                                await (await import("git-remote-origin-url")).default(
+                                    {
+                                        cwd: gitRoot
+                                    }));
+
                             url = url ? `${url}.git` : null;
                             gitRoot = await gitRootDir(__dirname);
                             gitRemoteUrl = new URL(url);

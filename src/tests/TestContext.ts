@@ -1,5 +1,4 @@
-import findUp = require("find-up");
-import { readFileSync } from "fs-extra";
+import { readFile } from "fs-extra";
 import { randexp } from "randexp";
 import { Random } from "random-js";
 import { PropertyDictionary } from "../Collections/PropertyDictionary";
@@ -37,12 +36,20 @@ export class TestContext
 
     /**
      * Gets the names of the dependencies of the package.
+     *
+     * @returns The names of the dependencies of the package.
      */
-    public get Dependencies(): string[]
+    public async GetDependencies(): Promise<string[]>
     {
         if (this.dependencies === null)
         {
-            let npmPackage: IPackageMetadata = JSON.parse(readFileSync(findUp.sync(Package.FileName, { cwd: __dirname })).toString());
+            let npmPackage: IPackageMetadata = JSON.parse(
+                (await readFile(
+                    await (await import("find-up")).findUp(
+                        Package.FileName,
+                        {
+                            cwd: __dirname
+                        }))).toString());
 
             this.dependencies = [
                 ...Object.keys(
@@ -61,91 +68,89 @@ export class TestContext
 
     /**
      * Gets a component for generating random dependencies.
+     *
+     * @returns A component for generating random dependencies.
      */
-    public get DependencyGenerator(): Generator<string, string>
+    public async *GetDependencyGenerator(): AsyncGenerator<string, string>
     {
-        let self = this;
-
-        return (
-            function*()
-            {
-                while (true)
-                {
-                    yield self.Random.pick(self.Dependencies);
-                }
-            })();
+        while (true)
+        {
+            yield this.Random.pick(await this.GetDependencies());
+        }
     }
 
     /**
      * Gets a component for generating random dependency-lists.
+     *
+     * @returns A component for generating random dependency-lists.
      */
-    public get DependencyListGenerator(): Generator<string[], string[]>
+    public async *GetDependencyListGenerator(): AsyncGenerator<string[], string[]>
     {
-        let self = this;
-
-        return (
-            function*()
-            {
-                while (true)
-                {
-                    yield self.Random.sample(self.Dependencies, self.Random.integer(1, self.Dependencies.length - 1));
-                }
-            })();
+        while (true)
+        {
+            yield this.Random.sample(
+                await this.GetDependencies(),
+                this.Random.integer(1, (await this.GetDependencies()).length - 1));
+        }
     }
 
     /**
      * Gets a component for generating random dependency-sets.
+     *
+     * @returns A component for generating random dependency-sets.
      */
-    public get DependencySetGenerator(): Generator<Record<string, string>, Record<string, string>>
+    public async *GetDependencySetGenerator(): AsyncGenerator<Record<string, string>, Record<string, string>>
     {
-        let self = this;
+        while (true)
+        {
+            let result: Record<string, string> = {};
 
-        return (
-            function*()
+            for (let dependency of (await this.GetDependencyListGenerator().next()).value)
             {
-                while (true)
-                {
-                    let result: Record<string, string> = {};
+                result[dependency] = randexp(/\d+\.\d+\.\d+/);
+            }
 
-                    for (let dependency of self.DependencyListGenerator.next().value)
-                    {
-                        result[dependency] = randexp(/\d+\.\d+\.\d+/);
-                    }
-
-                    yield result;
-                }
-            })();
+            yield result;
+        }
     }
 
     /**
      * Gets a random dependency-name.
+     *
+     * @returns A random dependency-name.
      */
-    public get RandomDependencyName(): string
+    public async GetRandomDependencyName(): Promise<string>
     {
-        return this.DependencyGenerator.next().value;
+        return (await this.GetDependencyGenerator().next()).value;
     }
 
     /**
      * Gets a random dependency.
+     *
+     * @returns A random dependency.
      */
-    public get RandomDependency(): [string, string]
+    public async GetRandomDependency(): Promise<[string, string]>
     {
-        return this.Random.pick(new PropertyDictionary(this.RandomDependencySet).Entries);
+        return this.Random.pick(new PropertyDictionary(await this.GetRandomDependencySet()).Entries);
     }
 
     /**
      * Gets a random dependency-list.
+     *
+     * @returns A random dependency-list.
      */
-    public get RandomDependencyList(): string[]
+    public async GetRandomDependencyList(): Promise<string[]>
     {
-        return this.DependencyListGenerator.next().value;
+        return (await this.GetDependencyListGenerator().next()).value;
     }
 
     /**
      * Gets a random dependency-set.
+     *
+     * @returns A random dependency-set.
      */
-    public get RandomDependencySet(): Record<string, string>
+    public async GetRandomDependencySet(): Promise<Record<string, string>>
     {
-        return this.DependencySetGenerator.next().value;
+        return (await this.GetDependencySetGenerator().next()).value;
     }
 }
