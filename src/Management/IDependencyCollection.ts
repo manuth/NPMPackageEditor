@@ -1,5 +1,5 @@
-import { Dictionary } from "../Collections/Dictionary";
-import { List } from "../Collections/List";
+import { Dictionary } from "../Collections/Dictionary.js";
+import { List } from "../Collections/List.js";
 
 /**
  * Represents a set of dependencies.

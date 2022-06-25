@@ -1,6 +1,6 @@
-import { JSONObject } from "../Utilities/JSONObject";
-import { JSONObjectBase } from "../Utilities/JSONObjectBase";
-import { IBugInfo } from "./IBugInfo";
+import { JSONObject } from "../Utilities/JSONObject.js";
+import { JSONObjectBase } from "../Utilities/JSONObjectBase.js";
+import { IBugInfo } from "./IBugInfo.js";
 
 /**
  * Provides info for reporting bugs.

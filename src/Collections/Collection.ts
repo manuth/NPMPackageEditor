@@ -1,5 +1,5 @@
-import { JSONObjectBase } from "../Utilities/JSONObjectBase";
-import { ICollection } from "./ICollection";
+import { JSONObjectBase } from "../Utilities/JSONObjectBase.js";
+import { ICollection } from "./ICollection.js";
 
 /**
  * Provides the functionality to store collections of items.

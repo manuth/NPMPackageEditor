@@ -1,4 +1,4 @@
-import { JSONObjectBase } from "./JSONObjectBase";
+import { JSONObjectBase } from "./JSONObjectBase.js";
 
 /**
  * Represents a json-object.

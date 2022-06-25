@@ -1,6 +1,6 @@
-import { deepStrictEqual, doesNotThrow, notStrictEqual, ok, strictEqual, throws } from "assert";
-import { List } from "../../Collections/List";
-import { TestContext } from "../TestContext";
+import { deepStrictEqual, doesNotThrow, notStrictEqual, ok, strictEqual, throws } from "node:assert";
+import { List } from "../../Collections/List.js";
+import { TestContext } from "../TestContext.js";
 
 /**
  * Registers tests for the {@link List `List<T>`} class.

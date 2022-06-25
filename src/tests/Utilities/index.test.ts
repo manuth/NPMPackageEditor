@@ -1,6 +1,6 @@
-import { basename } from "path";
-import { TestContext } from "../TestContext";
-import { JSONObjectTests } from "./JSONObject.test";
+import { basename } from "node:path";
+import { TestContext } from "../TestContext.js";
+import { JSONObjectTests } from "./JSONObject.test.js";
 
 /**
  * Registers tests for utilities.
@@ -11,7 +11,7 @@ import { JSONObjectTests } from "./JSONObject.test";
 export function UtilityTests(context: TestContext): void
 {
     suite(
-        basename(__dirname),
+        basename(new URL(".", import.meta.url).pathname),
         () =>
         {
             JSONObjectTests(context);

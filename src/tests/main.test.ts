@@ -1,8 +1,8 @@
-import { CollectionTests } from "./Collections";
-import { ManagementTests } from "./Management";
-import { PackageTests } from "./Package.test";
-import { TestContext } from "./TestContext";
-import { UtilityTests } from "./Utilities";
+import { CollectionTests } from "./Collections/index.test.js";
+import { ManagementTests } from "./Management/index.test.js";
+import { PackageTests } from "./Package.test.js";
+import { TestContext } from "./TestContext.js";
+import { UtilityTests } from "./Utilities/index.test.js";
 
 suite(
     "NPMPackageEditor",

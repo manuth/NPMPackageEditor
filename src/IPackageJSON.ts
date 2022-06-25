@@ -1,4 +1,4 @@
-import { IPackageMetadata } from "./IPackageMetadata";
+import { IPackageMetadata } from "./IPackageMetadata.js";
 
 /**
  * Represents the content of a `package.json` file.

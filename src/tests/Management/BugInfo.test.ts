@@ -1,7 +1,7 @@
-import { ok, strictEqual } from "assert";
-import { BugInfo } from "../../Management/BugInfo";
-import { IBugInfo } from "../../Management/IBugInfo";
-import { TestContext } from "../TestContext";
+import { ok, strictEqual } from "node:assert";
+import { BugInfo } from "../../Management/BugInfo.js";
+import { IBugInfo } from "../../Management/IBugInfo.js";
+import { TestContext } from "../TestContext.js";
 
 /**
  * Registers tests for the {@link BugInfo `BugInfo`} class.

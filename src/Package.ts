@@ -1,32 +1,35 @@
-import { readFileSync } from "fs";
-import { pathExists, readFile } from "fs-extra";
-import gitRootDir = require("git-root-dir");
-import githubUrlFromGit = require("github-url-from-git");
-import normalize = require("normalize-package-data");
-import readmeFilename = require("readme-filename");
+import fs from "fs-extra";
+import gitRemoteOriginUrl from "git-remote-origin-url";
+import gitRootDir from "git-root-dir";
+import githubUrlFromGit from "github-url-from-git";
+import normalize from "normalize-package-data";
+import readmeFilename from "readme-filename";
 import { fileName, PackageJSONFileName } from "types-pkg-json";
-import { dirname, join, relative, resolve } from "upath";
-import { Dictionary } from "./Collections/Dictionary";
-import { List } from "./Collections/List";
-import { PropertyDictionary } from "./Collections/PropertyDictionary";
-import { DumpLogic } from "./DumpLogic";
-import { GenerationLogic } from "./GenerationLogic";
-import { IPackageJSON } from "./IPackageJSON";
-import { IPackageMetadata } from "./IPackageMetadata";
-import { LoadLogic } from "./LoadLogic";
-import { BugInfo } from "./Management/BugInfo";
-import { DependencyCollection } from "./Management/DependencyCollection";
-import { IBinCollection } from "./Management/IBinCollection";
-import { IDependencyCollection } from "./Management/IDependencyCollection";
-import { IDependencyCollectionOptions } from "./Management/IDependencyCollectionOptions";
-import { IDirectoryStructure } from "./Management/IDirectoryStructure";
-import { IPerson } from "./Management/IPerson";
-import { IRepository } from "./Management/IRepository";
-import { IShimCollection } from "./Management/IShimCollection";
-import { OrderedDependencyCollection } from "./Management/OrderedDependencyCollection";
-import { Person } from "./Management/Person";
-import { JSONObject } from "./Utilities/JSONObject";
-import { JSONObjectBase } from "./Utilities/JSONObjectBase";
+import upath from "upath";
+import { Dictionary } from "./Collections/Dictionary.js";
+import { List } from "./Collections/List.js";
+import { PropertyDictionary } from "./Collections/PropertyDictionary.js";
+import { DumpLogic } from "./DumpLogic.js";
+import { GenerationLogic } from "./GenerationLogic.js";
+import { IPackageJSON } from "./IPackageJSON.js";
+import { IPackageMetadata } from "./IPackageMetadata.js";
+import { LoadLogic } from "./LoadLogic.js";
+import { BugInfo } from "./Management/BugInfo.js";
+import { DependencyCollection } from "./Management/DependencyCollection.js";
+import { IBinCollection } from "./Management/IBinCollection.js";
+import { IDependencyCollection } from "./Management/IDependencyCollection.js";
+import { IDependencyCollectionOptions } from "./Management/IDependencyCollectionOptions.js";
+import { IDirectoryStructure } from "./Management/IDirectoryStructure.js";
+import { IPerson } from "./Management/IPerson.js";
+import { IRepository } from "./Management/IRepository.js";
+import { IShimCollection } from "./Management/IShimCollection.js";
+import { OrderedDependencyCollection } from "./Management/OrderedDependencyCollection.js";
+import { Person } from "./Management/Person.js";
+import { JSONObject } from "./Utilities/JSONObject.js";
+import { JSONObjectBase } from "./Utilities/JSONObjectBase.js";
+
+const { pathExists, readFile, readFileSync } = fs;
+const { dirname, join, relative, resolve } = upath;
 
 /**
  * Represents a package.
@@ -478,7 +481,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
                     try
                     {
                         remote = githubUrlFromGit(
-                            await (await import("git-remote-origin-url")).default(
+                            await gitRemoteOriginUrl(
                             {
                                 cwd: gitRoot
                             }));

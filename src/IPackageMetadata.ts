@@ -1,10 +1,10 @@
-import { IBinCollection } from "./Management/IBinCollection";
-import { IBugInfo } from "./Management/IBugInfo";
-import { IDependencyCollectionOptions } from "./Management/IDependencyCollectionOptions";
-import { IDirectoryStructure } from "./Management/IDirectoryStructure";
-import { IRepository } from "./Management/IRepository";
-import { IShimCollection } from "./Management/IShimCollection";
-import { PackagePerson } from "./Management/PackagePerson";
+import { IBinCollection } from "./Management/IBinCollection.js";
+import { IBugInfo } from "./Management/IBugInfo.js";
+import { IDependencyCollectionOptions } from "./Management/IDependencyCollectionOptions.js";
+import { IDirectoryStructure } from "./Management/IDirectoryStructure.js";
+import { IRepository } from "./Management/IRepository.js";
+import { IShimCollection } from "./Management/IShimCollection.js";
+import { PackagePerson } from "./Management/PackagePerson.js";
 
 /**
  * Represents the metadata of a `package.json`-file.

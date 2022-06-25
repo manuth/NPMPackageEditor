@@ -1,6 +1,6 @@
-import { JSONObjectBase } from "../Utilities/JSONObjectBase";
-import { Collection } from "./Collection";
-import { IList } from "./IList";
+import { JSONObjectBase } from "../Utilities/JSONObjectBase.js";
+import { Collection } from "./Collection.js";
+import { IList } from "./IList.js";
 
 /**
  * Provides the functionality to store a list of values.

@@ -1,6 +1,6 @@
-import { doesNotThrow, ok, strictEqual } from "assert";
-import { PropertyDictionary } from "../../Collections/PropertyDictionary";
-import { TestContext } from "../TestContext";
+import { doesNotThrow, ok, strictEqual } from "node:assert";
+import { PropertyDictionary } from "../../Collections/PropertyDictionary.js";
+import { TestContext } from "../TestContext.js";
 
 /**
  * Registers tests for the {@link PropertyDictionary `PropertyDictionary<T>`} class.

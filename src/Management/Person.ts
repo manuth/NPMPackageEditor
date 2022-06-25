@@ -1,7 +1,7 @@
-import parse = require("parse-author");
-import stringify = require("stringify-author");
-import { JSONObjectBase } from "../Utilities/JSONObjectBase";
-import { IPerson } from "./IPerson";
+import parse from "parse-author";
+import stringify from "stringify-author";
+import { JSONObjectBase } from "../Utilities/JSONObjectBase.js";
+import { IPerson } from "./IPerson.js";
 
 /**
  * Represents a person.

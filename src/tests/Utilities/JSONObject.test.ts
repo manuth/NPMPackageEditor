@@ -1,8 +1,8 @@
-import { doesNotThrow, ok, strictEqual, throws } from "assert";
-import { IPerson } from "../../Management/IPerson";
-import { JSONObject } from "../../Utilities/JSONObject";
-import { TestContext } from "../TestContext";
-import { PropertyInjector } from "./PropertyInjector";
+import { doesNotThrow, ok, strictEqual, throws } from "node:assert";
+import { IPerson } from "../../Management/IPerson.js";
+import { JSONObject } from "../../Utilities/JSONObject.js";
+import { TestContext } from "../TestContext.js";
+import { PropertyInjector } from "./PropertyInjector.js";
 
 /**
  * Registers tests for the {@link JSONObject `JSONObject<T>`} class.

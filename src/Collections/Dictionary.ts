@@ -1,8 +1,8 @@
-import isIterableLike = require("@stdlib/assert-is-iterable-like");
-import { JSONObject } from "../Utilities/JSONObject";
-import { JSONObjectBase } from "../Utilities/JSONObjectBase";
-import { Collection } from "./Collection";
-import { IDictionary } from "./IDictionary";
+import isIterableLike from "@stdlib/assert-is-iterable-like";
+import { JSONObject } from "../Utilities/JSONObject.js";
+import { JSONObjectBase } from "../Utilities/JSONObjectBase.js";
+import { Collection } from "./Collection.js";
+import { IDictionary } from "./IDictionary.js";
 
 /**
  * Provides the functionality to store key-value pairs.

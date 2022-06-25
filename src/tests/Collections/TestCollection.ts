@@ -1,4 +1,4 @@
-import { Collection } from "../../Collections/Collection";
+import { Collection } from "../../Collections/Collection.js";
 
 /**
  * Provides the functionality to store item-collections.

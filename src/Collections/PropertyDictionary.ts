@@ -1,4 +1,4 @@
-import { Dictionary } from "./Dictionary";
+import { Dictionary } from "./Dictionary.js";
 
 /**
  * Represents a set of property-keys and their values.

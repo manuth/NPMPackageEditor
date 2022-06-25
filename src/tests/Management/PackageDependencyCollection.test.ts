@@ -1,13 +1,15 @@
-import { doesNotThrow, ok, strictEqual, throws } from "assert";
-import { randexp } from "randexp";
-import { Dictionary } from "../../Collections/Dictionary";
-import { PropertyDictionary } from "../../Collections/PropertyDictionary";
-import { DependencyCollection } from "../../Management/DependencyCollection";
-import { KeyOfType } from "../../Management/KeyOfType";
-import { PackageDependencyCollection } from "../../Management/PackageDependencyCollection";
-import { PackageDependencyCollectionOptions } from "../../Management/PackageDependencyCollectionOptions";
-import { Package } from "../../Package";
-import { TestContext } from "../TestContext";
+import { doesNotThrow, ok, strictEqual, throws } from "node:assert";
+import RandExp from "randexp";
+import { Dictionary } from "../../Collections/Dictionary.js";
+import { PropertyDictionary } from "../../Collections/PropertyDictionary.js";
+import { DependencyCollection } from "../../Management/DependencyCollection.js";
+import { KeyOfType } from "../../Management/KeyOfType.js";
+import { PackageDependencyCollection } from "../../Management/PackageDependencyCollection.js";
+import { PackageDependencyCollectionOptions } from "../../Management/PackageDependencyCollectionOptions.js";
+import { Package } from "../../Package.js";
+import { TestContext } from "../TestContext.js";
+
+const { randexp } = RandExp;
 
 /**
  * Registers tests for the {@link PackageDependencyCollection `PackageDependencyCollection`} class.

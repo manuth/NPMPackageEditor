@@ -1,10 +1,10 @@
-import { doesNotThrow, ok, strictEqual, throws } from "assert";
+import { doesNotThrow, ok, strictEqual, throws } from "node:assert";
 import { Random } from "random-js";
-import { Dictionary } from "../../Collections/Dictionary";
-import { DependencyCollection } from "../../Management/DependencyCollection";
-import { IDependencyCollectionOptions } from "../../Management/IDependencyCollectionOptions";
-import { KeyOfType } from "../../Management/KeyOfType";
-import { TestContext } from "../TestContext";
+import { Dictionary } from "../../Collections/Dictionary.js";
+import { DependencyCollection } from "../../Management/DependencyCollection.js";
+import { IDependencyCollectionOptions } from "../../Management/IDependencyCollectionOptions.js";
+import { KeyOfType } from "../../Management/KeyOfType.js";
+import { TestContext } from "../TestContext.js";
 
 /**
  * Registers tests for the {@link DependencyCollection `DependencyCollection`} class.

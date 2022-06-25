@@ -1,4 +1,4 @@
-import { JSONObject } from "../../Utilities/JSONObject";
+import { JSONObject } from "../../Utilities/JSONObject.js";
 
 /**
  * Provides the functionality to inject values into {@link JSONObject `JSONObject<T>`}s.

@@ -1,5 +1,5 @@
-import { AlphabeticalDictionary } from "./AlphabeticalDictionary";
-import { List } from "./List";
+import { AlphabeticalDictionary } from "./AlphabeticalDictionary.js";
+import { List } from "./List.js";
 
 /**
  * Represents an alphabetical list.
