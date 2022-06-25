@@ -6,7 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## NPMPackageEditor [Unreleased]
 
-[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v2.2.5...dev)
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v2.2.6...dev)
+
+## NPMPackageEditor v2.2.6
+### Fixed
+  - Vulnerabilities in dependencies
+
+### Updated
+  - All dependencies
+
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v2.2.5...v2.2.6)
 
 ## NPMPackageEditor v2.2.5
 ### Added

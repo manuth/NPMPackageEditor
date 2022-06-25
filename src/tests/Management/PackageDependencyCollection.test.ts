@@ -80,10 +80,10 @@ export function PackageDependencyCollectionTests(context: TestContext): void
             let collection: TestPackageDependencyCollection;
 
             setup(
-                () =>
+                async () =>
                 {
                     npmPackage = new Package();
-                    randomDependencies = context.RandomDependencySet;
+                    randomDependencies = await context.GetRandomDependencySet();
 
                     collectionOptions = {
                         dependencies: [],
