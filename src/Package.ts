@@ -25,6 +25,7 @@ import { IRepository } from "./Management/IRepository.js";
 import { IShimCollection } from "./Management/IShimCollection.js";
 import { OrderedDependencyCollection } from "./Management/OrderedDependencyCollection.js";
 import { Person } from "./Management/Person.js";
+import { PackageType } from "./PackageType.js";
 import { JSONObject } from "./Utilities/JSONObject.js";
 import { JSONObjectBase } from "./Utilities/JSONObjectBase.js";
 
@@ -55,6 +56,11 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
      * Gets or sets the version of the package.
      */
     public Version: string;
+
+    /**
+     * Gets or sets the type of the package.
+     */
+    public Type?: PackageType;
 
     /**
      * Gets or sets a value indicating whether the package is private.
@@ -356,6 +362,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
             [
                 [nameof<IPackageMetadata>((meta) => meta.name), nameof<Package>((pkg) => pkg.Name)],
                 [nameof<IPackageMetadata>((meta) => meta.version), nameof<Package>((pkg) => pkg.Version)],
+                [nameof<IPackageMetadata>((meta) => meta.type), nameof<Package>((pkg) => pkg.Type)],
                 [nameof<IPackageMetadata>((meta) => meta.private), nameof<Package>((pkg) => pkg.Private)],
                 [nameof<IPackageMetadata>((meta) => meta.description), nameof<Package>((pkg) => pkg.Description)],
                 [nameof<IPackageMetadata>((meta) => meta.author), nameof<Package>((pkg) => pkg.Author)],
