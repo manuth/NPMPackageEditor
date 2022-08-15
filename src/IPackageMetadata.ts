@@ -6,6 +6,7 @@ import { IRepository } from "./Management/IRepository.js";
 import { IShimCollection } from "./Management/IShimCollection.js";
 import { PackagePerson } from "./Management/PackagePerson.js";
 import { PackageType } from "./PackageType.js";
+import { ResolveMatrix } from "./ResolveMatrix.js";
 
 /**
  * Represents the metadata of a `package.json`-file.
@@ -106,6 +107,20 @@ export interface IPackageMetadata extends IDependencyCollectionOptions
      * @see https://docs.npmjs.com/cli/v7/configuring-npm/package-json#cpu
      */
     cpu?: string[];
+
+    /**
+     * The entry points of the package.
+     *
+     * @see https://nodejs.org/api/packages.html#exports
+     */
+    exports?: string | string[] | ResolveMatrix;
+
+    /**
+     * The subpath imports for this package.
+     *
+     * @see https://nodejs.org/api/packages.html#imports
+     */
+    imports?: ResolveMatrix;
 
     /**
      * The primary entry point of the program.

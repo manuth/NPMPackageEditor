@@ -26,6 +26,7 @@ import { IShimCollection } from "./Management/IShimCollection.js";
 import { OrderedDependencyCollection } from "./Management/OrderedDependencyCollection.js";
 import { Person } from "./Management/Person.js";
 import { PackageType } from "./PackageType.js";
+import { ResolveMatrix } from "./ResolveMatrix.js";
 import { JSONObject } from "./Utilities/JSONObject.js";
 import { JSONObjectBase } from "./Utilities/JSONObjectBase.js";
 
@@ -113,6 +114,16 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     public CPU: string[];
 
     /**
+     * Gets or sets the entry points of the package.
+     */
+    public Exports: string | string[] | ResolveMatrix;
+
+    /**
+     * Gets or sets the subpath imports of the package.
+     */
+    public Imports: ResolveMatrix;
+
+    /**
      * Gets or sets the primary entry point of the program.
      */
     public Main: string;
@@ -196,6 +207,8 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
             [nameof<IPackageMetadata>((meta) => meta.contributors), GenerationLogic.NonEmpty],
             [nameof<IPackageMetadata>((meta) => meta.keywords), GenerationLogic.NonEmpty],
             [nameof<IPackageMetadata>((meta) => meta.engines), GenerationLogic.NonEmpty],
+            [nameof<IPackageMetadata>((meta) => meta.exports), GenerationLogic.NonEmpty],
+            [nameof<IPackageMetadata>((meta) => meta.imports), GenerationLogic.NonEmpty],
             [nameof<IPackageMetadata>((meta) => meta.browser), GenerationLogic.NonEmpty],
             [nameof<IPackageMetadata>((meta) => meta.bin), GenerationLogic.NonEmpty],
             [nameof<IPackageMetadata>((meta) => meta.man), GenerationLogic.NonEmpty],
@@ -373,6 +386,8 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
                 [nameof<IPackageMetadata>((meta) => meta.engines), nameof<Package>((pkg) => pkg.Engines)],
                 [nameof<IPackageMetadata>((meta) => meta.os), nameof<Package>((pkg) => pkg.OS)],
                 [nameof<IPackageMetadata>((meta) => meta.cpu), nameof<Package>((pkg) => pkg.CPU)],
+                [nameof<IPackageMetadata>((meta) => meta.exports), nameof<Package>((pkg) => pkg.Exports)],
+                [nameof<IPackageMetadata>((meta) => meta.imports), nameof<Package>((pkg) => pkg.Imports)],
                 [nameof<IPackageMetadata>((meta) => meta.main), nameof<Package>((pkg) => pkg.Main)],
                 [nameof<IPackageMetadata>((meta) => meta.types), nameof<Package>((pkg) => pkg.Types)],
                 [nameof<IPackageMetadata>((meta) => meta.browser), nameof<Package>((pkg) => pkg.Browser)],
