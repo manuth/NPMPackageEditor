@@ -231,6 +231,21 @@ export function PackageTests(context: TestContext): void
                         cpu: [
                             arch()
                         ],
+                        exports: {
+                            ".": {
+                                import: text(),
+                                require: text(),
+                                types: text(),
+                                default: text()
+                            }
+                        },
+                        imports: {
+                            "#dep": {
+                                import: text(),
+                                require: text(),
+                                default: text()
+                            }
+                        },
                         main: "./lib/index.js",
                         types: "./lib/index.d.ts",
                         browser: text(),
@@ -305,6 +320,8 @@ export function PackageTests(context: TestContext): void
                 AssertDictionary(npmPackage.Engines, metadata.engines);
                 deepStrictEqual(npmPackage.OS, metadata.os);
                 deepStrictEqual(npmPackage.CPU, metadata.cpu);
+                deepStrictEqual(npmPackage.Exports, metadata.exports);
+                deepStrictEqual(npmPackage.Imports, metadata.imports);
                 strictEqual(npmPackage.Main, metadata.main);
                 strictEqual(npmPackage.Types, metadata.types);
                 deepStrictEqual(npmPackage.Browser, metadata.browser);
