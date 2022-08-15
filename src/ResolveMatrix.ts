@@ -8,4 +8,4 @@ export type ResolveMatrix = {
      * A path or a path-matrix for resolving modules.
      */
     [P in ResolveEnvironment]?: string | ResolveMatrix;
-}
+};
