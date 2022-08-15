@@ -20,6 +20,7 @@ import { IRepository } from "../Management/IRepository.js";
 import { PackagePerson } from "../Management/PackagePerson.js";
 import { Person } from "../Management/Person.js";
 import { Package } from "../Package.js";
+import { PackageType } from "../PackageType.js";
 import { JSONObject } from "../Utilities/JSONObject.js";
 import { PropertyChecker } from "./PropertyChecker.js";
 import { TestContext } from "./TestContext.js";
@@ -199,6 +200,7 @@ export function PackageTests(context: TestContext): void
                     metadata = {
                         name: text(),
                         version: `${digit()}.${digit()}.${digit()}`,
+                        type: context.Random.bool() ? PackageType.CommonJS : PackageType.ESModule,
                         private: context.Random.bool(),
                         description: text(100),
                         author: person(),
@@ -292,6 +294,7 @@ export function PackageTests(context: TestContext): void
             {
                 strictEqual(npmPackage.Name, metadata.name);
                 strictEqual(npmPackage.Version, metadata.version);
+                strictEqual(npmPackage.Type, metadata.type);
                 strictEqual(npmPackage.Private, metadata.private);
                 strictEqual(npmPackage.Description, metadata.description);
                 AssertPerson(npmPackage.Author, metadata.author);
@@ -413,6 +416,7 @@ export function PackageTests(context: TestContext): void
                                     let assertions = [
                                         [nameof<Package>((pkg) => pkg.Name), null],
                                         [nameof<Package>((pkg) => pkg.Version), null],
+                                        [nameof<Package>((pkg) => pkg.Type), null],
                                         [nameof<Package>((pkg) => pkg.Private), null],
                                         [nameof<Package>((pkg) => pkg.Description), null],
                                         [nameof<Package>((pkg) => pkg.Author), {} as PackagePerson, AssertPerson],
