@@ -40,7 +40,6 @@
     "access": "public"
   },
   "scripts": {
-    "lint-compact": "npm run lint -- -f compact || exit 0",
     "build": "tsc -b tsconfig.build.json",
     "rebuild": "npm run clean && npm run build",
     "watch": "npm run build -- --watch",
