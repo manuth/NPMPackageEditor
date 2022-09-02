@@ -8,6 +8,7 @@ export { IDictionary } from "./Collections/IDictionary.js";
 export { IList } from "./Collections/IList.js";
 export { List } from "./Collections/List.js";
 export { PropertyDictionary } from "./Collections/PropertyDictionary.js";
+export { DumpLogic } from "./DumpLogic.js";
 export { GenerationLogic } from "./GenerationLogic.js";
 export { IPackageMetadata } from "./IPackageMetadata.js";
 export { IPackageJSON } from "./IPackageJSON.js";
@@ -29,5 +30,8 @@ export { PackageDependencyCollectionOptions } from "./Management/PackageDependen
 export { PackagePerson } from "./Management/PackagePerson.js";
 export { Person } from "./Management/Person.js";
 export { Package } from "./Package.js";
+export { PackageType } from "./PackageType.js";
 export { JSONObject } from "./Utilities/JSONObject.js";
 export { JSONObjectBase } from "./Utilities/JSONObjectBase.js";
+export { ResolveEnvironment } from "./ResolveEnvironment.js";
+export { ResolveMatrix } from "./ResolveMatrix.js";
