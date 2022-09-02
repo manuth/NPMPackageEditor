@@ -108,5 +108,6 @@ dist
 
 # Temporary release-assets
 .tagName.txt
+.tagHeading.txt
 .releaseNotes.md
 .releaseTitle.md

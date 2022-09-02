@@ -1,6 +1,6 @@
 {
   "name": "@manuth/package-json-editor",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "type": "module",
   "description": "Provides types and tools for editing `package.json` files",
   "author": "Manuel Thalmann <m@nuth.ch>",
@@ -19,7 +19,8 @@
         "types": "./lib/index.d.ts",
         "default": "./lib/index.js"
       }
-    }
+    },
+    "./package.json": "./package.json"
   },
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -39,7 +40,6 @@
     "access": "public"
   },
   "scripts": {
-    "lint-compact": "npm run lint -- -f compact || exit 0",
     "build": "tsc -b tsconfig.build.json",
     "rebuild": "npm run clean && npm run build",
     "watch": "npm run build -- --watch",
