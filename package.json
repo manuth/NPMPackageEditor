@@ -40,6 +40,7 @@
     "access": "public"
   },
   "scripts": {
+    "prepare": "ts-patch install",
     "build": "tsc -b tsconfig.build.json",
     "rebuild": "npm run clean && npm run build",
     "watch": "npm run build -- --watch",
@@ -47,7 +48,6 @@
     "lint": "eslint --max-warnings 0 ./src .eslintrc.cjs",
     "lint-ide": "npm run lint || exit 0",
     "test": "mocha",
-    "prepare": "ts-patch install",
     "prepack": "npm run build"
   },
   "dependencies": {
