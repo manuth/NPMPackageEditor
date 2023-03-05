@@ -1,6 +1,8 @@
 # NPMPackageEditor
 Provides types and tools for editing `package.json` files
 
+[![status-badge](https://ci.nuth.ch/api/badges/manuth/NPMPackageEditor/status.svg)](https://ci.nuth.ch/manuth/NPMPackageEditor)
+
 ## Installing NPMPackageEditor
 `NPMPackageEditor` can be installed using the `npm`-cli:
 ```bash
