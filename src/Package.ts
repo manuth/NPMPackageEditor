@@ -49,152 +49,152 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     public FileName: string;
 
     /**
-     * Gets or sets the name of the package.
+     * @inheritdoc
      */
     public Name: string;
 
     /**
-     * Gets or sets the version of the package.
+     * @inheritdoc
      */
     public Version: string;
 
     /**
-     * Gets or sets the type of the package.
+     * @inheritdoc
      */
     public Type?: PackageType;
 
     /**
-     * Gets or sets a value indicating whether the package is private.
+     * @inheritdoc
      */
     public Private: boolean;
 
     /**
-     * Gets or sets the description of the package.
+     * @inheritdoc
      */
     public Description: string;
 
     /**
-     * Gets or sets the author of the package.
+     * @inheritdoc
      */
     public Author: Person;
 
     /**
-     * Gets or sets the maintainers of the package.
+     * @inheritdoc
      */
     public Maintainers: Person[];
 
     /**
-     * Gets or sets the contributors of the package.
+     * @inheritdoc
      */
     public Contributors: Person[];
 
     /**
-     * Gets or sets the license of the package.
+     * @inheritdoc
      */
     public License: string;
 
     /**
-     * Gets or sets the keywords of the package.
+     * @inheritdoc
      */
     public Keywords: string[];
 
     /**
-     * Gets or sets a set of engines which are required for running the package.
+     * @inheritdoc
      */
     public Engines: Dictionary<string, string>;
 
     /**
-     * Gets or sets the operating-systems supported by this package.
+     * @inheritdoc
      */
     public OS: string[];
 
     /**
-     * Gets or sets the CPU architectures supported by this package.
+     * @inheritdoc
      */
     public CPU: string[];
 
     /**
-     * Gets or sets the entry points of the package.
+     * @inheritdoc
      */
     public Exports: string | string[] | ResolveMatrix;
 
     /**
-     * Gets or sets the subpath imports of the package.
+     * @inheritdoc
      */
     public Imports: ResolveMatrix;
 
     /**
-     * Gets or sets the primary entry point of the program.
+     * @inheritdoc
      */
     public Main: string;
 
     /**
-     * Gets or sets the path to the bundled declaration file.
+     * @inheritdoc
      */
     public Types: string;
 
     /**
-     * Gets or sets a hint to javascript bundlers for packaging modules for client side use.
+     * @inheritdoc
      */
     public Browser: string | IShimCollection;
 
     /**
-     * Gets or sets a set of executables to add to `PATH`.
+     * @inheritdoc
      */
     public Binaries: string | IBinCollection;
 
     /**
-     * Gets or sets filenames to put in place for the `man` program to find.
+     * @inheritdoc
      */
     public Manuals: string | string[];
 
     /**
-     * Gets or sets the files to include into the package.
+     * @inheritdoc
      */
     public Files: string[];
 
     /**
-     * Gets or sets the directory-structure of the package.
+     * @inheritdoc
      */
     public Directories: IDirectoryStructure;
 
     /**
-     * Gets or sets the homepage.
+     * @inheritdoc
      */
     public Homepage: string;
 
     /**
-     * Gets or sets the repository of the package.
+     * @inheritdoc
      */
     public Repository: string | IRepository;
 
     /**
-     * Gets or sets links for reporting bugs.
+     * @inheritdoc
      */
     public Bugs: BugInfo;
 
     /**
-     * Gets or sets a set of persistent configurations.
+     * @inheritdoc
      */
     public Config: Record<string, any>;
 
     /**
-     * Gets or sets the npm configuration to use while publishing.
+     * @inheritdoc
      */
     public PublishConfig: Record<string, any>;
 
     /**
-     * Gets or sets a set of script-commands for the package.
+     * @inheritdoc
      */
     public Scripts: Dictionary<string, string>;
 
     /**
-     * Gets or sets the dependencies of the package.
+     * @inheritdoc
      */
     public DependencyCollection: DependencyCollection;
 
     /**
-     * Gets or sets a set of additional properties.
+     * @inheritdoc
      */
     public AdditionalProperties: Dictionary<string, unknown>;
 
