@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## NPMPackageEditor [Unreleased]
+
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v3.1.0...dev)
+
+## NPMPackageEditor v3.1.0
 ### Fixed
   - Vulnerabilities in dependencies
 
@@ -19,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
   - Dependabot checks
 
-[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v3.0.2...dev)
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v3.0.2...v3.1.0)
 
 ## NPMPackageEditor v3.0.2
 ### Added
