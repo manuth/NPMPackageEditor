@@ -5,17 +5,17 @@ import { IBugInfo } from "./IBugInfo.js";
 /**
  * Provides info for reporting bugs.
  */
-export class BugInfo extends JSONObjectBase<IBugInfo>
+export class BugInfo extends JSONObjectBase<IBugInfo | null>
 {
     /**
      * Gets or sets the url to report bugs.
      */
-    public URL: string;
+    public URL?: string;
 
     /**
      * An email-address for reporting bugs.
      */
-    public EMail: string;
+    public EMail?: string;
 
     /**
      * Initializes a new instance of the {@link BugInfo `BugInfo`} class.
@@ -36,7 +36,7 @@ export class BugInfo extends JSONObjectBase<IBugInfo>
      * @param url
      * The url for reporting bugs.
      */
-    public constructor(url: string);
+    public constructor(url: string | undefined);
 
     /**
      * Initializes a new instance of the {@link BugInfo `BugInfo`} class with the specified {@link url `url`} and {@link email `email`}.
@@ -47,7 +47,7 @@ export class BugInfo extends JSONObjectBase<IBugInfo>
      * @param email
      * An email-address for reporting bugs.
      */
-    public constructor(url: string, email: string);
+    public constructor(url: string | undefined, email: string | undefined);
 
     /**
      * Initializes a new instance of the {@link BugInfo `BugInfo`} class.
@@ -63,19 +63,19 @@ export class BugInfo extends JSONObjectBase<IBugInfo>
      * @param args
      * The arguments which have been passed.
      */
-    public constructor(...args: [] | [string | IBugInfo, string?] | [])
+    public constructor(...args: [] | [(string | IBugInfo)?, string?] | [])
     {
         super();
 
         if (typeof args[0] === "string")
         {
-            this.URL = args[0] ?? null;
-            this.EMail = args[1] ?? null;
+            this.URL = args[0];
+            this.EMail = args[1];
         }
         else
         {
-            this.URL = args[0]?.url ?? null;
-            this.EMail = args[0]?.email ?? null;
+            this.URL = args[0]?.url;
+            this.EMail = args[0]?.email;
         }
     }
 
@@ -85,7 +85,7 @@ export class BugInfo extends JSONObjectBase<IBugInfo>
      * @returns
      * An object representing the bug-infos.
      */
-    public ToJSON(): IBugInfo
+    public ToJSON(): IBugInfo | null
     {
         if (!this.EMail && !this.URL)
         {

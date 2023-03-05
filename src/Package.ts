@@ -11,6 +11,7 @@ import { List } from "./Collections/List.js";
 import { PropertyDictionary } from "./Collections/PropertyDictionary.js";
 import { DumpLogic } from "./DumpLogic.js";
 import { GenerationLogic } from "./GenerationLogic.js";
+import { IPackage } from "./IPackage.js";
 import { IPackageJSON } from "./IPackageJSON.js";
 import { IPackageMetadata } from "./IPackageMetadata.js";
 import { LoadLogic } from "./LoadLogic.js";
@@ -36,7 +37,7 @@ const { dirname, join, relative, resolve } = upath;
 /**
  * Represents a package.
  */
-export class Package extends JSONObjectBase<IPackageJSON> implements IDependencyCollection
+export class Package extends JSONObjectBase<IPackageJSON> implements IPackage
 {
     /**
      * Gets the default file-name of `package.json`-files.
@@ -46,155 +47,155 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     /**
      * Gets or sets name of the package-file.
      */
-    public FileName: string;
+    public FileName: string | null;
 
     /**
-     * Gets or sets the name of the package.
+     * @inheritdoc
      */
-    public Name: string;
+    public Name?: string;
 
     /**
-     * Gets or sets the version of the package.
+     * @inheritdoc
      */
-    public Version: string;
+    public Version?: string;
 
     /**
-     * Gets or sets the type of the package.
+     * @inheritdoc
      */
     public Type?: PackageType;
 
     /**
-     * Gets or sets a value indicating whether the package is private.
+     * @inheritdoc
      */
     public Private: boolean;
 
     /**
-     * Gets or sets the description of the package.
+     * @inheritdoc
      */
-    public Description: string;
+    public Description?: string;
 
     /**
-     * Gets or sets the author of the package.
+     * @inheritdoc
      */
     public Author: Person;
 
     /**
-     * Gets or sets the maintainers of the package.
+     * @inheritdoc
      */
     public Maintainers: Person[];
 
     /**
-     * Gets or sets the contributors of the package.
+     * @inheritdoc
      */
     public Contributors: Person[];
 
     /**
-     * Gets or sets the license of the package.
+     * @inheritdoc
      */
-    public License: string;
+    public License?: string;
 
     /**
-     * Gets or sets the keywords of the package.
+     * @inheritdoc
      */
     public Keywords: string[];
 
     /**
-     * Gets or sets a set of engines which are required for running the package.
+     * @inheritdoc
      */
     public Engines: Dictionary<string, string>;
 
     /**
-     * Gets or sets the operating-systems supported by this package.
+     * @inheritdoc
      */
     public OS: string[];
 
     /**
-     * Gets or sets the CPU architectures supported by this package.
+     * @inheritdoc
      */
     public CPU: string[];
 
     /**
-     * Gets or sets the entry points of the package.
+     * @inheritdoc
      */
-    public Exports: string | string[] | ResolveMatrix;
+    public Exports?: string | string[] | ResolveMatrix;
 
     /**
-     * Gets or sets the subpath imports of the package.
+     * @inheritdoc
      */
-    public Imports: ResolveMatrix;
+    public Imports?: ResolveMatrix;
 
     /**
-     * Gets or sets the primary entry point of the program.
+     * @inheritdoc
      */
-    public Main: string;
+    public Main?: string;
 
     /**
-     * Gets or sets the path to the bundled declaration file.
+     * @inheritdoc
      */
-    public Types: string;
+    public Types?: string;
 
     /**
-     * Gets or sets a hint to javascript bundlers for packaging modules for client side use.
+     * @inheritdoc
      */
-    public Browser: string | IShimCollection;
+    public Browser?: string | IShimCollection;
 
     /**
-     * Gets or sets a set of executables to add to `PATH`.
+     * @inheritdoc
      */
-    public Binaries: string | IBinCollection;
+    public Binaries?: string | IBinCollection;
 
     /**
-     * Gets or sets filenames to put in place for the `man` program to find.
+     * @inheritdoc
      */
-    public Manuals: string | string[];
+    public Manuals?: string | string[];
 
     /**
-     * Gets or sets the files to include into the package.
+     * @inheritdoc
      */
     public Files: string[];
 
     /**
-     * Gets or sets the directory-structure of the package.
+     * @inheritdoc
      */
     public Directories: IDirectoryStructure;
 
     /**
-     * Gets or sets the homepage.
+     * @inheritdoc
      */
-    public Homepage: string;
+    public Homepage?: string;
 
     /**
-     * Gets or sets the repository of the package.
+     * @inheritdoc
      */
-    public Repository: string | IRepository;
+    public Repository?: string | IRepository;
 
     /**
-     * Gets or sets links for reporting bugs.
+     * @inheritdoc
      */
     public Bugs: BugInfo;
 
     /**
-     * Gets or sets a set of persistent configurations.
+     * @inheritdoc
      */
     public Config: Record<string, any>;
 
     /**
-     * Gets or sets the npm configuration to use while publishing.
+     * @inheritdoc
      */
     public PublishConfig: Record<string, any>;
 
     /**
-     * Gets or sets a set of script-commands for the package.
+     * @inheritdoc
      */
     public Scripts: Dictionary<string, string>;
 
     /**
-     * Gets or sets the dependencies of the package.
+     * @inheritdoc
      */
     public DependencyCollection: DependencyCollection;
 
     /**
-     * Gets or sets a set of additional properties.
+     * @inheritdoc
      */
     public AdditionalProperties: Dictionary<string, unknown>;
 
@@ -264,7 +265,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     public constructor(...args: [] | [string] | [IPackageJSON] | [string, IPackageJSON])
     {
         super();
-        let path: string = null;
+        let path: string | null = null;
         let metadata: IPackageJSON;
 
         if (args.length === 2)
@@ -274,20 +275,38 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
         }
         else
         {
-            switch (typeof args[0])
+            let packageDefinition = args[0];
+
+            if (typeof packageDefinition === "string")
             {
-                case "string":
-                    path = args[0];
-                    metadata = JSON.parse(readFileSync(args[0]).toString());
-                    break;
-                default:
-                    metadata = args[0];
-                    break;
+                path = packageDefinition;
+                metadata = JSON.parse(readFileSync(packageDefinition).toString());
+            }
+            else
+            {
+                metadata = packageDefinition ?? {};
             }
         }
 
         this.FileName = path;
-        this.LoadMetadata(metadata ?? {});
+
+        let config = this.LoadMetadata(metadata ?? {});
+        this.Private = config.Private;
+        this.Author = config.Author;
+        this.Maintainers = config.Maintainers;
+        this.Contributors = config.Contributors;
+        this.Keywords = config.Keywords;
+        this.Engines = config.Engines;
+        this.OS = config.OS;
+        this.CPU = config.CPU;
+        this.Files = config.Files;
+        this.Directories = config.Directories;
+        this.Bugs = config.Bugs;
+        this.Config = config.Config;
+        this.PublishConfig = config.PublishConfig;
+        this.Scripts = config.Scripts;
+        this.DependencyCollection = config.DependencyCollection;
+        this.AdditionalProperties = config.AdditionalProperties;
     }
 
     /**
@@ -345,7 +364,8 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     {
         return this.LoadDictionary(
             {
-                author: { name: null },
+                private: false,
+                author: { name: "" },
                 maintainers: [],
                 contributors: [],
                 keywords: [],
@@ -354,7 +374,6 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
                 bin: {},
                 man: [],
                 directories: {},
-                repository: null,
                 config: {},
                 publishConfig: {},
                 scripts: {},
@@ -363,7 +382,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
                 peerDependencies: {},
                 optionalDependencies: {},
                 bundledDependencies: []
-            });
+            } as IPackageMetadata);
     }
 
     /**
@@ -484,7 +503,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
      */
     public async Normalize(): Promise<void>
     {
-        let directory: string = null;
+        let directory: string | null = null;
         let metadata: IPackageJSON = { ...this.ToJSON() };
 
         if (this.FileName)
@@ -498,19 +517,19 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
 
                 if (gitRoot)
                 {
-                    let remote: string;
+                    let remote: string | undefined;
 
                     try
                     {
                         remote = githubUrlFromGit(
                             await gitRemoteOriginUrl(
-                            {
-                                cwd: gitRoot
-                            }));
+                                {
+                                    cwd: gitRoot
+                                }));
                     }
                     catch
                     {
-                        remote = null;
+                        remote = undefined;
                     }
 
                     metadata.repository = remote;
@@ -565,13 +584,13 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
 
         for (let entry of this.PropertyMap.entries())
         {
-            let value = this[entry[1]];
+            let value = this[entry[1]] as any;
             let generationLogic = GenerationLogic.Default;
             let dumpLogic = DumpLogic.Default;
 
             if (this.DumpLogics.has(entry[1]))
             {
-                dumpLogic = this.DumpLogics.get(entry[1]);
+                dumpLogic = this.DumpLogics.get(entry[1]) ?? dumpLogic;
             }
 
             switch (dumpLogic)
@@ -588,7 +607,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
 
             if (this.GenerationLogics.has(entry[0]))
             {
-                generationLogic = this.GenerationLogics.get(entry[0]);
+                generationLogic = this.GenerationLogics.get(entry[0]) ?? generationLogic;
             }
 
             switch (generationLogic)
@@ -619,8 +638,11 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
      *
      * @param metadata
      * The matadata to load.
+     *
+     * @returns
+     * The metadata which was loaded.
      */
-    protected LoadMetadata(metadata: IPackageJSON): void
+    protected LoadMetadata(metadata: IPackageJSON): IPackage
     {
         for (let entry of this.PropertyMap)
         {
@@ -649,35 +671,40 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
 
             if (this.PropertyMap.has(key))
             {
-                let logic = this.LoadLogics.get(key);
+                let propertyKey = this.PropertyMap.get(key);
 
-                if (logic !== LoadLogic.None)
+                if (propertyKey)
                 {
-                    switch (logic)
-                    {
-                        case LoadLogic.Dictionary:
-                            value = this.LoadDictionary(value);
-                            break;
-                        case LoadLogic.Person:
-                            value = this.LoadPerson(value);
-                            break;
-                        case LoadLogic.PersonList:
-                            value = this.LoadPersonList(value);
-                            break;
-                        case LoadLogic.BugInfo:
-                            value = new BugInfo(value);
-                            break;
-                        case LoadLogic.Plain:
-                        default:
-                            value = this.LoadObject(value);
-                            break;
-                    }
+                    let logic = this.LoadLogics.get(key);
 
-                    Object.assign(
-                        this,
+                    if (logic !== LoadLogic.None)
+                    {
+                        switch (logic)
                         {
-                            [this.PropertyMap.get(key)]: value
-                        });
+                            case LoadLogic.Dictionary:
+                                value = this.LoadDictionary(value);
+                                break;
+                            case LoadLogic.Person:
+                                value = this.LoadPerson(value);
+                                break;
+                            case LoadLogic.PersonList:
+                                value = this.LoadPersonList(value);
+                                break;
+                            case LoadLogic.BugInfo:
+                                value = new BugInfo(value);
+                                break;
+                            case LoadLogic.Plain:
+                            default:
+                                value = this.LoadObject(value);
+                                break;
+                        }
+
+                        Object.assign(
+                            this,
+                            {
+                                [propertyKey]: value
+                            });
+                    }
                 }
             }
             else
@@ -691,6 +718,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
         }
 
         this.AdditionalProperties = this.LoadDictionary(additionalProperties);
+        return this;
     }
 
     /**
@@ -706,7 +734,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IDependency
     {
         return (object !== null && object !== undefined) ?
             (typeof object === "object" ? (Array.isArray(object) ? [...object] : { ...object }) : object) :
-            null;
+            undefined;
     }
 
     /**

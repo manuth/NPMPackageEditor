@@ -1,5 +1,4 @@
 import { doesNotThrow, ok, strictEqual, throws } from "node:assert";
-import { IPerson } from "../../Management/IPerson.js";
 import { JSONObject } from "../../Utilities/JSONObject.js";
 import { TestContext } from "../TestContext.js";
 import { PropertyInjector } from "./PropertyInjector.js";
@@ -16,18 +15,39 @@ export function JSONObjectTests(context: TestContext): void
         nameof(JSONObject),
         () =>
         {
-            let jsonObject: JSONObject<ITest>;
-            let options: IPerson;
-            let randomKeyGenerator: Generator<keyof IPerson, keyof IPerson>;
-            let randomKey: keyof IPerson;
+            let jsonObject: JSONObject<IExtendedPerson>;
+            let options: ITestPerson;
+            let randomKeyGenerator: Generator<keyof ITestPerson, keyof ITestPerson>;
+            let randomKey: keyof ITestPerson;
             let randomValue: string;
             let objectKey = "object" as const;
             let arrayKey = "array" as const;
 
             /**
+             * Represents a test person.
+             */
+            interface ITestPerson
+            {
+                /**
+                 * The name of the person.
+                 */
+                name: string | null | undefined;
+
+                /**
+                 * The mail address of the person.
+                 */
+                email: string | null | undefined;
+
+                /**
+                 * The homepage of the person.
+                 */
+                url: string | null | undefined;
+            }
+
+            /**
              * Represents a test-interface.
              */
-            interface ITest extends IPerson
+            interface IExtendedPerson extends ITestPerson
             {
                 /**
                  * A test-object.
@@ -48,7 +68,7 @@ export function JSONObjectTests(context: TestContext): void
                         {
                             while (true)
                             {
-                                yield context.Random.pick(Object.keys(options)) as keyof IPerson;
+                                yield context.Random.pick(Object.keys(options)) as keyof ITestPerson;
                             }
                         })();
 
@@ -76,7 +96,7 @@ export function JSONObjectTests(context: TestContext): void
              * @param present
              * A value indicating whether nullish values are supposed to be present.
              */
-            function AssertNullishPresence(propertyInjector: PropertyInjector<ITest>, present: boolean): void
+            function AssertNullishPresence(propertyInjector: PropertyInjector<IExtendedPerson>, present: boolean): void
             {
                 for (let value of [undefined, null, randomValue])
                 {
@@ -102,7 +122,7 @@ export function JSONObjectTests(context: TestContext): void
              * @param present
              * A value indicating whether the property is supposed to be present.
              */
-            function AssertPropertyPresence<TKey extends keyof ITest>(propertyInjector: PropertyInjector<ITest>, key: TKey, value: ITest[TKey], present: boolean): void
+            function AssertPropertyPresence<TKey extends keyof IExtendedPerson>(propertyInjector: PropertyInjector<IExtendedPerson>, key: TKey, value: IExtendedPerson[TKey], present: boolean): void
             {
                 propertyInjector(jsonObject, key, value);
                 strictEqual(key in jsonObject.ToJSON(), present);
@@ -170,7 +190,7 @@ export function JSONObjectTests(context: TestContext): void
                 nameof<JSONObject>((object) => object.AddIfNotEmpty),
                 () =>
                 {
-                    let propertyInjector: PropertyInjector<ITest>;
+                    let propertyInjector: PropertyInjector<IExtendedPerson>;
 
                     suiteSetup(
                         () =>

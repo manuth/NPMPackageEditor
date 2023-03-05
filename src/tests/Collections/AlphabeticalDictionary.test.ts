@@ -93,10 +93,10 @@ export function AlphabeticalDictionaryTests(context: TestContext): void
                             let objectMap = randomMap.map<[Record<string, unknown>, number]>(
                                 (entry) =>
                                 {
-                                    let result: [Record<string, unknown>, number] = [null, null];
-                                    result[0] = { toString: () => entry[0] };
-                                    result[1] = entry[1];
-                                    return result;
+                                    return [
+                                        { toString: () => entry[0] },
+                                        entry[1]
+                                    ];
                                 });
 
                             let dictionary = new AlphabeticalDictionary(objectMap);

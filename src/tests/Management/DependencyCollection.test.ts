@@ -114,7 +114,7 @@ export function DependencyCollectionTests(context: TestContext): void
                             {
                                 let otherCollection = new DependencyCollection();
                                 let dependency = random.pick(collection[dependencySet].Keys);
-                                otherCollection[dependencySet].Add(dependency, null);
+                                otherCollection[dependencySet].Add(dependency, "");
                                 throws(() => collection.Register(otherCollection));
                             }
                         });

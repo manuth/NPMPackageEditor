@@ -312,12 +312,12 @@ export function PackageTests(context: TestContext): void
                 strictEqual(npmPackage.Type, metadata.type);
                 strictEqual(npmPackage.Private, metadata.private);
                 strictEqual(npmPackage.Description, metadata.description);
-                AssertPerson(npmPackage.Author, metadata.author);
-                AssertPersonList(npmPackage.Maintainers, metadata.maintainers);
-                AssertPersonList(npmPackage.Contributors, metadata.contributors);
+                AssertPerson(npmPackage.Author, metadata.author ?? "");
+                AssertPersonList(npmPackage.Maintainers, metadata.maintainers ?? []);
+                AssertPersonList(npmPackage.Contributors, metadata.contributors ?? []);
                 strictEqual(npmPackage.License, metadata.license);
                 deepStrictEqual(npmPackage.Keywords, metadata.keywords);
-                AssertDictionary(npmPackage.Engines, metadata.engines);
+                AssertDictionary(npmPackage.Engines, metadata.engines ?? {});
                 deepStrictEqual(npmPackage.OS, metadata.os);
                 deepStrictEqual(npmPackage.CPU, metadata.cpu);
                 deepStrictEqual(npmPackage.Exports, metadata.exports);
@@ -331,14 +331,14 @@ export function PackageTests(context: TestContext): void
                 deepStrictEqual(npmPackage.Directories, metadata.directories);
                 strictEqual(npmPackage.Homepage, metadata.homepage);
                 deepStrictEqual(npmPackage.Repository, metadata.repository);
-                AssertBugInfo(npmPackage.Bugs, metadata.bugs);
+                AssertBugInfo(npmPackage.Bugs, metadata.bugs ?? {});
                 deepStrictEqual(npmPackage.Config, metadata.config);
                 deepStrictEqual(npmPackage.PublishConfig, metadata.publishConfig);
-                AssertDictionary(npmPackage.Scripts, metadata.scripts);
-                AssertDictionary(npmPackage.Dependencies, metadata.dependencies);
-                AssertDictionary(npmPackage.DevelopmentDependencies, metadata.devDependencies);
-                AssertDictionary(npmPackage.PeerDependencies, metadata.peerDependencies);
-                AssertDictionary(npmPackage.OptionalDependencies, metadata.optionalDependencies);
+                AssertDictionary(npmPackage.Scripts, metadata.scripts ?? {});
+                AssertDictionary(npmPackage.Dependencies, metadata.dependencies ?? {});
+                AssertDictionary(npmPackage.DevelopmentDependencies, metadata.devDependencies ?? {});
+                AssertDictionary(npmPackage.PeerDependencies, metadata.peerDependencies ?? {});
+                AssertDictionary(npmPackage.OptionalDependencies, metadata.optionalDependencies ?? {});
                 deepStrictEqual(npmPackage.BundledDependencies.ToJSON(), metadata.bundledDependencies);
             }
 
@@ -390,14 +390,19 @@ export function PackageTests(context: TestContext): void
                              */
                             function AssertDefault<TMetaKey extends keyof IPackageMetadata, TKey extends keyof Package>(key: TKey, expected: any, propertyChecker?: PropertyChecker<Package[TKey], any>, overwriteUndefined = true): void
                             {
-                                let optionsKey = new Map(Array.from(npmPackage.PropertyMap).map((entry) => [entry[1], entry[0]])).get(key);
                                 let packageOptions = new JSONObject(metadata);
 
-                                propertyChecker = propertyChecker ?? (
+                                let optionsKey = new Map(
+                                    Array.from(npmPackage.PropertyMap).map(
+                                        (entry) => [entry[1], entry[0]])).get(key);
+
+                                let checker = propertyChecker ?? (
                                     (x, y) =>
                                     {
                                         deepStrictEqual(x, y);
                                     });
+
+                                ok(optionsKey);
 
                                 /**
                                  * Asserts the value of a property.
@@ -407,16 +412,15 @@ export function PackageTests(context: TestContext): void
                                  */
                                 function AssertValue(expected: IPackageMetadata[TMetaKey]): void
                                 {
-                                    propertyChecker(new TestPackage(packageOptions.ToJSON())[key], expected);
+                                    checker(new TestPackage(packageOptions.ToJSON())[key], expected);
                                 }
 
                                 packageOptions.Remove(optionsKey);
-                                npmPackage = new TestPackage(packageOptions.ToJSON());
                                 AssertValue(expected);
 
                                 if (overwriteUndefined)
                                 {
-                                    packageOptions.Add(optionsKey, undefined);
+                                    packageOptions.Add(optionsKey, undefined as any);
                                     AssertValue(expected);
                                 }
                             }
@@ -431,28 +435,28 @@ export function PackageTests(context: TestContext): void
                                     type PropertyAssertion<T extends keyof Package> = [T, any, PropertyChecker<Package[T], any>?];
 
                                     let assertions = [
-                                        [nameof<Package>((pkg) => pkg.Name), null],
-                                        [nameof<Package>((pkg) => pkg.Version), null],
-                                        [nameof<Package>((pkg) => pkg.Type), null],
-                                        [nameof<Package>((pkg) => pkg.Private), null],
-                                        [nameof<Package>((pkg) => pkg.Description), null],
+                                        [nameof<Package>((pkg) => pkg.Name), undefined],
+                                        [nameof<Package>((pkg) => pkg.Version), undefined],
+                                        [nameof<Package>((pkg) => pkg.Type), undefined],
+                                        [nameof<Package>((pkg) => pkg.Private), false],
+                                        [nameof<Package>((pkg) => pkg.Description), undefined],
                                         [nameof<Package>((pkg) => pkg.Author), {} as PackagePerson, AssertPerson],
                                         [nameof<Package>((pkg) => pkg.Maintainers), []],
                                         [nameof<Package>((pkg) => pkg.Contributors), []],
-                                        [nameof<Package>((pkg) => pkg.License), null],
+                                        [nameof<Package>((pkg) => pkg.License), undefined],
                                         [nameof<Package>((pkg) => pkg.Keywords), []],
                                         [nameof<Package>((pkg) => pkg.Engines), {}, AssertDictionary],
-                                        [nameof<Package>((pkg) => pkg.OS), null],
-                                        [nameof<Package>((pkg) => pkg.CPU), null],
-                                        [nameof<Package>((pkg) => pkg.Main), null],
-                                        [nameof<Package>((pkg) => pkg.Types), null],
+                                        [nameof<Package>((pkg) => pkg.OS), undefined],
+                                        [nameof<Package>((pkg) => pkg.CPU), undefined],
+                                        [nameof<Package>((pkg) => pkg.Main), undefined],
+                                        [nameof<Package>((pkg) => pkg.Types), undefined],
                                         [nameof<Package>((pkg) => pkg.Browser), {}],
                                         [nameof<Package>((pkg) => pkg.Binaries), {}],
                                         [nameof<Package>((pkg) => pkg.Manuals), []],
-                                        [nameof<Package>((pkg) => pkg.Files), null],
+                                        [nameof<Package>((pkg) => pkg.Files), undefined],
                                         [nameof<Package>((pkg) => pkg.Directories), {}],
-                                        [nameof<Package>((pkg) => pkg.Homepage), null],
-                                        [nameof<Package>((pkg) => pkg.Repository), null],
+                                        [nameof<Package>((pkg) => pkg.Homepage), undefined],
+                                        [nameof<Package>((pkg) => pkg.Repository), undefined],
                                         [nameof<Package>((pkg) => pkg.Bugs), {}, AssertBugInfo],
                                         [nameof<Package>((pkg) => pkg.Config), {}],
                                         [nameof<Package>((pkg) => pkg.PublishConfig), {}],
@@ -583,14 +587,18 @@ export function PackageTests(context: TestContext): void
                     suiteSetup(
                         async () =>
                         {
+                            let gitDir = await gitRootDir(fileURLToPath(new URL(".", import.meta.url)));
+                            ok(gitDir);
+                            gitRoot = gitDir;
+
                             let url = githubUrlFromGit(
                                 await gitRemoteOriginUrl(
                                     {
                                         cwd: gitRoot
                                     }));
 
-                            url = url ? `${url}.git` : null;
-                            gitRoot = await gitRootDir(fileURLToPath(new URL(".", import.meta.url)));
+                            ok(url);
+                            url = `${url}.git`;
                             gitRemoteUrl = new URL(url);
                             webUrl = new URL(url);
                             webUrl.protocol = "https";
@@ -612,7 +620,7 @@ export function PackageTests(context: TestContext): void
                         () =>
                         {
                             ok(typeof npmPackage.Repository !== "string");
-                            strictEqual(npmPackage.Repository.url, `git+${gitRemoteUrl}`);
+                            strictEqual(npmPackage.Repository?.url, `git+${gitRemoteUrl}`);
                             strictEqual(npmPackage.Homepage, homepage);
                             strictEqual(npmPackage.Bugs.URL, bugUrl);
                         });
@@ -621,6 +629,7 @@ export function PackageTests(context: TestContext): void
                         `Checking whether the \`${nameof<Package>((p) => p.Description)}\` is generated correctly…`,
                         async () =>
                         {
+                            ok(npmPackage.Description);
                             ok((await readFile(await readmeFilename(gitRoot))).toString().includes(npmPackage.Description));
                         });
 
@@ -628,6 +637,7 @@ export function PackageTests(context: TestContext): void
                         `Checking whether the \`${nameof<Package>((p) => p.Repository)}.${nameof<IRepository>((r) => r.directory)}-option is applied correctly…`,
                         async () =>
                         {
+                            ok(npmPackage.FileName);
                             let parsedPath = parse(npmPackage.FileName);
                             let subDirectories = (await readdir(gitRoot)).filter((entry) => statSync(entry).isDirectory());
                             let directory = context.Random.pick(subDirectories);
@@ -636,7 +646,7 @@ export function PackageTests(context: TestContext): void
                             npmPackage.FileName = fileName;
                             await npmPackage.Normalize();
                             ok(typeof npmPackage.Repository !== "string");
-                            strictEqual(npmPackage.Repository.directory, directory);
+                            strictEqual(npmPackage.Repository?.directory, directory);
                         });
                 });
 
@@ -663,10 +673,10 @@ export function PackageTests(context: TestContext): void
                             generatedMeta = new TestPackage().ToJSON();
 
                             ok(
-                                Object.keys(generatedMeta).every(
+                                importantKeys.every(
                                     (key) =>
                                     {
-                                        return importantKeys.includes(key as keyof IPackageMetadata);
+                                        return Object.keys(generatedMeta).includes(key);
                                     }));
                         });
 
@@ -712,12 +722,12 @@ export function PackageTests(context: TestContext): void
                         });
 
                     test(
-                        `Checking whether \`${null}\`-ish values are replaced with \`${null}\`…`,
+                        `Checking whether \`${null}\`-ish values are replaced with \`${undefined}\`…`,
                         () =>
                         {
                             for (let value of [null, undefined] as any[])
                             {
-                                strictEqual(null, npmPackage.LoadObject(value));
+                                strictEqual(npmPackage.LoadObject(value), undefined);
                             }
                         });
                 });

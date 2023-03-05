@@ -6,7 +6,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## NPMPackageEditor [Unreleased]
 
-[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v3.0.2...dev)
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v3.1.0...dev)
+
+## NPMPackageEditor v3.1.0
+### Fixed
+  - Vulnerabilities in dependencies
+
+### Updated
+  - All dependencies
+  - Lifecycle scripts
+  - Configuration to migrate from Drone to Woodpecker
+
+### Added
+  - Strict `null` checks
+
+### Removed
+  - Dependabot checks
+
+[Show differences](https://github.com/manuth/NPMPackageEditor/compare/v3.0.2...v3.1.0)
 
 ## NPMPackageEditor v3.0.2
 ### Added

@@ -18,7 +18,7 @@ export class TestContext
     /**
      * The dependencies of the package.
      */
-    private dependencies: string[] = null;
+    private dependencies?: string[];
 
     /**
      * A component for creating random data.
@@ -46,29 +46,40 @@ export class TestContext
      */
     public async GetDependencies(): Promise<string[]>
     {
-        if (this.dependencies === null)
+        if (this.dependencies === undefined)
         {
-            let npmPackage: IPackageMetadata = JSON.parse(
-                (await readFile(
-                    await findUp(
-                        Package.FileName,
+            let packageFile = await findUp(
+                Package.FileName,
+                {
+                    cwd: fileURLToPath(new URL(".", import.meta.url))
+                });
+
+            if (packageFile)
+            {
+                let npmPackage: IPackageMetadata = JSON.parse((await readFile(packageFile)).toString());
+
+                this.dependencies = [
+                    ...Object.keys(
                         {
-                            cwd: fileURLToPath(new URL(".", import.meta.url))
-                        }))).toString());
+                            ...npmPackage.dependencies,
+                            ...npmPackage.devDependencies,
+                            ...npmPackage.optionalDependencies,
+                            ...npmPackage.peerDependencies
+                        }),
+                    ...(npmPackage.bundledDependencies ?? [])
+                ];
 
-            this.dependencies = [
-                ...Object.keys(
-                    {
-                        ...npmPackage.dependencies,
-                        ...npmPackage.devDependencies,
-                        ...npmPackage.optionalDependencies,
-                        ...npmPackage.peerDependencies
-                    }),
-                ...(npmPackage.bundledDependencies ?? [])
-            ];
+                return this.GetDependencies();
+            }
+            else
+            {
+                throw new Error();
+            }
         }
-
-        return this.dependencies;
+        else
+        {
+            return this.dependencies;
+        }
     }
 
     /**

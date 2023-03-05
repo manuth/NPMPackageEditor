@@ -51,8 +51,8 @@ export function BugInfoTests(context: TestContext): void
                                 "Checking whether the object is created correctly…",
                                 () =>
                                 {
-                                    strictEqual(bugInfo.URL, null);
-                                    strictEqual(bugInfo.EMail, null);
+                                    strictEqual(bugInfo.URL, undefined);
+                                    strictEqual(bugInfo.EMail, undefined);
                                 });
                         });
 
@@ -102,30 +102,55 @@ export function BugInfoTests(context: TestContext): void
                         "Checking whether properties are added correctly…",
                         () =>
                         {
-                            strictEqual(bugInfo.ToJSON().url, bugInfo.URL);
-                            strictEqual(bugInfo.ToJSON().email, bugInfo.EMail);
+                            strictEqual(bugInfo.ToJSON()?.url, bugInfo.URL);
+                            strictEqual(bugInfo.ToJSON()?.email, bugInfo.EMail);
                         });
 
                     test(
                         "Checking whether empty properties are excluded from the JSON-object…",
                         () =>
                         {
-                            let key: keyof IBugInfo;
-                            bugInfo.URL = null;
-                            key = nameof<IBugInfo>((info) => info.url) as keyof IBugInfo;
-                            ok(!(key in bugInfo.ToJSON()));
-                            bugInfo.URL = bugInfoOptions.url;
-                            bugInfo.EMail = null;
-                            key = nameof<IBugInfo>((info) => info.email) as keyof IBugInfo;
-                            ok(!(key in bugInfo.ToJSON()));
+                            let keyMap: Array<[keyof BugInfo, keyof IBugInfo]> = [
+                                [
+                                    nameof<BugInfo>((info) => info.EMail) as any,
+                                    nameof<IBugInfo>((info) => info.email) as any
+                                ],
+                                [
+                                    nameof<BugInfo>((info) => info.URL) as any,
+                                    nameof<IBugInfo>((info) => info.url) as any
+                                ]
+                            ];
+
+                            for (let currentEntry of keyMap)
+                            {
+                                for (let entry of keyMap)
+                                {
+                                    (bugInfo as any)[entry[0]] = undefined;
+                                }
+
+                                (bugInfo as any)[currentEntry[0]] = bugInfoOptions[currentEntry[1]];
+                                let result = bugInfo.ToJSON();
+
+                                ok(result);
+
+                                for (let entry of keyMap)
+                                {
+                                    if (entry[1] !== currentEntry[1])
+                                    {
+                                        ok(!(entry[1] in result));
+                                    }
+                                }
+
+                                ok(currentEntry[1] in result);
+                            }
                         });
 
                     test(
                         `Checking whether an empty \`${nameof(BugInfo)}\`-instance equals \`${null}\`…`,
                         () =>
                         {
-                            bugInfo.URL = null;
-                            bugInfo.EMail = null;
+                            bugInfo.URL = undefined;
+                            bugInfo.EMail = undefined;
                             strictEqual(bugInfo.ToJSON(), null);
                         });
                 });

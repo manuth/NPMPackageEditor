@@ -42,10 +42,11 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
     public constructor(...args: [(Iterable<readonly [TKey, TValue]> | Dictionary<TKey, TValue>)?])
     {
         super();
+        let entries = args[0];
 
-        if (args.length > 0)
+        if (entries)
         {
-            this.AddRange(...args);
+            this.AddRange(entries);
         }
     }
 
@@ -142,7 +143,7 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
         }
         else
         {
-            return this.innerCollection.get(key);
+            return this.innerCollection.get(key) as TValue;
         }
     }
 
@@ -203,7 +204,7 @@ export class Dictionary<TKey, TValue> extends Collection<TKey, TValue> implement
                 result.Add(`${entry[0]}`, entry[1]);
                 return result;
             },
-            new JSONObject()).ToJSON();
+            new JSONObject()).ToJSON() as Record<string, TValue>;
     }
 
     /**

@@ -29,6 +29,13 @@ export class PropertyDictionary<T> extends Dictionary<keyof T, T[keyof T]>
      */
     public constructor(collection?: T)
     {
-        super((Object.keys(collection ?? {}) as Array<keyof T>).map<[keyof T, T[keyof T]]>((key) => [key, collection[key]]));
+        super(
+            collection ?
+                (Object.keys(collection ?? {}) as Array<keyof T>).map<[keyof T, T[keyof T]]>(
+                    (key) =>
+                    {
+                        return [key, collection[key]];
+                    }) :
+                []);
     }
 }
