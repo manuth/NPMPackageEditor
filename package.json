@@ -47,8 +47,7 @@
     "lint": "eslint --max-warnings 0 ./src .eslintrc.cjs",
     "lint-ide": "npm run lint || exit 0",
     "test": "mocha",
-    "prepare": "npm run patchTypeScript && npm run rebuild",
-    "patchTypeScript": "ts-patch install"
+    "prepare": "ts-patch install"
   },
   "dependencies": {
     "@stdlib/assert-is-iterable-like": "^0.0.7",
