@@ -57,10 +57,10 @@ export class DependencyCollection implements IDependencyCollection
      */
     public constructor(collection?: IDependencyCollectionOptions)
     {
-        this.dependencies = this.LoadDependencyDictionary(collection?.dependencies);
-        this.devDependencies = this.LoadDependencyDictionary(collection?.devDependencies);
-        this.peerDependencies = this.LoadDependencyDictionary(collection?.peerDependencies);
-        this.optionalDependencies = this.LoadDependencyDictionary(collection?.optionalDependencies);
+        this.dependencies = this.LoadDependencyDictionary(collection?.dependencies ?? {});
+        this.devDependencies = this.LoadDependencyDictionary(collection?.devDependencies ?? {});
+        this.peerDependencies = this.LoadDependencyDictionary(collection?.peerDependencies ?? {});
+        this.optionalDependencies = this.LoadDependencyDictionary(collection?.optionalDependencies ?? {});
         this.bundledDependencies = this.LoadDependencyList(collection?.bundledDependencies ?? []);
     }
 

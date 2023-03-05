@@ -6,7 +6,7 @@ import { IPerson } from "./IPerson.js";
 /**
  * Represents a person.
  */
-export class Person extends JSONObjectBase<string>
+export class Person extends JSONObjectBase<string | null>
 {
     /**
      * Gets or sets the name of the person.
@@ -16,12 +16,12 @@ export class Person extends JSONObjectBase<string>
     /**
      * Gets or sets the email-address of the person.
      */
-    public EMail: string;
+    public EMail?: string;
 
     /**
      * Gets or sets the url to the website of the person.
      */
-    public URL: string;
+    public URL?: string;
 
     /**
      * Initializes a new instance of the {@link Person `Person`} class.
@@ -67,9 +67,9 @@ export class Person extends JSONObjectBase<string>
             info = person;
         }
 
-        this.Name = info.name ?? null;
-        this.EMail = info.email ?? null;
-        this.URL = info.url ?? null;
+        this.Name = info.name;
+        this.EMail = info.email;
+        this.URL = info.url;
     }
 
     /**
@@ -78,7 +78,7 @@ export class Person extends JSONObjectBase<string>
      * @returns
      * A json-object representing the person.
      */
-    public ToJSON(): string
+    public ToJSON(): string | null
     {
         let person: IPerson = {
             name: this.Name,

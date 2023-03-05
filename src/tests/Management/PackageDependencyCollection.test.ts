@@ -78,7 +78,7 @@ export function PackageDependencyCollectionTests(context: TestContext): void
         {
             let npmPackage: Package;
             let randomDependencies: Record<string, string>;
-            let collectionOptions: PackageDependencyCollectionOptions;
+            let collectionOptions: Required<PackageDependencyCollectionOptions>;
             let collection: TestPackageDependencyCollection;
 
             setup(

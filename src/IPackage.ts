@@ -2,7 +2,6 @@ import { Dictionary } from "./Collections/Dictionary.js";
 import { BugInfo } from "./Management/BugInfo.js";
 import { DependencyCollection } from "./Management/DependencyCollection.js";
 import { IBinCollection } from "./Management/IBinCollection.js";
-import { IDependencyCollection } from "./Management/IDependencyCollection.js";
 import { IDirectoryStructure } from "./Management/IDirectoryStructure.js";
 import { IRepository } from "./Management/IRepository.js";
 import { IShimCollection } from "./Management/IShimCollection.js";
@@ -13,18 +12,18 @@ import { ResolveMatrix } from "./ResolveMatrix.js";
 /**
  * Represents a package.
  */
-export interface IPackage extends IDependencyCollection
+export interface IPackage
 {
 
     /**
      * Gets or sets the name of the package.
      */
-    Name: string;
+    Name?: string;
 
     /**
      * Gets or sets the version of the package.
      */
-    Version: string;
+    Version?: string;
 
     /**
      * Gets or sets the type of the package.
@@ -39,7 +38,7 @@ export interface IPackage extends IDependencyCollection
     /**
      * Gets or sets the description of the package.
      */
-    Description: string;
+    Description?: string;
 
     /**
      * Gets or sets the author of the package.
@@ -59,7 +58,7 @@ export interface IPackage extends IDependencyCollection
     /**
      * Gets or sets the license of the package.
      */
-    License: string;
+    License?: string;
 
     /**
      * Gets or sets the keywords of the package.
@@ -84,37 +83,37 @@ export interface IPackage extends IDependencyCollection
     /**
      * Gets or sets the entry points of the package.
      */
-    Exports: string | string[] | ResolveMatrix;
+    Exports?: string | string[] | ResolveMatrix;
 
     /**
      * Gets or sets the subpath imports of the package.
      */
-    Imports: ResolveMatrix;
+    Imports?: ResolveMatrix;
 
     /**
      * Gets or sets the primary entry point of the program.
      */
-    Main: string;
+    Main?: string;
 
     /**
      * Gets or sets the path to the bundled declaration file.
      */
-    Types: string;
+    Types?: string;
 
     /**
      * Gets or sets a hint to javascript bundlers for packaging modules for client side use.
      */
-    Browser: string | IShimCollection;
+    Browser?: string | IShimCollection;
 
     /**
      * Gets or sets a set of executables to add to `PATH`.
      */
-    Binaries: string | IBinCollection;
+    Binaries?: string | IBinCollection;
 
     /**
      * Gets or sets filenames to put in place for the `man` program to find.
      */
-    Manuals: string | string[];
+    Manuals?: string | string[];
 
     /**
      * Gets or sets the files to include into the package.
@@ -129,12 +128,12 @@ export interface IPackage extends IDependencyCollection
     /**
      * Gets or sets the homepage.
      */
-    Homepage: string;
+    Homepage?: string;
 
     /**
      * Gets or sets the repository of the package.
      */
-    Repository: string | IRepository;
+    Repository?: string | IRepository;
 
     /**
      * Gets or sets links for reporting bugs.

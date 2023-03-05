@@ -31,7 +31,7 @@ export class OrderedDependencyCollection extends DependencyCollection
      */
     public constructor(collection?: IDependencyCollectionOptions)
     {
-        super(collection);
+        super(collection ?? {});
     }
 
     /**

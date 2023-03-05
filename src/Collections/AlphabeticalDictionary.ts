@@ -34,9 +34,11 @@ export class AlphabeticalDictionary<TKey, TValue> extends Dictionary<TKey, TValu
     {
         super();
 
-        if (args.length > 0)
+        let entries = args[0];
+
+        if (entries)
         {
-            this.AddRange(...args);
+            this.AddRange(entries);
         }
     }
 

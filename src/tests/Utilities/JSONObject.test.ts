@@ -78,7 +78,7 @@ export function JSONObjectTests(context: TestContext): void
              */
             function AssertNullishPresence(propertyInjector: PropertyInjector<ITest>, present: boolean): void
             {
-                for (let value of [undefined, null, randomValue])
+                for (let value of [undefined, randomValue])
                 {
                     AssertPropertyPresence(propertyInjector, randomKeyGenerator.next().value, value, (value !== null && value !== undefined) || present);
                 }
