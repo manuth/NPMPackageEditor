@@ -127,8 +127,9 @@ tsconfig.*.json
 # GitHub configuration
 .github/
 
-# Drone configuration
-.drone.yml
+# CI configuration
+.woodpecker.yml
+.woodpecker/
 
 # Temporary release-assets
 .tagName.txt
