@@ -110,14 +110,39 @@ export function BugInfoTests(context: TestContext): void
                         "Checking whether empty properties are excluded from the JSON-object…",
                         () =>
                         {
-                            let key: keyof IBugInfo;
-                            bugInfo.URL = undefined;
-                            key = nameof<IBugInfo>((info) => info.url) as keyof IBugInfo;
-                            ok(!(key in (bugInfo.ToJSON() ?? {})));
-                            bugInfo.URL = bugInfoOptions.url;
-                            bugInfo.EMail = undefined;
-                            key = nameof<IBugInfo>((info) => info.email) as keyof IBugInfo;
-                            ok(!(key in (bugInfo.ToJSON() ?? {})));
+                            let keyMap: Array<[keyof BugInfo, keyof IBugInfo]> = [
+                                [
+                                    nameof<BugInfo>((info) => info.EMail) as any,
+                                    nameof<IBugInfo>((info) => info.email) as any
+                                ],
+                                [
+                                    nameof<BugInfo>((info) => info.URL) as any,
+                                    nameof<IBugInfo>((info) => info.url) as any
+                                ]
+                            ];
+
+                            for (let currentEntry of keyMap)
+                            {
+                                for (let entry of keyMap)
+                                {
+                                    (bugInfo as any)[entry[0]] = undefined;
+                                }
+
+                                (bugInfo as any)[currentEntry[0]] = bugInfoOptions[currentEntry[1]];
+                                let result = bugInfo.ToJSON();
+
+                                ok(result);
+
+                                for (let entry of keyMap)
+                                {
+                                    if (entry[1] !== currentEntry[1])
+                                    {
+                                        ok(!(entry[1] in result));
+                                    }
+                                }
+
+                                ok(currentEntry[1] in result);
+                            }
                         });
 
                     test(
