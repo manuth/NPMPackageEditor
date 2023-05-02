@@ -615,6 +615,9 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IPackage
                 case GenerationLogic.NonEmpty:
                     result.AddIfNotEmpty(entry[0], value);
                     break;
+                case GenerationLogic.Truthy:
+                    result.AddIfNotNull(entry[0], value || undefined);
+                    break;
                 case GenerationLogic.Always:
                     result.Add(entry[0], value);
                     break;
