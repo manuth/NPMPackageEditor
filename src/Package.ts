@@ -204,6 +204,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IPackage
      */
     private generationLogics: Map<keyof IPackageMetadata, GenerationLogic> = new Map<keyof IPackageMetadata, GenerationLogic>(
         [
+            [nameof<IPackageMetadata>((meta) => meta.private), GenerationLogic.Truthy],
             [nameof<IPackageMetadata>((meta) => meta.maintainers), GenerationLogic.NonEmpty],
             [nameof<IPackageMetadata>((meta) => meta.contributors), GenerationLogic.NonEmpty],
             [nameof<IPackageMetadata>((meta) => meta.keywords), GenerationLogic.NonEmpty],
