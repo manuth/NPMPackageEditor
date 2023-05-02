@@ -1,6 +1,6 @@
 import { basename } from "node:path";
-import { TestContext } from "../TestContext.js";
 import { JSONObjectTests } from "./JSONObject.test.js";
+import { TestContext } from "../TestContext.js";
 
 /**
  * Registers tests for utilities.

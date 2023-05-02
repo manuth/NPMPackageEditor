@@ -1,9 +1,9 @@
 import { basename } from "node:path";
-import { TestContext } from "../TestContext.js";
 import { BugInfoTests } from "./BugInfo.test.js";
 import { DependencyCollectionTests } from "./DependencyCollection.test.js";
 import { PackageDependencyCollectionTests } from "./PackageDependencyCollection.test.js";
 import { PersonTests } from "./Person.test.js";
+import { TestContext } from "../TestContext.js";
 
 /**
  * Registers tests for management-components.

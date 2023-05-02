@@ -19,6 +19,11 @@ export enum GenerationLogic
     NonEmpty,
 
     /**
+     * Indicates that properties should be generated if they are truthy.
+     */
+    Truthy,
+
+    /**
      * Indicates that properties always should be added regardless of their values.
      */
     Always

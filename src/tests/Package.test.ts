@@ -9,6 +9,9 @@ import githubUrlFromGit from "github-url-from-git";
 import readmeFilename from "readme-filename";
 import stringify from "stringify-author";
 import upath from "upath";
+import { PropertyChecker } from "./PropertyChecker.js";
+import { TestContext } from "./TestContext.js";
+import { TestPackage } from "./TestPackage.js";
 import { Dictionary } from "../Collections/Dictionary.js";
 import { List } from "../Collections/List.js";
 import { GenerationLogic } from "../GenerationLogic.js";
@@ -22,9 +25,6 @@ import { Person } from "../Management/Person.js";
 import { Package } from "../Package.js";
 import { PackageType } from "../PackageType.js";
 import { JSONObject } from "../Utilities/JSONObject.js";
-import { PropertyChecker } from "./PropertyChecker.js";
-import { TestContext } from "./TestContext.js";
-import { TestPackage } from "./TestPackage.js";
 
 const { readdir, readFile, remove, statSync, writeJSON } = fs;
 const { join, parse } = upath;
@@ -634,7 +634,18 @@ export function PackageTests(context: TestContext): void
                         });
 
                     test(
-                        `Checking whether the \`${nameof<Package>((p) => p.Repository)}.${nameof<IRepository>((r) => r.directory)}-option is applied correctly…`,
+                        `Checking whether the \`${nameof<Package>((p) => p.Private)}\` is added to the output only if it is truthy…`,
+                        () =>
+                        {
+                            let property = nameof<IPackageMetadata>((meta) => meta.private);
+                            npmPackage.Private = true;
+                            ok(property in npmPackage.ToJSON());
+                            npmPackage.Private = false;
+                            ok(!(property in npmPackage.ToJSON()));
+                        });
+
+                    test(
+                        `Checking whether the \`${nameof<Package>((p) => p.Repository)}.${nameof<IRepository>((r) => r.directory)}\`-option is applied correctly…`,
                         async () =>
                         {
                             ok(npmPackage.FileName);
@@ -688,6 +699,19 @@ export function PackageTests(context: TestContext): void
                             npmPackage = new TestPackage();
                             npmPackage.GenerationLogics.set(property, GenerationLogic.Always);
                             ok(property in npmPackage.ToJSON());
+                        });
+
+                    test(
+                        `Checking whether \`${nameof.full(GenerationLogic.Truthy)}\` causes properties to be added only if they are truthy…`,
+                        () =>
+                        {
+                            let property = nameof<IPackageMetadata>((metadata) => metadata.private) as keyof IPackageMetadata;
+                            npmPackage = new TestPackage();
+                            npmPackage.GenerationLogics.set(property, GenerationLogic.Truthy);
+                            npmPackage.Private = true;
+                            ok(property in npmPackage.ToJSON());
+                            npmPackage.Private = false;
+                            ok(!(property in npmPackage.ToJSON()));
                         });
 
                     test(
