@@ -88,31 +88,6 @@ export class PackageDependencyCollection extends DependencyCollection
     }
 
     /**
-     * Loads the dependencies specified in the list with the specified {@link listName `listName`} from the {@link PackageDependencyCollection.Package `Package`}.
-     *
-     * @param listName
-     * The name of the list of dependency-names to load.
-     *
-     * @returns
-     * The loaded dependencies.
-     */
-    protected LoadDependencies(listName: keyof PackageDependencyCollectionOptions): Dictionary<string, string>;
-
-    /**
-     * Loads the dependencies specified in the list with the specified {@link listName `listName`} from the specified {@link packageListName `packageListName`} in the {@link PackageDependencyCollection.Package `Package`}.
-     *
-     * @param listName
-     * The name of the list of dependency-names to load.
-     *
-     * @param packageListName
-     * The name of the list of the package to load the dependency-versions from.
-     *
-     * @returns
-     * The loaded dependencies.
-     */
-    protected LoadDependencies(listName: keyof PackageDependencyCollectionOptions, packageListName: KeyOfType<DependencyCollection, Dictionary<string, string>>): Dictionary<string, string>;
-
-    /**
      * Loads the dependencies specified in the list with the specified {@link listName `listName`} from the specified {@link packageListName `packageListName`} in the {@link PackageDependencyCollection.Package `Package`}.
      *
      * @param listName
