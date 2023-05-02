@@ -634,6 +634,17 @@ export function PackageTests(context: TestContext): void
                         });
 
                     test(
+                        `Checking whether the \`${nameof<Package>((p) => p.Private)}\` is added to the output only if it is truthy…`,
+                        () =>
+                        {
+                            let property = nameof<IPackageMetadata>((meta) => meta.private);
+                            npmPackage.Private = true;
+                            ok(property in npmPackage.ToJSON());
+                            npmPackage.Private = false;
+                            ok(!(property in npmPackage.ToJSON()));
+                        });
+
+                    test(
                         `Checking whether the \`${nameof<Package>((p) => p.Repository)}.${nameof<IRepository>((r) => r.directory)}\`-option is applied correctly…`,
                         async () =>
                         {
