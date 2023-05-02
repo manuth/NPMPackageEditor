@@ -1,7 +1,7 @@
 import { ok, strictEqual } from "node:assert";
+import { TestCollection } from "./TestCollection.js";
 import { Collection } from "../../Collections/Collection.js";
 import { TestContext } from "../TestContext.js";
-import { TestCollection } from "./TestCollection.js";
 
 /**
  * Registers tests for the {@link Collection `Collection<TKey, TValue>`} class.

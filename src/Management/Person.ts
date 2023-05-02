@@ -1,7 +1,7 @@
 import parse from "parse-author";
 import stringify from "stringify-author";
-import { JSONObjectBase } from "../Utilities/JSONObjectBase.js";
 import { IPerson } from "./IPerson.js";
+import { JSONObjectBase } from "../Utilities/JSONObjectBase.js";
 
 /**
  * Represents a person.

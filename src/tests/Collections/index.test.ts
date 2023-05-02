@@ -1,11 +1,11 @@
 import { basename } from "node:path";
-import { TestContext } from "../TestContext.js";
 import { AlphabeticalDictionaryTests } from "./AlphabeticalDictionary.test.js";
 import { AlphabeticalListTests } from "./AlphabeticalList.test.js";
 import { CollectionTests as RegisterCollectionTests } from "./Collection.test.js";
 import { DictionaryTests } from "./Dictionary.test.js";
 import { ListTests } from "./List.test.js";
 import { PropertyDictionaryTests } from "./PropertyDictionary.test.js";
+import { TestContext } from "../TestContext.js";
 
 /**
  * Registers tests for collections.

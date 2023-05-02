@@ -1,9 +1,9 @@
+import { DependencyCollection } from "./DependencyCollection.js";
+import { IDependencyCollectionOptions } from "./IDependencyCollectionOptions.js";
 import { AlphabeticalDictionary } from "../Collections/AlphabeticalDictionary.js";
 import { AlphabeticalList } from "../Collections/AlphabeticalList.js";
 import { Dictionary } from "../Collections/Dictionary.js";
 import { List } from "../Collections/List.js";
-import { DependencyCollection } from "./DependencyCollection.js";
-import { IDependencyCollectionOptions } from "./IDependencyCollectionOptions.js";
 
 /**
  * Represents a set of dependencies which are ordered alphabetically.
