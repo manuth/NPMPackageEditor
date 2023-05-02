@@ -634,7 +634,7 @@ export function PackageTests(context: TestContext): void
                         });
 
                     test(
-                        `Checking whether the \`${nameof<Package>((p) => p.Repository)}.${nameof<IRepository>((r) => r.directory)}-option is applied correctly…`,
+                        `Checking whether the \`${nameof<Package>((p) => p.Repository)}.${nameof<IRepository>((r) => r.directory)}\`-option is applied correctly…`,
                         async () =>
                         {
                             ok(npmPackage.FileName);
