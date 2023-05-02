@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## NPMPackageEditor [Unreleased]
+### Fixed
+  - Error that caused the `private` property to be added to dumped packages even if it is set to `false`
+
+### Added
+  - Support for dumping properties only if they are set to a truthy value by introducing `GenerationLogic.Truthy`
+
+### Updated
+  - All dependencies
 
 [Show differences](https://github.com/manuth/NPMPackageEditor/compare/v3.1.0...dev)
 
