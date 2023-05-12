@@ -152,7 +152,7 @@ export class Package extends JSONObjectBase<IPackageJSON> implements IPackage
     /**
      * @inheritdoc
      */
-    public Files: string[];
+    public Files: string[] | undefined;
 
     /**
      * @inheritdoc

@@ -118,7 +118,7 @@ export interface IPackage
     /**
      * Gets or sets the files to include into the package.
      */
-    Files: string[];
+    Files: string[] | undefined;
 
     /**
      * Gets or sets the directory-structure of the package.
